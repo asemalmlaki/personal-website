@@ -1,0 +1,3211 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عاصم المالكي - محلل بيانات ومتخصص Power BI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@700&family=Inter:wght@300;400;600&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===== Basic Setup & Variables ===== */
+        :root {
+            --font-primary: 'Tajawal', 'Inter', sans-serif;
+            --font-headings: 'Saira Condensed', 'Tajawal', sans-serif;
+
+            /* Light Theme (Default) */
+            --bg-primary-light: #F8F9FA;
+            --bg-secondary-light: #FFFFFF;
+            --text-primary-light: #212529;
+            --text-secondary-light: #495057;
+            --accent-primary-light: #007BFF;
+            --accent-secondary-light: #0056b3;
+            --border-color-light: #DEE2E6;
+            --card-shadow-light: 0 4px 15px rgba(0, 0, 0, 0.05);
+            --mobile-nav-bg-light: rgba(255, 255, 255, 0.92); /* زيادة طفيفة في التعتيم */
+            --vpa-window-bg-light: rgba(255, 255, 255, 0.85); /* بياض مع شفافية (يمكن تعديل 0.85) */
+            --vpa-window-border-light: rgba(33, 37, 41, 0.15); /* لون إطار خفيف للوضع الفاتح */
+
+
+            /* Dark Theme */
+            --bg-primary-dark: #121212;
+            --bg-secondary-dark: #1E1E1E;
+            --bg-secondary-dark-rgb: 30, 30, 30; 
+            --text-primary-dark: #E0E0E0;
+            --text-secondary-dark: #A0A0A0;
+            --accent-primary-dark: #00BFFF;
+            --accent-primary-dark-rgb: 0, 191, 255; 
+            --accent-secondary-dark: #009ACD;
+            --border-color-dark: #333333;
+            --card-shadow-dark: 0 4px 20px rgba(var(--accent-primary-dark-rgb), 0.1);
+            --mobile-nav-bg-dark: rgba(18, 18, 18, 0.97); /* زيادة طفيفة في التعتيم */
+            --vpa-window-bg-dark: rgba(30, 30, 30, 0.9); /* رمادي داكن مع شفافية (يمكن تعديل 0.9) */
+            --vpa-window-border-dark: rgba(224, 224, 224, 0.1); /* لون إطار خفيف للوضع الداكن */
+            
+
+            /* Special Accent Color */
+            --accent-gold: #FFBF00; 
+        }
+
+        body {
+            font-family: var(--font-primary);
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.7;
+        }
+        /* Scrollbar customization */
+        body::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: var(--bg-primary-light); 
+        }
+        body[data-theme="dark"]::-webkit-scrollbar-track {
+            background: var(--bg-primary-dark);
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: var(--accent-primary-light);
+            border-radius: 10px;
+        }
+        body[data-theme="dark"]::-webkit-scrollbar-thumb {
+            background-color: var(--accent-primary-dark);
+        }
+
+
+        html[dir="rtl"] body {
+            text-align: right;
+        }
+
+        body[data-theme="light"] {
+            background-color: var(--bg-primary-light);
+            color: var(--text-primary-light);
+        }
+
+        body[data-theme="dark"] {
+            background-color: var(--bg-primary-dark);
+            color: var(--text-primary-dark);
+        }
+
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        section {
+            padding: 80px 0;
+            overflow: hidden;
+        }
+
+        .section-title {
+            font-family: var(--font-headings);
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 60px;
+            font-weight: 700;
+            position: relative;
+            letter-spacing: 1px;
+        }
+        body[data-theme="light"] .section-title { color: var(--text-primary-light); }
+        body[data-theme="dark"] .section-title { color: var(--text-primary-dark); }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 4px;
+            margin: 15px auto 0;
+            background-color: var(--accent-primary-light);
+        }
+        body[data-theme="dark"] .section-title::after { background-color: var(--accent-primary-dark); }
+
+        /* ===== Header ===== */
+        #main-header {
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        body[data-theme="light"] #main-header { background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        body[data-theme="dark"] #main-header { background-color: rgba(18, 18, 18, 0.8); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+
+        #main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #main-header .logo {
+            font-family: var(--font-headings);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        body[data-theme="light"] #main-header .logo { color: var(--text-primary-light); }
+        body[data-theme="dark"] #main-header .logo { color: var(--text-primary-dark); }
+
+        #desktop-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        #desktop-nav li {
+            margin-left: 0; 
+            margin-right: 30px; 
+        }
+        html[dir="ltr"] #desktop-nav li {
+            margin-left: 30px;
+            margin-right: 0;
+        }
+        #desktop-nav li.header-control-item:last-child {
+            margin-right: 0;
+        }
+        html[dir="ltr"] #desktop-nav li.header-control-item:last-child {
+            margin-left: 0;
+        }
+
+
+        #desktop-nav a {
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        body[data-theme="light"] #desktop-nav a { color: var(--text-secondary-light); }
+        body[data-theme="dark"] #desktop-nav a { color: var(--text-secondary-dark); }
+
+        #desktop-nav a:hover, #desktop-nav a.active {
+            color: var(--accent-primary-light);
+        }
+        body[data-theme="dark"] #desktop-nav a:hover,
+        body[data-theme="dark"] #desktop-nav a.active {
+            color: var(--accent-primary-dark);
+        }
+
+        #desktop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-primary-light);
+            transition: width 0.3s ease;
+        }
+        html[dir="ltr"] #desktop-nav a::after {
+            left: 0;
+            right: auto;
+        }
+        body[data-theme="dark"] #desktop-nav a::after { background-color: var(--accent-primary-dark); }
+        #desktop-nav a:hover::after, #desktop-nav a.active::after {
+            width: 100%;
+        }
+
+        .header-control-btn { 
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem; 
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px; 
+            transition: color 0.2s ease;
+        }
+        body[data-theme="light"] .header-control-btn { color: var(--text-secondary-light); }
+        body[data-theme="dark"] .header-control-btn { color: var(--text-secondary-dark); }
+        .header-control-btn:hover { color: var(--accent-primary-light); }
+        body[data-theme="dark"] .header-control-btn:hover { color: var(--accent-primary-dark); }
+
+
+        #main-header .header-controls button#mobile-nav-toggle {
+            margin-right: 0; 
+            margin-left: 0;
+        }
+        html[dir="ltr"] #main-header .header-controls button#mobile-nav-toggle {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        #mobile-nav-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 300px; 
+            max-width: 80vw;
+            height: 100vh;
+            z-index: 1001;
+            padding: 20px; 
+            display: flex;
+            flex-direction: column;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.1); 
+            backdrop-filter: blur(10px); 
+            transition: left 0.35s cubic-bezier(0.25, 0.1, 0.25, 1); 
+        }
+        html[dir="ltr"] #mobile-nav-menu {
+            right: -100%; 
+            left: auto;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: right 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        body[data-theme="light"] #mobile-nav-menu { background-color: var(--mobile-nav-bg-light); }
+        body[data-theme="dark"] #mobile-nav-menu { background-color: var(--mobile-nav-bg-dark); }
+
+        #mobile-nav-menu.open { left: 0; } 
+        html[dir="ltr"] #mobile-nav-menu.open { right: 0; left:auto; }
+
+        #mobile-nav-menu nav {
+            flex-grow: 1; 
+            margin-top: 40px; 
+        }
+
+        #mobile-nav-menu ul { list-style: none; padding: 0; }
+        #mobile-nav-menu li a {
+            display: block;
+            padding: 12px 0; 
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.2s ease, padding-right 0.2s ease; 
+        }
+        html[dir="ltr"] #mobile-nav-menu li a {
+            transition: color 0.2s ease, padding-left 0.2s ease; 
+        }
+
+        body[data-theme="light"] #mobile-nav-menu li a { color: var(--text-primary-light); }
+        body[data-theme="dark"] #mobile-nav-menu li a { color: var(--text-primary-dark); }
+        #mobile-nav-menu li a:hover { 
+            color: var(--accent-primary-light);
+            padding-right: 10px; 
+        }
+        html[dir="ltr"] #mobile-nav-menu li a:hover {
+            padding-left: 10px;
+        }
+
+        body[data-theme="dark"] #mobile-nav-menu li a:hover { color: var(--accent-primary-dark); }
+
+        #close-mobile-nav {
+            position: absolute;
+            top: 20px;
+            right: 20px; 
+            font-size: 1.8rem; 
+        }
+        html[dir="ltr"] #close-mobile-nav {
+            right: 20px;
+            left:auto;
+        }
+
+        .mobile-nav-controls {
+            padding: 20px 0; 
+            border-top: 1px solid var(--border-color-light);
+            margin-top: auto; 
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        body[data-theme="dark"] .mobile-nav-controls {
+            border-top: 1px solid var(--border-color-dark);
+        }
+
+        .mobile-nav-controls .header-control-btn {
+            font-size: 1rem;
+            width: 100%;
+            justify-content: flex-start; 
+            padding: 12px 15px; 
+            border-radius: 8px;
+            gap: 12px; 
+        }
+        .mobile-nav-controls .header-control-btn i {
+            width: 20px; 
+            text-align: center;
+        }
+        html[dir="ltr"] .mobile-nav-controls .header-control-btn {
+            justify-content: flex-start; 
+        }
+
+        body[data-theme="light"] .mobile-nav-controls .header-control-btn:hover {
+            background-color: rgba(0, 123, 255, 0.08);
+        }
+        body[data-theme="dark"] .mobile-nav-controls .header-control-btn:hover {
+            background-color: rgba(var(--accent-primary-dark-rgb), 0.15);
+        }
+        
+        #desktop-nav .header-control-item {
+            display: none;
+            align-items: center;
+        }
+        
+        @media (min-width: 769px) { 
+            #desktop-nav .header-control-item.desktop-only-flex {
+                display: flex; 
+                margin-left: 0; 
+                margin-right: 20px; 
+            }
+            html[dir="ltr"] #desktop-nav .header-control-item.desktop-only-flex {
+                margin-left: 20px;
+                margin-right: 0;
+            }
+
+            #main-header .header-controls #mobile-nav-toggle {
+                display: none; 
+            }
+        }
+
+        @media (max-width: 768px) { 
+            #desktop-nav {
+                display: none;
+            }
+            #main-header .header-controls #mobile-nav-toggle {
+                display: block; 
+            }
+            #main-header .container {
+                justify-content: space-between;
+            }
+        }
+
+
+        /* ===== CTA Button ===== */
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .cta-button, .view-project-btn {
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        .cta-button:hover, .view-project-btn:hover {
+          transform: scale(1.05);
+          box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+
+        body[data-theme="light"] .cta-button {
+            background-color: var(--accent-primary-light);
+            color: #fff;
+            border-color: var(--accent-primary-light);
+        }
+        body[data-theme="dark"] .cta-button {
+            background-color: var(--accent-primary-dark);
+            color: var(--bg-primary-dark);
+            border-color: var(--accent-primary-dark);
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+        }
+        body[data-theme="light"] .cta-button:hover { box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3); }
+        body[data-theme="dark"] .cta-button:hover { box-shadow: 0 5px 15px rgba(var(--accent-primary-dark-rgb), 0.3); }
+        .cta-button i {
+            margin-right: 8px; 
+            margin-left: 0;
+        }
+        html[dir="ltr"] .cta-button i {
+            margin-left: 8px;
+            margin-right: 0;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding-top: 100px;
+        }
+        .hero-background-animation {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+        }
+        .hero-section .content-overlay { position: relative; z-index: 1; }
+        .hero-section h1 {
+            font-family: var(--font-headings);
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        .hero-section .subtitle {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 25px;
+        }
+        body[data-theme="light"] .hero-section .subtitle { color: var(--text-secondary-light); }
+        body[data-theme="dark"] .hero-section .subtitle { color: var(--text-secondary-dark); }
+
+        .hero-section .intro-text {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+        }
+        .hero-section .social-links { margin-top: 40px; }
+        .hero-section .social-links a {
+            font-size: 1.8rem;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        body[data-theme="light"] .hero-section .social-links a { color: var(--text-secondary-light); }
+        body[data-theme="dark"] .hero-section .social-links a { color: var(--text-secondary-dark); }
+        .hero-section .social-links a:hover { color: var(--accent-primary-light); }
+        body[data-theme="dark"] .hero-section .social-links a:hover { color: var(--accent-primary-dark); }
+
+        /* ===== Services Section ===== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .service-card {
+            padding: 35px 30px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        body[data-theme="light"] .service-card {
+            background-color: var(--bg-secondary-light);
+            box-shadow: var(--card-shadow-light);
+            border: 1px solid var(--border-color-light);
+        }
+        body[data-theme="dark"] .service-card {
+            background-color: var(--bg-secondary-dark);
+            box-shadow: var(--card-shadow-dark);
+            border: 1px solid var(--border-color-dark);
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        body[data-theme="light"] .service-card:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        body[data-theme="dark"] .service-card:hover { box-shadow: 0 10px 30px rgba(var(--accent-primary-dark-rgb), 0.15); }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1;
+            width: 70px;
+            height: 70px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+        body[data-theme="light"] .service-icon {
+            background-color: rgba(0, 123, 255, 0.1);
+            color: var(--accent-primary-light);
+        }
+        body[data-theme="dark"] .service-icon {
+            background-color: rgba(var(--accent-primary-dark-rgb), 0.1);
+            color: var(--accent-primary-dark);
+        }
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+        body[data-theme="light"] .service-card:hover .service-icon { background-color: var(--accent-primary-light); color: #fff; }
+        body[data-theme="dark"] .service-card:hover .service-icon { background-color: var(--accent-primary-dark); color: var(--bg-primary-dark); }
+
+        .service-card h3 {
+            font-family: var(--font-headings);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .service-card p {
+            font-size: 0.95rem;
+        }
+        body[data-theme="light"] .service-card p { color: var(--text-secondary-light); }
+        body[data-theme="dark"] .service-card p { color: var(--text-secondary-dark); }
+
+        /* ===== Projects Section ===== */
+        .projects-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .project-card {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        body[data-theme="light"] .project-card {
+            background-color: var(--bg-secondary-light);
+            box-shadow: var(--card-shadow-light);
+        }
+        body[data-theme="dark"] .project-card {
+            background-color: var(--bg-secondary-dark);
+            box-shadow: var(--card-shadow-dark);
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        body[data-theme="light"] .project-card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        body[data-theme="dark"] .project-card:hover { box-shadow: 0 8px 25px rgba(var(--accent-primary-dark-rgb), 0.12); }
+
+        .project-thumbnail {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .project-card:hover .project-thumbnail {
+            transform: scale(1.05);
+        }
+        .project-info {
+            padding: 20px;
+        }
+        .project-info h3 {
+            font-family: var(--font-headings);
+            font-size: 1.3rem;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        .project-highlight {
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+        body[data-theme="light"] .project-highlight { color: var(--text-secondary-light); }
+        body[data-theme="dark"] .project-highlight { color: var(--text-secondary-dark); }
+
+        .view-project-btn {
+            font-size: 0.9rem;
+            padding: 8px 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            cursor: pointer;
+        }
+        body[data-theme="light"] .view-project-btn {
+            background-color: var(--accent-secondary-light);
+            color: #fff;
+            border: 1px solid var(--accent-secondary-light);
+        }
+        body[data-theme="dark"] .view-project-btn {
+            background-color: var(--accent-secondary-dark);
+            color: var(--bg-primary-dark);
+            border: 1px solid var(--accent-secondary-dark);
+        }
+        .view-project-btn:hover { opacity: 0.85; }
+
+        /* Project Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.active { display: flex; }
+
+        .modal-content {
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            animation: slideInFromTop 0.4s ease-out;
+        }
+        body[data-theme="light"] .modal-content { background-color: var(--bg-secondary-light); }
+        body[data-theme="dark"] .modal-content { background-color: var(--bg-secondary-dark); }
+
+        @keyframes slideInFromTop {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 15px;
+            left: 20px; 
+            right: auto;
+            font-size: 1.8rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        html[dir="ltr"] .close-modal-btn {
+            right: 20px;
+            left: auto;
+        }
+        body[data-theme="light"] .close-modal-btn { color: var(--text-secondary-light); }
+        body[data-theme="dark"] .close-modal-btn { color: var(--text-secondary-dark); }
+        .close-modal-btn:hover { color: red; }
+
+        #modal-project-title {
+            font-family: var(--font-headings);
+            font-size: 2rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .modal-tabs { margin-bottom: 20px; border-bottom: 1px solid var(--border-color-light); display: flex; flex-wrap: wrap;}
+        body[data-theme="dark"] .modal-tabs { border-bottom: 1px solid var(--border-color-dark); }
+        .modal-tabs .tab-link {
+            background: none;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -1px;
+            margin-left: 5px; 
+        }
+        html[dir="ltr"] .modal-tabs .tab-link {
+             margin-left: 0;
+             margin-right: 5px;
+        }
+        .modal-tabs .tab-link:last-child {
+            margin-left: 0;
+        }
+        html[dir="ltr"] .modal-tabs .tab-link:last-child {
+            margin-right: 0;
+        }
+
+
+        body[data-theme="light"] .modal-tabs .tab-link { color: var(--text-secondary-light); }
+        body[data-theme="dark"] .modal-tabs .tab-link { color: var(--text-secondary-dark); }
+
+        .modal-tabs .tab-link.active {
+            border-bottom-color: var(--accent-primary-light);
+            color: var(--accent-primary-light);
+        }
+        body[data-theme="dark"] .modal-tabs .tab-link.active {
+            border-bottom-color: var(--accent-primary-dark);
+            color: var(--accent-primary-dark);
+        }
+
+        .modal-body .tab-content { display: none; }
+        .modal-body .tab-content.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        #modal-iframe {
+            width: 100%;
+            height: 450px;
+            border: 1px solid var(--border-color-light);
+            border-radius: 5px;
+        }
+        body[data-theme="dark"] #modal-iframe { border: 1px solid var(--border-color-dark); }
+
+        #modal-features-list {
+            list-style: none;
+            padding-right: 0; 
+            padding-left: 0;
+        }
+        html[dir="ltr"] #modal-features-list {
+            padding-left: 0;
+        }
+        #modal-features-list li {
+            padding: 10px 5px; 
+            font-size: 1rem;
+            border-bottom: 1px dashed var(--border-color-light);
+            display: flex; 
+            align-items: center;
+            transition: color 0.2s ease, transform 0.2s ease; 
+            cursor: default; 
+        }
+        #modal-features-list li span { /* استهداف النص داخل li */
+            transition: color 0.2s ease;
+        }
+        #modal-features-list li:hover span { /* تغيير لون النص فقط عند المرور */
+            color: #007BFF; 
+        }
+        #modal-features-list li:hover {
+            transform: translateX(3px); 
+        }
+        html[dir="ltr"] #modal-features-list li:hover {
+            transform: translateX(3px); 
+        }
+        body[data-theme="dark"] #modal-features-list li { border-bottom: 1px dashed var(--border-color-dark); }
+        body[data-theme="dark"] #modal-features-list li:hover span {
+            color: var(--accent-primary-dark); 
+        }
+
+        #modal-features-list li:last-child { border-bottom: none; }
+        #modal-features-list li i {
+            margin-left: 12px; 
+            margin-right: 0;
+            color: var(--accent-primary-light);
+            width: 22px; 
+            text-align: center;
+            transition: color 0.2s ease;
+        }
+        html[dir="ltr"] #modal-features-list li i {
+            margin-right: 12px;
+            margin-left: 0;
+        }
+        #modal-features-list li:hover i { 
+             color: #007BFF; 
+        }
+        body[data-theme="dark"] #modal-features-list li i { color: var(--accent-primary-dark); }
+        body[data-theme="dark"] #modal-features-list li:hover i {
+             color: var(--accent-primary-dark); 
+        }
+
+
+        #modal-pdf-link.cta-button { margin-top: 20px; }
+
+        .tab-link-special.active, 
+        .tab-link-special:hover { 
+            color: var(--accent-gold, #FFBF00) !important;
+            border-bottom-color: var(--accent-gold, #FFBF00) !important; 
+        }
+
+        #data-entry-platform .special-program-link {
+            background-color: var(--accent-gold, #FFBF00) !important;
+            border-color: var(--accent-gold, #FFBF00) !important;
+            color: #000000 !important;
+        }
+        #data-entry-platform .special-program-link:hover {
+            background-color: #e6ac00 !important;
+            border-color: #e6ac00 !important;
+        }
+
+        /* ===== Skills Section - Professional Redesign ===== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category-card {
+            padding: 25px;
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        body[data-theme="light"] .skill-category-card {
+            background-color: var(--bg-secondary-light);
+            box-shadow: var(--card-shadow-light);
+            border: 1px solid var(--border-color-light);
+        }
+        body[data-theme="dark"] .skill-category-card {
+            background-color: var(--bg-secondary-dark);
+            box-shadow: var(--card-shadow-dark);
+            border: 1px solid var(--border-color-dark);
+        }
+        .skill-category-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+        body[data-theme="light"] .skill-category-card:hover {
+             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        body[data-theme="dark"] .skill-category-card:hover {
+            box-shadow: 0 10px 30px rgba(var(--accent-primary-dark-rgb), 0.15);
+        }
+
+        .skill-category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color-light);
+        }
+        body[data-theme="dark"] .skill-category-header {
+            border-bottom: 1px solid var(--border-color-dark);
+        }
+
+        .skill-category-icon {
+            font-size: 1.8rem;
+            margin-left: 15px;
+            color: var(--accent-primary-light);
+            width: 40px;
+            text-align: center;
+        }
+        html[dir="ltr"] .skill-category-icon {
+            margin-right: 15px;
+            margin-left: 0;
+        }
+        body[data-theme="dark"] .skill-category-icon {
+            color: var(--accent-primary-dark);
+        }
+
+        .skill-category-header h4 {
+            font-family: var(--font-headings);
+            font-size: 1.4rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; 
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 15px; 
+            position: relative; 
+        }
+
+        .skill-icon-img {
+            width: 28px; 
+            height: 28px;
+            object-fit: contain;
+        }
+
+        .skill-name {
+            font-weight: 500;
+            font-size: 1rem;
+            flex-basis: 140px; 
+            flex-shrink: 0; 
+        }
+        .skill-item.learning .skill-name small {
+            font-size: 0.75em;
+            opacity: 0.7;
+            display: block; 
+        }
+        html[dir="ltr"] .skill-item.learning .skill-name small {
+            display: inline; 
+        }
+
+
+        .skill-progress-bar-container {
+            flex-grow: 1;
+            height: 12px; 
+            background-color: #e9ecef;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        body[data-theme="dark"] .skill-progress-bar-container {
+            background-color: #3a3f44;
+        }
+
+        .skill-progress-bar {
+            height: 100%;
+            width: 0; 
+            background-color: var(--accent-primary-light);
+            border-radius: 6px;
+            transition: width 0.8s ease-in-out;
+        }
+        body[data-theme="dark"] .skill-progress-bar {
+            background-color: var(--accent-primary-dark);
+        }
+        .skill-item.learning .skill-progress-bar {
+            background-color: #6c757d; 
+        }
+        body[data-theme="dark"] .skill-item.learning .skill-progress-bar {
+            background-color: #7a8288;
+        }
+
+        .skill-tooltip-element {
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            z-index: 100;
+            pointer-events: none; 
+            opacity: 0;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            transform: translateY(10px);
+            white-space: nowrap; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        body[data-theme="dark"] .skill-tooltip-element {
+            background-color: var(--bg-primary-light); 
+            color: var(--text-primary-light);
+        }
+
+        .skill-tooltip-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* ===== Contact Section - Professional Redesign ===== */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 50px;
+        }
+        @media (min-width: 992px) { 
+            .contact-layout {
+                grid-template-columns: 1fr 1.2fr; 
+            }
+             html[dir="rtl"] .contact-layout .contact-details-column { order: 2; } 
+             html[dir="rtl"] .contact-layout .contact-form-column { order: 1; }   
+        }
+
+        .contact-details-column h3,
+        .contact-form-column h3 {
+            font-family: var(--font-headings);
+            font-size: 1.8rem; 
+            margin-bottom: 25px;
+            color: var(--accent-primary-light);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        body[data-theme="dark"] .contact-details-column h3,
+        body[data-theme="dark"] .contact-form-column h3 {
+            color: var(--accent-primary-dark);
+        }
+        .contact-details-column h3::after,
+        .contact-form-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0; 
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-primary-light);
+        }
+        html[dir="ltr"] .contact-details-column h3::after,
+        html[dir="ltr"] .contact-form-column h3::after {
+            left: 0; right: auto;
+        }
+
+        body[data-theme="dark"] .contact-details-column h3::after,
+        body[data-theme="dark"] .contact-form-column h3::after {
+            background-color: var(--accent-primary-dark);
+        }
+
+        .contact-intro-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        body[data-theme="light"] .contact-intro-text { color: var(--text-secondary-light); }
+        body[data-theme="dark"] .contact-intro-text { color: var(--text-secondary-dark); }
+
+        .contact-cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+        body[data-theme="light"] .contact-card {
+            background-color: var(--bg-secondary-light);
+            border: 1px solid var(--border-color-light);
+            box-shadow: var(--card-shadow-light);
+            color: var(--text-primary-light);
+        }
+        body[data-theme="dark"] .contact-card {
+            background-color: var(--bg-secondary-dark);
+            border: 1px solid var(--border-color-dark);
+            box-shadow: var(--card-shadow-dark);
+            color: var(--text-primary-dark);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px) scale(1.03);
+        }
+        body[data-theme="light"] .contact-card:hover {
+            background-color: var(--accent-primary-light);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2);
+        }
+        body[data-theme="dark"] .contact-card:hover {
+            background-color: var(--accent-primary-dark);
+            color: var(--bg-primary-dark);
+            box-shadow: 0 8px 20px rgba(var(--accent-primary-dark-rgb), 0.25);
+        }
+
+        .contact-card-icon {
+            font-size: 2rem; 
+            margin-left: 20px; 
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        html[dir="ltr"] .contact-card-icon {
+            margin-right: 20px;
+            margin-left: 0;
+        }
+
+        body[data-theme="light"] .contact-card-icon {
+            background-color: rgba(0, 123, 255, 0.1);
+            color: var(--accent-primary-light);
+        }
+        body[data-theme="dark"] .contact-card-icon {
+            background-color: rgba(var(--accent-primary-dark-rgb), 0.1);
+            color: var(--accent-primary-dark);
+        }
+
+        .contact-card:hover .contact-card-icon {
+            background-color: #fff; 
+            color: var(--accent-primary-light); 
+        }
+        body[data-theme="dark"] .contact-card:hover .contact-card-icon {
+            background-color: var(--bg-primary-dark); 
+            color: var(--accent-primary-dark);
+        }
+
+        .contact-card-info h4 {
+            margin: 0 0 5px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .contact-card-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        .contact-card:hover .contact-card-info p {
+             opacity: 1;
+        }
+
+        .modern-contact-form .form-group {
+            position: relative; 
+            margin-bottom: 30px; 
+        }
+
+        .modern-contact-form .form-group input,
+        .modern-contact-form .form-group textarea {
+            width: 100%;
+            padding: 15px 12px 10px 12px; 
+            border-radius: 8px;
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            border-width: 2px; 
+        }
+        html[dir="rtl"] .modern-contact-form .form-group input,
+        html[dir="rtl"] .modern-contact-form .form-group textarea {
+            padding: 15px 12px 10px 12px; 
+        }
+
+        body[data-theme="light"] .modern-contact-form .form-group input,
+        body[data-theme="light"] .modern-contact-form .form-group textarea {
+            background-color: #fff; 
+            border: 2px solid var(--border-color-light);
+            color: var(--text-primary-light);
+        }
+        body[data-theme="dark"] .modern-contact-form .form-group input,
+        body[data-theme="dark"] .modern-contact-form .form-group textarea {
+            background-color: rgba(var(--bg-secondary-dark-rgb), 0.5); 
+            border: 2px solid var(--border-color-dark);
+            color: var(--text-primary-dark);
+        }
+
+        .modern-contact-form .form-group label {
+            position: absolute;
+            top: 14px; 
+            right: 12px; 
+            font-size: 1rem;
+            font-weight: 500;
+            pointer-events: none;
+            transition: all 0.2s ease-out;
+            opacity: 0.7;
+        }
+        html[dir="ltr"] .modern-contact-form .form-group label {
+            left: 12px; right: auto;
+        }
+
+        body[data-theme="light"] .modern-contact-form .form-group label { color: var(--text-secondary-light); }
+        body[data-theme="dark"] .modern-contact-form .form-group label { color: var(--text-secondary-dark); }
+
+        .modern-contact-form .form-group input:focus + label,
+        .modern-contact-form .form-group input:not(:placeholder-shown) + label, 
+        .modern-contact-form .form-group textarea:focus + label,
+        .modern-contact-form .form-group textarea:not(:placeholder-shown) + label {
+            top: -10px; 
+            font-size: 0.75rem;
+            opacity: 1;
+            padding: 0 5px; 
+        }
+        body[data-theme="light"] .modern-contact-form .form-group input:focus + label,
+        body[data-theme="light"] .modern-contact-form .form-group input:not(:placeholder-shown) + label,
+        body[data-theme="light"] .modern-contact-form .form-group textarea:focus + label,
+        body[data-theme="light"] .modern-contact-form .form-group textarea:not(:placeholder-shown) + label {
+            color: var(--accent-primary-light);
+            background-color: var(--bg-secondary-light); 
+        }
+        body[data-theme="dark"] .modern-contact-form .form-group input:focus + label,
+        body[data-theme="dark"] .modern-contact-form .form-group input:not(:placeholder-shown) + label,
+        body[data-theme="dark"] .modern-contact-form .form-group textarea:focus + label,
+        body[data-theme="dark"] .modern-contact-form .form-group textarea:not(:placeholder-shown) + label {
+            color: var(--accent-primary-dark);
+            background-color: var(--bg-secondary-dark); 
+        }
+
+        .modern-contact-form .form-group input:focus,
+        .modern-contact-form .form-group textarea:focus {
+            outline: none;
+        }
+        body[data-theme="light"] .modern-contact-form .form-group input:focus,
+        body[data-theme="light"] .modern-contact-form .form-group textarea:focus {
+            border-color: var(--accent-primary-light);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+        body[data-theme="dark"] .modern-contact-form .form-group input:focus,
+        body[data-theme="dark"] .modern-contact-form .form-group textarea:focus {
+            border-color: var(--accent-primary-dark);
+            box-shadow: 0 0 0 3px rgba(var(--accent-primary-dark-rgb), 0.15);
+        }
+
+        .modern-contact-form .form-submit-btn {
+            width: 100%; 
+            padding: 15px 30px; 
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+        .modern-contact-form .form-submit-btn i {
+            margin-right: 10px; 
+            margin-left: 0;
+            transition: transform 0.3s ease;
+        }
+        html[dir="ltr"] .modern-contact-form .form-submit-btn i {
+            margin-left: 10px; margin-right: 0;
+        }
+        .modern-contact-form .form-submit-btn:hover i {
+            transform: translateX(5px); 
+        }
+        html[dir="rtl"] .modern-contact-form .form-submit-btn:hover i {
+            transform: translateX(-5px);
+        }
+        
+        /* ===== Footer ===== */
+        #main-footer {
+            padding: 40px 0;
+            text-align: center;
+        }
+        body[data-theme="light"] #main-footer { background-color: var(--bg-secondary-light); border-top: 1px solid var(--border-color-light); }
+        body[data-theme="dark"] #main-footer { background-color: var(--bg-secondary-dark); border-top: 1px solid var(--border-color-dark); }
+
+        #main-footer p {
+            margin: 0 0 10px 0;
+            font-size: 0.9rem;
+        }
+        body[data-theme="light"] #main-footer p { color: var(--text-secondary-light); }
+        body[data-theme="dark"] #main-footer p { color: var(--text-secondary-dark); }
+        .social-links-footer a {
+            font-size: 1.3rem;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        body[data-theme="light"] .social-links-footer a { color: var(--text-secondary-light); }
+        body[data-theme="dark"] .social-links-footer a { color: var(--text-secondary-dark); }
+        .social-links-footer a:hover { color: var(--accent-primary-light); }
+        body[data-theme="dark"] .social-links-footer a:hover { color: var(--accent-primary-dark); }
+
+        /* ===== Virtual Personal Assistant (VPA) ===== */
+        #vpa-fab {
+            position: fixed;
+            bottom: 30px;
+            left: 30px; 
+            right: auto;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 999;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        html[dir="ltr"] #vpa-fab {
+            right: 30px;
+            left: auto;
+        }
+        body[data-theme="light"] #vpa-fab { background-color: var(--accent-primary-light); color: #fff; }
+        body[data-theme="dark"] #vpa-fab { background-color: var(--accent-primary-dark); color: var(--bg-primary-dark); }
+        #vpa-fab:hover { transform: scale(1.1); }
+
+        #vpa-chat-window {
+            position: fixed;
+            bottom: 100px;
+            left: 30px; 
+            right: auto;
+            width: 400px;
+            max-height: 550px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(31,38,135,0.17);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 998;
+            transform: translateY(20px) scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            backdrop-filter: blur(10px); /* تأثير البلور للخلفية */
+            -webkit-backdrop-filter: blur(10px); /* لدعم متصفحات WebKit */
+        }
+        html[dir="ltr"] #vpa-chat-window {
+            right: 30px;
+            left: auto;
+        }
+        #vpa-chat-window.visible {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        #vpa-chat-window.hidden { display: none !important; }
+
+
+        body[data-theme="light"] #vpa-chat-window {
+            background-color: var(--vpa-window-bg-light); /* خلفية شفافة للوضع الفاتح */
+            border: 1px solid var(--vpa-window-border-light); /* إطار للوضع الفاتح */
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.17); 
+        }
+
+        body[data-theme="dark"] #vpa-chat-window {
+            background-color: var(--vpa-window-bg-dark); /* خلفية شفافة للوضع الداكن */
+            border: 1px solid var(--vpa-window-border-dark); /* إطار للوضع الداكن */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25); /* ظل مختلف قليلاً للوضع الداكن */
+        }
+        .vpa-header {
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        body[data-theme="light"] .vpa-header { background-color: var(--accent-primary-light); color: #fff; }
+        body[data-theme="dark"] .vpa-header { background-color: var(--accent-primary-dark); color: var(--bg-primary-dark); }
+        #vpa-close-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; }
+        body[data-theme="light"] #vpa-close-btn { color: rgba(255,255,255,0.8); }
+        body[data-theme="dark"] #vpa-close-btn { color: rgba(0,0,0,0.7); }
+        #vpa-close-btn:hover { opacity: 1; }
+
+        .vpa-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .vpa-message {
+            padding: 8px 12px;
+            border-radius: 15px;
+            max-width: 80%;
+            word-wrap: break-word;
+            font-size: 0.9rem;
+        }
+        .vpa-message.assistant {
+            background-color: var(--accent-primary-light);
+            color: #fff;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 15px;
+            align-self: flex-start;
+            white-space: pre-wrap; /* للحفاظ على فواصل الأسطر في الشعر */
+        }
+        html[dir="ltr"] .vpa-message.assistant {
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 15px;
+        }
+        body[data-theme="dark"] .vpa-message.assistant { background-color: var(--accent-primary-dark); color: var(--bg-primary-dark); }
+
+        .vpa-message.user {
+            background-color: #e9ecef;
+            color: var(--text-primary-light);
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 15px;
+            align-self: flex-end;
+        }
+        html[dir="ltr"] .vpa-message.user {
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 15px;
+        }
+        body[data-theme="dark"] .vpa-message.user { background-color: #495057; color: var(--text-primary-dark); }
+        
+        .vpa-message-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+            justify-content: flex-start;
+            padding-left: 10px;
+        }
+        html[dir="ltr"] .vpa-message-options {
+            padding-left: 0;
+            padding-right: 10px;
+        }
+
+
+        .vpa-input-area {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid var(--border-color-light);
+        }
+        body[data-theme="dark"] .vpa-input-area { border-top: 1px solid var(--border-color-dark); }
+
+        #vpa-user-input {
+            flex-grow: 1;
+            padding: 8px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color-light);
+            margin-left: 8px; 
+            margin-right: 0;
+            font-size: 0.9rem;
+        }
+        html[dir="ltr"] #vpa-user-input {
+            margin-right: 8px;
+            margin-left: 0;
+        }
+        body[data-theme="light"] #vpa-user-input { background-color: #fff; color: var(--text-primary-light); }
+        body[data-theme="dark"] #vpa-user-input { background-color: var(--bg-secondary-dark); color: var(--text-primary-dark); border-color: var(--border-color-dark); }
+        #vpa-user-input:focus { outline: none; border-color: var(--accent-primary-light); }
+        body[data-theme="dark"] #vpa-user-input:focus { border-color: var(--accent-primary-dark); }
+
+        #vpa-send-btn {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: var(--accent-primary-light);
+        }
+        body[data-theme="dark"] #vpa-send-btn { color: var(--accent-primary-dark); }
+        #vpa-send-btn:hover { opacity: 0.8; }
+
+        .vpa-quick-replies {
+            padding: 0 10px 10px 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: flex-start; 
+        }
+        .quick-reply {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+        body[data-theme="light"] .quick-reply {
+            background-color: transparent;
+            color: var(--accent-primary-light);
+            border: 1px solid var(--accent-primary-light);
+        }
+        body[data-theme="dark"] .quick-reply {
+            background-color: transparent;
+            color: var(--accent-primary-dark);
+            border: 1px solid var(--accent-primary-dark);
+        }
+        .quick-reply:hover { opacity: 0.7; }
+
+        /* ===== Responsive Design ===== */
+        @media (max-width: 992px) {
+            .hero-section h1 { font-size: 3.2rem; }
+            .hero-section .subtitle { font-size: 1.5rem; }
+            .section-title { font-size: 2.4rem; }
+        }
+
+        @media (max-width: 768px) { 
+            .hero-section h1 { font-size: 2.5rem; }
+            .hero-section .subtitle { font-size: 1.2rem; }
+            .section-title { font-size: 2rem; }
+
+            .services-grid, .projects-gallery {
+                grid-template-columns: 1fr;
+            }
+            .contact-layout { grid-template-columns: 1fr; } 
+            html[dir="rtl"] .contact-layout .contact-details-column { order: 0; } 
+            html[dir="rtl"] .contact-layout .contact-form-column { order: 0; }   
+            .contact-form-column { order: 1; } 
+            .contact-info { order: 2; text-align: center; } 
+            .contact-info p { justify-content: center; }
+
+
+            #vpa-chat-window { width: 90%; right: 5%; left: 5%; bottom: 90px; }
+            html[dir="ltr"] #vpa-chat-window { width: 90%; right: 5%; left: auto; bottom: 90px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section h1 { font-size: 2rem; }
+            .hero-section .subtitle { font-size: 1rem; }
+            .section-title { font-size: 1.8rem; }
+            .cta-button { padding: 10px 20px; font-size: 0.9rem; }
+            #main-header .logo { font-size: 1.5rem; }
+            #main-header .header-controls button#mobile-nav-toggle { font-size: 1.2rem; }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /*power bi*/
+   /* Styling for the Power BI link and tooltip (JS Friendly) */
+.powerbi-link-js {
+    color: #0078D4; /* Microsoft Blue */
+    font-weight: 500; /* Slightly bolder */
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+}
+
+.powerbi-link-js:hover {
+    text-decoration: underline;
+}
+
+.powerbi-link-js .powerbi-text {
+    /* يمكنك إضافة أنماط خاصة لكلمة Power BI هنا إذا أردت،
+       ولكن اللون والوزن موروثان من .powerbi-link-js */
+       
+}
+
+.tooltip-container {
+    position: relative;
+}
+
+.tooltip-content {
+    visibility: hidden;
+    width: 320px; /* يمكنك تعديل العرض حسب الحاجة ليناسب النص بشكل جيد */
+    background-color: var(--vpa-window-bg-light, rgba(255, 255, 255, 0.85)); /* خلفية فاتحة شبه شفافة */
+    border: 1px solid var(--vpa-window-border-light, rgba(33, 37, 41, 0.15)); /* إطار فاتح */
+    backdrop-filter: blur(8px); /* تأثير التمويه، يمكنك تعديل القيمة 8px */
+    -webkit-backdrop-filter: blur(8px); /* لدعم متصفحات WebKit */
+    color: #333333; /* لون نص داكن للتباين */
+    text-align: right;
+    direction: rtl;
+    border-radius: 12px; /* حواف أكثر استدارة */
+    padding: 20px;    /* زيادة الحشوة الداخلية لمظهر أفضل */
+    position: absolute;
+    z-index: 10;
+    bottom: 130%; /* تعديل طفيف للمسافة فوق النص الأصلي */
+    left: 50%;
+    margin-left: -160px; /* نصف العرض الجديد (320px / 2 = 160px) */
+    opacity: 0;
+    visibility: hidden; /* مهم لإخفائها تمامًا عندما لا تكون نشطة */
+    pointer-events: none; /* لمنع التفاعل معها وهي مخفية */
+
+    transition: opacity 0.3s ease, transform 0.3s ease; /* إضافة transition للـ transform */
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12); /* ظل محدث */
+   
+    display: flex; /* استخدام flex لمحاذاة الأيقونة والنص */
+    align-items: center; /* محاذاة العناصر عموديًا في المنتصف */
+    transform: translateY(10px); /* لإضافة تأثير حركة طفيف عند الظهور */
+}
+
+.tooltip-content::after {
+     content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px; /* تعديل حجم السهم قليلاً إذا لزم الأمر */
+    border-style: solid;
+    border-color: var(--vpa-window-bg-light, rgba(255, 255, 255, 0.85)) transparent transparent transparent;
+}
+/* Theme-specific adjustments for dark mode */
+body[data-theme="dark"] .tooltip-content {
+    background-color: var(--vpa-window-bg-dark, rgba(30, 30, 30, 0.9)); /* خلفية داكنة شبه شفافة */
+    border: 1px solid var(--vpa-window-border-dark, rgba(224, 224, 224, 0.1)); /* إطار داكن */
+    color: var(--text-primary-dark, #E0E0E0); /* لون النص للوضع الداكن */
+}
+
+.powerbi-link-js:hover .tooltip-content {
+   visibility: visible;
+    opacity: 1;
+    transform: translateY(0); /* إعادة الـ transform عند الظهور */
+}
+body[data-theme="dark"] .tooltip-content::after {
+    /* لون السهم للوضع الداكن */
+    border-color: var(--vpa-window-bg-dark, rgba(30, 30, 30, 0.9)) transparent transparent transparent;
+}
+/* === تعديل قاعدة الـ Hover لبقاء النافذة ظاهرة === */
+.powerbi-link-js:hover .tooltip-content,
+.tooltip-content:hover { /* هذه الإضافة هي المهمة لبقاء النافذة عند مرور المؤشر عليها */
+    opacity: 1;
+    visibility: visible; /* اجعلها مرئية */
+    pointer-events: auto; /* اسمح بالتفاعل معها */
+    transform: translateY(0);
+}
+
+/* .tooltip-content i {
+    margin-left: 8px;
+    color: #0078D4;
+}
+
+html[dir="ltr"] .tooltip-content i {
+    margin-right: 8px;
+    margin-left: 0;
+} */
+ .tooltip-svg-icon {
+      width: 36px;  /* زيادة حجم الأيقونة قليلاً */
+    height: 36px; /* زيادة حجم الأيقونة قليلاً */
+    margin-left: 15px; /* زيادة المسافة بين الأيقونة والنص */
+    flex-shrink: 0; /* لمنع الأيقونة من التقلص إذا كان النص طويلاً */
+}
+.tooltip-text-js {
+    font-size: 0.95rem; /* تعديل حجم الخط إذا لزم الأمر */
+    line-height: 1.6;  /* تعديل تباعد الأسطر إذا لزم الأمر */
+}
+
+/* LTR adjustments */
+html[dir="ltr"] .tooltip-content {
+    text-align: left;
+    direction: ltr;
+}
+
+html[dir="ltr"] .tooltip-svg-icon {
+    margin-right: 15px;
+    margin-left: 0;
+}
+            /*power bi*/      
+    
+
+    </style>
+</head>
+<body data-theme="light">
+
+    <header id="main-header" class="sticky-header">
+        <div class="container">
+            <a href="#home" class="logo">عاصم المالكي</a>
+            <nav id="desktop-nav">
+                <ul>
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#services">الخدمات</a></li>
+                    <li><a href="#projects">المشاريع</a></li>
+                    <li><a href="#skills">المهارات</a></li>
+                    <li><a href="#contact">اتصل بي</a></li>
+                    <li class="header-control-item desktop-only-flex"> <button id="theme-toggle-btn-desktop" class="header-control-btn" aria-label="تبديل الوضع الداكن/الفاتح"><i class="fas fa-sun"></i></button> </li>
+                    <li class="header-control-item desktop-only-flex"> <button id="language-toggle-btn-desktop" class="header-control-btn" aria-label="تبديل اللغة"><i class="fas fa-language"></i></button> </li>
+                </ul>
+            </nav>
+            <div class="header-controls">
+                <button id="mobile-nav-toggle" aria-label="فتح القائمة"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+    <div id="mobile-nav-menu">
+        <button id="close-mobile-nav" aria-label="إغلاق القائمة"><i class="fas fa-times"></i></button>
+        <nav>
+            <ul>
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#services">الخدمات</a></li>
+                <li><a href="#projects">المشاريع</a></li>
+                <li><a href="#skills">المهارات</a></li>
+                <li><a href="#contact">اتصل بي</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-nav-controls">
+            <button id="theme-toggle-btn-mobile" class="header-control-btn" aria-label="تبديل الوضع الداكن/الفاتح">
+                <i class="fas fa-sun"></i> <span>الوضع</span>
+            </button>
+            <button id="language-toggle-btn-mobile" class="header-control-btn" aria-label="تبديل اللغة">
+                <i class="fas fa-language"></i> <span>اللغة</span>
+            </button>
+        </div>
+    </div>
+
+    <main>
+        <section id="home" class="hero-section">
+            <div class="hero-background-animation"></div>
+            <div class="container content-overlay">
+                <h1>عاصم المالكي</h1>
+                <p class="subtitle" data-key-ar="subtitle_prefix_ar" data-key-en="subtitle_prefix_en">صياغة الوضوح من التعقيد: محلل بيانات ومتخصص <a href="https://www.microsoft.com/en-us/power-platform/products/power-bi" target="_blank" class="powerbi-link-js"><span class="powerbi-text">Power BI</span><span class="tooltip-container"><span class="tooltip-content"><img src="./img/Power_BI.png" alt="Power BI أيقونة" class="tooltip-svg-icon"> <span class="tooltip-text-js" data-key-ar="power_bi_tooltip_ar" data-key-en="power_bi_tooltip_en">Power BI هو مجموعة من أدوات تحليل الأعمال التي تقدم رؤى في جميع أنحاء مؤسستك.</span></span></span></a>.</p>
+                <p class="intro-text">أقوم بتحويل البيانات الأولية إلى رؤى قابلة للتنفيذ وقصص مرئية مقنعة تدفع عملية صنع القرار الاستراتيجي وترفع أداء الأعمال.</p>
+                <a href="#projects" class="cta-button">استكشف أعمالي <i class="fas fa-arrow-down"></i></a>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/asem-almalki-038902174/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://wa.me/+966502332378" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services-section animate-on-scroll">
+            <div class="container">
+                <h2 class="section-title">الخدمات الأساسية</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon"> <i class="fas fa-chart-line"></i> </div>
+                        <h3>التقارير الديناميكية ولوحات المعلومات</h3>
+                        <p>الاستفادة من Power BI لإنشاء تقارير تفاعلية وثاقبة تسلط الضوء على الاتجاهات وتدعم الأهداف الاستراتيجية.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"> <i class="fas fa-database"></i> </div>
+                        <h3>تحليل البيانات المتقدم</h3>
+                        <p>تدقيق شامل للبيانات وتنظيفها وتحليلها لتعزيز جودة قاعدة البيانات وتمكين القرارات المستندة إلى البيانات.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"> <i class="fas fa-laptop-code"></i> </div>
+                        <h3>البرمجة المستقبلية</h3>
+                        <p>توسيع القدرات في Python و JavaScript لتقديم حلول بيانات أكثر تعقيدًا. (قريباً)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects-section animate-on-scroll">
+            <div class="container">
+                <h2 class="section-title">البيانات في العمل: مشاريع مميزة</h2>
+                <div class="projects-gallery">
+                    <div class="project-card" data-project-id="project0">
+                        <img src="./HD/ASLM.svg" alt="نظرة عامة على المسلمين الجدد" class="project-thumbnail">
+                        <div class="project-info">
+                            <h3>تقرير المسلمين الجدد</h3>
+                            <p class="project-highlight">ثنائي اللغة | إحصائيات مباشرة</p>
+                            <button class="view-project-btn">عرض المشروع</button>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project-id="project1">
+                        <img src="./HD/Guests of God Service Program.svg" alt="متتبع أداء اللجان" class="project-thumbnail">
+                         <div class="project-info">
+                            <h3>تقرير برنامج ضيوف الرحمن</h3>
+                            <p class="project-highlight">معدلات التنفيذ | تحليل الاجتماعات</p>
+                            <button class="view-project-btn">عرض المشروع</button>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project-id="project2">
+                        <img src="./HD/Makkah Region.svg" alt="رؤى ممارسي الرقية الشرعية" class="project-thumbnail">
+                         <div class="project-info">
+                            <h3>متابعة ممارسي الرقية الشرعية</h3>
+                            <p class="project-highlight">بيانات جغرافية | بحث مفصل</p>
+                            <button class="view-project-btn">عرض المشروع</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div id="project-modal" class="modal">
+            <div class="modal-content">
+                <button class="close-modal-btn"><i class="fas fa-times"></i></button>
+                <h3 id="modal-project-title"></h3>
+                <div class="modal-body">
+                    <div class="modal-tabs">
+                        <button class="tab-link active" data-tab="live-demo">العرض المباشر (Power BI)</button>
+                        <button class="tab-link" data-tab="key-features">الميزات الرئيسية</button>
+                        <button class="tab-link tab-link-special" data-tab="data-entry-platform" style="display: none;">منصة إدخال البيانات</button>
+                        <button class="tab-link" data-tab="detailed-report">التقرير التفصيلي</button>
+                    </div>
+
+                    <div id="live-demo" class="tab-content active">
+                        <iframe id="modal-iframe" src="" frameborder="0" allowfullscreen="true"></iframe>
+                    </div>
+                    <div id="key-features" class="tab-content">
+                        <ul id="modal-features-list"></ul>
+                    </div>
+                    <div id="data-entry-platform" class="tab-content">
+                        <p style="text-align: center; padding: 20px;">
+                            سيتم فتح منصة إدخال البيانات في نافذة جديدة. إذا لم تفتح تلقائيًا،
+                            <a href="#" id="data-entry-platform-manual-link" target="_blank" rel="noopener noreferrer" class="cta-button special-program-link" style="margin-top:10px; display:inline-block;">انقر هنا لفتح المنصة</a>.
+                        </p>
+                    </div>
+                   <div id="detailed-report" class="tab-content">
+                      <p style="text-align: center; padding: 20px;">
+                             سيتم فتح التقرير التفصيلي في نافذة جديدة. إذا لم تفتح تلقائيًا،
+                            <a href="#" id="detailed-report-manual-link" target="_blank" rel="noopener noreferrer" class="cta-button" style="margin-top:10px; display:inline-block;">انقر هنا للفتح</a>
+                           </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="skills" class="skills-section animate-on-scroll">
+            <div class="container">
+                <h2 class="section-title">مجموعة أدواتي التقنية</h2>
+                <div class="skills-grid">
+                    <div class="skill-category-card">
+                        <div class="skill-category-header">
+                            <i class="fas fa-chart-bar skill-category-icon"></i>
+                            <h4>تصور وتحليل البيانات</h4>
+                        </div>
+                        <div class="skills-list">
+                            <div class="skill-item" data-skill-level="90" 
+                                 data-tooltip-ar="خبرة عالية في بناء التقارير التفاعلية ولوحات المعلومات المعقدة."
+                                 data-tooltip-en="High expertise in building interactive reports and complex dashboards.">
+                                <img src="./img/Power_BI.png" alt="Power BI" class="skill-icon-img">
+                                <span class="skill-name">Power BI</span>
+                                <div class="skill-progress-bar-container">
+                                    <div class="skill-progress-bar"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-skill-level="85"
+                                 data-tooltip-ar="إتقان لكتابة مقاييس DAX المعقدة لتحليل البيانات المتقدم."
+                                 data-tooltip-en="Mastery of writing complex DAX measures for advanced data analysis.">
+                                <img src="./img/DAX_logo.svg.png" alt="DAX" class="skill-icon-img">
+                                <span class="skill-name">DAX</span>
+                                <div class="skill-progress-bar-container">
+                                    <div class="skill-progress-bar"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-skill-level="80"
+                                 data-tooltip-ar="استخدام متقدم لجداول البيانات والمحاور والإحصائيات."
+                                 data-tooltip-en="Advanced use of spreadsheets, pivot tables, and statistics.">
+                                <img src="./img/excel1.png" alt="Excel" class="skill-icon-img">
+                                <span class="skill-name">Excel</span>
+                                <div class="skill-progress-bar-container">
+                                    <div class="skill-progress-bar"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-skill-level="75"
+                                 data-tooltip-ar="تصميم وتطوير تقارير تفاعلية سهلة الاستخدام."
+                                 data-tooltip-en="Designing and developing user-friendly interactive reports.">
+                                <img src="./img/online-survey.png" alt="Interactive Reports" class="skill-icon-img">
+                                <span class="skill-name">تقارير تفاعلية</span>
+                                <div class="skill-progress-bar-container">
+                                    <div class="skill-progress-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category-card">
+                        <div class="skill-category-header">
+                            <i class="fas fa-code skill-category-icon"></i>
+                            <h4>الويب والبرمجيات</h4>
+                        </div>
+                        <div class="skills-list">
+                            <div class="skill-item" data-skill-level="70"
+                                 data-tooltip-ar="بناء هياكل صفحات ويب دلالية."
+                                 data-tooltip-en="Building semantic web page structures.">
+                                <img src="./img/html-5.png" alt="HTML5" class="skill-icon-img">
+                                <span class="skill-name">HTML5</span>
+                                <div class="skill-progress-bar-container">
+                                    <div class="skill-progress-bar"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-skill-level="65"
+                                 data-tooltip-ar="تنسيق صفحات الويب وتصميمها بشكل جذاب ومتجاوب."
+                                 data-tooltip-en="Styling and designing attractive and responsive web pages.">
+                                <img src="./img/css-3.png" alt="CSS3" class="skill-icon-img">
+                                <span class="skill-name">CSS3</span>
+                                <div class="skill-progress-bar-container">
+                                    <div class="skill-progress-bar"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-skill-level="60"
+                                 data-tooltip-ar="استخدام بيئة التطوير المتكاملة Visual Studio."
+                                 data-tooltip-en="Using the Visual Studio Integrated Development Environment.">
+                                <img src="./img/visual studio.png" alt="Visual Studio" class="skill-icon-img">
+                                <span class="skill-name">Visual Studio</span>
+                                <div class="skill-progress-bar-container">
+                                    <div class="skill-progress-bar"></div>
+                                </div>
+                            </div>
+                             <div class="skill-item learning" data-skill-level="40"
+                                  data-tooltip-ar="قيد التعلم والتطوير لتعزيز قدرات تحليل البيانات."
+                                  data-tooltip-en="Currently learning and developing to enhance data analysis capabilities.">
+                                <img src="./img/python.png" alt="Python" class="skill-icon-img">
+                                <span class="skill-name">Python <small>(قريباً...)</small></span>
+                                <div class="skill-progress-bar-container">
+                                    <div class="skill-progress-bar"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item learning" data-skill-level="30"
+                                 data-tooltip-ar="قيد التعلم لإضافة تفاعلية وديناميكية لصفحات الويب."
+                                 data-tooltip-en="Currently learning to add interactivity and dynamism to web pages.">
+                                <img src="./img/java-script.png" alt="JavaScript" class="skill-icon-img">
+                                <span class="skill-name">JavaScript <small>(قريباً...)</small></span>
+                                <div class="skill-progress-bar-container">
+                                    <div class="skill-progress-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category-card">
+                        <div class="skill-category-header">
+                            <i class="fas fa-tools skill-category-icon"></i>
+                            <h4>الإنتاجية وأخرى</h4>
+                        </div>
+                        <div class="skills-list">
+                            <div class="skill-item" data-skill-level="80"
+                                 data-tooltip-ar="إعداد عروض تقديمية احترافية وفعالة."
+                                 data-tooltip-en="Preparing professional and effective presentations.">
+                                <img src="./img/powerpoint1.png" alt="PowerPoint" class="skill-icon-img">
+                                <span class="skill-name">PowerPoint</span>
+                                <div class="skill-progress-bar-container">
+                                    <div class="skill-progress-bar"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-skill-level="85"
+                                 data-tooltip-ar="إنشاء وتحرير مستندات نصية بتنسيق عالي."
+                                 data-tooltip-en="Creating and editing highly formatted text documents.">
+                                <img src="./img/word1.png" alt="Word" class="skill-icon-img">
+                                <span class="skill-name">Word</span>
+                                <div class="skill-progress-bar-container">
+                                    <div class="skill-progress-bar"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-skill-level="70"
+                                 data-tooltip-ar="تشخيص وإصلاح مشاكل الحاسب الآلي (عتاد وبرمجيات)."
+                                 data-tooltip-en="Diagnosing and repairing computer problems (hardware and software).">
+                               <img src="./img/setting.png" alt="Computer Maintenance" class="skill-icon-img">
+                               <span class="skill-name">صيانة الحاسب</span>
+                               <div class="skill-progress-bar-container">
+                                   <div class="skill-progress-bar"></div>
+                               </div>
+                           </div>
+                           <div class="skill-item" data-skill-level="90"
+                                data-tooltip-ar="إلمام شامل باستخدامات الحاسب وأنظمته المختلفة."
+                                data-tooltip-en="Comprehensive knowledge of computer uses and various systems.">
+                                <img src="./img/pc.png" alt="High Computer Experience" class="skill-icon-img">
+                               <span class="skill-name">خبرة عالية بالحاسب</span>
+                               <div class="skill-progress-bar-container">
+                                   <div class="skill-progress-bar"></div>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="skill-tooltip" class="skill-tooltip-element"></div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section animate-on-scroll">
+            <div class="container">
+                <h2 class="section-title">لنتعاون سوياً</h2>
+                <div class="contact-layout">
+                    <div class="contact-details-column">
+                        <h3>وسائل التواصل المباشر</h3>
+                        <p class="contact-intro-text">لا تتردد في التواصل معي مباشرة عبر إحدى الوسائل التالية، أو استخدم نموذج الاتصال. أتطلع دومًا لسماع أفكار جديدة ومشاريع محتملة!</p>
+                        
+                        <div class="contact-cards-container">
+                            <a href="https://wa.me/+966502332378" target="_blank" class="contact-card">
+                                <div class="contact-card-icon"><i class="fab fa-whatsapp"></i></div>
+                                <div class="contact-card-info">
+                                    <h4>WhatsApp</h4>
+                                    <p>0502332378</p>
+                                </div>
+                            </a>
+                            <a href="mailto:asem1almalki@gmail.com" class="contact-card">
+                                <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
+                                <div class="contact-card-info">
+                                    <h4>البريد الإلكتروني</h4>
+                                    <p>asem1almalki@gmail.com</p>
+                                </div>
+                            </a>
+                            <a href="https://www.linkedin.com/in/asem-almalki-038902174/" target="_blank" class="contact-card">
+                                <div class="contact-card-icon"><i class="fab fa-linkedin"></i></div>
+                                <div class="contact-card-info">
+                                    <h4>LinkedIn</h4>
+                                    <p>asem-almalki</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-column">
+                        <h3>أرسل لي رسالة</h3>
+                        <form id="contact-form" class="modern-contact-form">
+                            <div class="form-group">
+                                <input type="text" id="sender-name" name="senderName" required placeholder=" ">
+                                <label for="sender-name">اسمك</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="sender-email" name="senderEmail" required placeholder=" ">
+                                <label for="sender-email">بريدك الإلكتروني</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="message-subject" name="messageSubject" placeholder=" ">
+                                <label for="message-subject">الموضوع (اختياري)</label>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="message-content" name="messageContent" rows="5" required placeholder=" "></textarea>
+                                <label for="message-content">رسالتك</label>
+                            </div>
+                            <button type="submit" class="cta-button form-submit-btn">إرسال الرسالة الآن <i class="fas fa-paper-plane"></i></button>
+                            <div id="form-status"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="main-footer">
+        <div class="container">
+            <p>© <span id="current-year">2025</span> عاصم المالكي. جميع الحقوق محفوظة. صُنع بشغف للبيانات.</p>
+            <div class="social-links-footer">
+                <a href="https://www.linkedin.com/in/asem-almalki-038902174/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://wa.me/+966502332378" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <button id="vpa-fab" aria-label="فتح المساعد الافتراضي"><i class="fas fa-robot"></i></button>
+    <div id="vpa-chat-window" class="hidden">
+        <div class="vpa-header">
+            <span>مساعد عاصم الرقمي</span>
+            <button id="vpa-close-btn" aria-label="إغلاق المساعد الافتراضي"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="vpa-messages">
+            <div class="vpa-message assistant">مرحباً! كيف يمكنني مساعدتك في استكشاف أعمال عاصم اليوم؟</div>
+        </div>
+        <div class="vpa-input-area">
+             <button id="vpa-send-btn" aria-label="إرسال الرسالة"><i class="fas fa-paper-plane"></i></button> 
+            <input type="text" id="vpa-user-input" placeholder="اكتب سؤالك...">
+        </div>
+        <div class="vpa-quick-replies">
+            <button class="quick-reply" data-query="الخدمات">الخدمات</button>
+            <button class="quick-reply" data-query="المشاريع">المشاريع</button>
+            <button class="quick-reply" data-query="المهارات">المهارات</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const htmlEl = document.documentElement;
+            let currentLang = localStorage.getItem('language') || 'ar'; 
+            htmlEl.setAttribute('lang', currentLang);
+            htmlEl.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+            
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            const closingRemarksAr = [
+                "بالتوفيق يالكفو!", "بالتوفيق يالأمير!", "في رعاية الله.",
+                "في حفظ الرحمن.", "الله ييسر أمرك.", "يومك سعيد!"
+            ];
+            const closingRemarksEn = [
+                "All the best!", "Take care!", "Have a great day!",
+                "Best of luck!", "Godspeed!"
+            ];
+
+            function getRandomClosingRemark(lang) {
+                const remarks = lang === 'ar' ? closingRemarksAr : closingRemarksEn;
+                return remarks[Math.floor(Math.random() * remarks.length)];
+            }
+
+            // ===== Theme Toggle =====
+            const themeToggleBtnDesktop = document.getElementById('theme-toggle-btn-desktop');
+            const themeToggleBtnMobile = document.getElementById('theme-toggle-btn-mobile');
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            document.body.setAttribute('data-theme', currentTheme);
+            updateThemeIcons(currentTheme);
+
+            function handleThemeToggle() { 
+                let newTheme = document.body.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+                document.body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcons(newTheme);
+            }
+
+            if (themeToggleBtnDesktop) themeToggleBtnDesktop.addEventListener('click', handleThemeToggle);
+            if (themeToggleBtnMobile) themeToggleBtnMobile.addEventListener('click', handleThemeToggle);
+
+            function updateThemeIcons(theme) { 
+                const iconsToUpdate = [];
+                if (themeToggleBtnDesktop) iconsToUpdate.push(themeToggleBtnDesktop.querySelector('i'));
+                if (themeToggleBtnMobile) iconsToUpdate.push(themeToggleBtnMobile.querySelector('i'));
+                
+                iconsToUpdate.forEach(icon => {
+                    if (icon) {
+                        if (theme === 'light') {
+                            icon.classList.remove('fa-moon');
+                            icon.classList.add('fa-sun');
+                        } else {
+                            icon.classList.remove('fa-sun');
+                            icon.classList.add('fa-moon');
+                        }
+                    }
+                });
+            }
+
+            const languageToggleBtnDesktop = document.getElementById('language-toggle-btn-desktop');
+            const languageToggleBtnMobile = document.getElementById('language-toggle-btn-mobile');
+
+            function handleLanguageToggle() { 
+                const newLang = htmlEl.getAttribute('lang') === 'ar' ? 'en' : 'ar';
+                currentLang = newLang; 
+                htmlEl.setAttribute('lang', newLang);
+                htmlEl.setAttribute('dir', newLang === 'ar' ? 'rtl' : 'ltr');
+                localStorage.setItem('language', newLang);
+                updateLanguageContent(newLang);
+                if (mobileNavMenu.classList.contains('open')) {
+                    mobileNavMenu.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            }
+
+            if (languageToggleBtnDesktop) languageToggleBtnDesktop.addEventListener('click', handleLanguageToggle);
+            if (languageToggleBtnMobile) languageToggleBtnMobile.addEventListener('click', handleLanguageToggle);
+
+            const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+            const mobileNavMenu = document.getElementById('mobile-nav-menu');
+            const closeMobileNav = document.getElementById('close-mobile-nav');
+            const mobileNavLinks = mobileNavMenu.querySelectorAll('nav a');
+
+            if (mobileNavToggle && mobileNavMenu) {
+                mobileNavToggle.addEventListener('click', () => {
+                    mobileNavMenu.classList.toggle('open');
+                    document.body.style.overflow = mobileNavMenu.classList.contains('open') ? 'hidden' : '';
+                });
+                closeMobileNav.addEventListener('click', () => {
+                    mobileNavMenu.classList.remove('open');
+                    document.body.style.overflow = '';
+                });
+                mobileNavLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileNavMenu.classList.remove('open');
+                        document.body.style.overflow = '';
+                    });
+                });
+            }
+
+            const navLinks = document.querySelectorAll('#desktop-nav a, #mobile-nav-menu nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - (document.getElementById('main-header')?.offsetHeight || 70),
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            const sections = document.querySelectorAll('main section');
+            window.addEventListener('scroll', () => {
+                let currentSectionId = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - (document.getElementById('main-header')?.offsetHeight || 70) - 50;
+                    if (pageYOffset >= sectionTop) {
+                        currentSectionId = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href')?.substring(1) === currentSectionId) {
+                        link.classList.add('active');
+                    }
+                });
+
+                document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.85 && rect.bottom >= 0) {
+                        el.classList.add('is-visible');
+                    }
+                });
+                animateSkillBars(); 
+            });
+
+            // ===== Project Modal Logic =====
+                  const projectCards = document.querySelectorAll('.project-card');
+            const projectModal = document.getElementById('project-modal');
+            const closeModalBtn = projectModal.querySelector('.close-modal-btn');
+            const modalTitle = document.getElementById('modal-project-title');
+            const modalIframe = document.getElementById('modal-iframe');
+            const modalFeaturesList = document.getElementById('modal-features-list');
+            // const modalPdfLink = document.getElementById('modal-pdf-link'); // إذا حذفت العنصر من HTML، هذا سيكون null
+            
+            const modalTabs = projectModal.querySelectorAll('.modal-tabs .tab-link');
+            const modalTabContents = projectModal.querySelectorAll('.modal-body .tab-content');
+
+            const projectsData = {
+                ar: {
+                    project0: {
+                        title: "وزارة الشؤون الاسلامية - تقرير المسلمين الجدد",
+                        iframeSrc: "https://app.powerbi.com/view?r=eyJrIjoiMDEwYmI0MDQtYmI2ZC00ZWJjLTliNTctY2M0ZTY4YjNkNDk2IiwidCI6IjJkMzE5NGUzLTE2NTQtNDZiZC1iYWUyLWFkMzdiYTExYjBhZSIsImMiOjl9&embedImagePlaceholder=true",
+                        detailedReportSrc: "./reports/وزارة الشؤون الاسلامية.html", // مسار ملف HTML للتقرير التفصيلي
+                        features: [
+                            { icon: "fa-solid fa-chart-pie", text: "إحصائيات دقيقة: العدد الإجمالي والنسبة المئوية، مصنفة حسب الجنس والتوزيع الشهري." },
+                            { icon: "fa-solid fa-filter", text: "تصفية البيانات: حسب الحالة (مكتمل/قيد التنفيذ)، المكتب، أو الجنسية." },
+                            { icon: "fa-solid fa-magnifying-glass", text: "بحث مباشر: الوصول إلى المعلومات الشخصية عبر رقم الهوية." },
+                            { icon: "fa-solid fa-building-columns", text: "تحليل المكاتب التعاونية: العدد الإجمالي للمكاتب ونسبة المهتدين الجدد في كل مكتب." },
+                            { icon: "fa-solid fa-map-location-dot", text: "تصور البيانات: خريطة لتوزيع المهتدين الجدد حسب الجنسية." },
+                            { icon: "fa-solid fa-language", text: "دعم ثنائي اللغة: متوفر باللغتين العربية والإنجليزية." }
+                        ]
+                    },
+                    project1: {
+                        title: "برنامج خدمة ضيوف الرحمن - تقرير اللجان",
+                        iframeSrc: "https://app.powerbi.com/view?r=eyJrIjoiNDVlZTc3OGItNTg3NS00NjM4LWJjYjMtNzUxYTVkZThkZDM2IiwidCI6IjJkMzE5NGUzLTE2NTQtNDZiZC1iYWUyLWFkMzdiYTExYjBhZSIsImMiOjl9&embedImagePlaceholder=true",
+                        detailedReportSrc:"./reports/تقرير برنامج ضيوف الرحمن.html", // مسار ملف HTML للتقرير التفصيلي
+                        features: [
+                            { icon: "fa-solid fa-users-gear", text: "يعرض العدد الإجمالي للجان والاجتماعات والتوصيات ومعدل تنفيذها." },
+                            { icon: "fa-solid fa-filter", text: "يسمح بتصفية البيانات حسب اسم اللجنة." },
+                            { icon: "fa-solid fa-list-check", text: "لكل لجنة: إجمالي الاجتماعات والتوصيات ومعدل تنفيذ التوصيات." },
+                            { icon: "fa-solid fa-clock", text: "الفترة المتبقية من تاريخ آخر اجتماع." },
+                            { icon: "fa-solid fa-users", text: "عدد الأعضاء الحاليين والسابقين والإجمالي." },
+                            { icon: "fa-solid fa-handshake-angle", text: "الجهات المشاركة وعدد أعضائها." }
+                        ]
+                    },
+                    project2: { 
+                        title: "إمارة منطقة مكة المكرمة - محافظة جدة (ممارسو الرقية الشرعية)",
+                        iframeSrc: "https://app.powerbi.com/view?r=eyJrIjoiY2M3M2RiY2EtNGU2Yy00YzNhLTgxNGUtNzhhMmE3ZjYzYjE4IiwidCI6IjJkMzE5NGUzLTE2NTQtNDZiZC1iYWUyLWFkMzdiYTExYjBhZSIsImMiOjl9&embedImagePlaceholder=true",
+                        detailedReportSrc:"./reports/تقرير لجنة متابعة مزاولي أعمال الرقية الشرعية.html", // مسار ملف HTML للتقرير التفصيلي
+                        dataEntryProgram: { 
+                            link: "https://asemalmlaki.github.io/ruqya-jeddah-data/",
+                            label: "منصة إدخال البيانات" 
+                        },
+                        features: [
+                            { icon: "fa-solid fa-magnifying-glass-chart", text: "نظرة عامة شاملة: إحصائيات دقيقة عن الزيارات الميدانية وعدد ممارسي الرقية (بمن فيهم المخالفون)." },
+                            { icon: "fa-solid fa-venus-mars", text: "تحليل متعمق: تصنيف الممارسين حسب الجنس والجنسية والحالة (نشط، غير نشط، موقوف)." },
+                            { icon: "fa-solid fa-tachograph-digital", text: "لوحة معلومات لحالة الممارسين في كل فئة." },
+                            { icon: "fa-solid fa-map-marked-alt", text: "خريطة لمواقع النشاط." },
+                            { icon: "fa-solid fa-briefcase", text: "تصفية حسب مهن الممارسين." },
+                            { icon: "fa-solid fa-id-card", text: "بحث مفصل برقم الهوية: رأي اللجنة، الملاحظات، تفاصيل التقرير." }
+                        ]
+                    }
+                },
+                en: { // تأكد من إضافة detailedReportSrc للإنجليزية أيضاً
+                    project0: {
+                        title: "Ministry of Islamic Affairs - New Muslims Report",
+                        iframeSrc: "https://app.powerbi.com/view?r=eyJrIjoiMDEwYmI0MDQtYmI2ZC00ZWJjLTliNTctY2M0ZTY4YjNkNDk2IiwidCI6IjJkMzE5NGUzLTE2NTQtNDZiZC1iYWUyLWFkMzdiYTExYjBhZSIsImMiOjl9&embedImagePlaceholder=true",
+                        detailedReportSrc:"./reports/وزارة الشؤون الاسلامية.html", // Ensure this path is correct or adjust as needed
+                        features: [
+                            { icon: "fa-solid fa-chart-pie", text: "Accurate Statistics: Total & percentage, gender & monthly distribution." },
+                            { icon: "fa-solid fa-filter", text: "Data Filtering: By status (Completed/In Progress), office, or nationality." },
+                            { icon: "fa-solid fa-magnifying-glass", text: "Direct Search: Access personal info via ID number." },
+                            { icon: "fa-solid fa-building-columns", text: "Cooperative Office Analysis: Totals and percentages per office." },
+                            { icon: "fa-solid fa-map-location-dot", text: "Data Visualization: Map of new Muslims by nationality." },
+                            { icon: "fa-solid fa-language", text: "Bilingual Support: Available in both Arabic and English." }
+                        ]
+                    },
+                    project1: {
+                        title: "Guests of Allah Service Program - Committee Report",
+                        iframeSrc: "https://app.powerbi.com/view?r=eyJrIjoiNDVlZTc3OGItNTg3NS00NjM4LWJjYjMtNzUxYTVkZThkZDM2IiwidCI6IjJkMzE5NGUzLTE2NTQtNDZiZC1iYWUyLWFkMzdiYTExYjBhZSIsImMiOjl9&embedImagePlaceholder=true",
+                        detailedReportSrc:"./reports/تقرير برنامج ضيوف الرحمن.html", // Ensure this path is correct
+                        features: [
+                            { icon: "fa-solid fa-users-gear", text: "Displays total committees, meetings, recommendations & implementation rate." },
+                            { icon: "fa-solid fa-filter", text: "Allows data filtering by committee name." },
+                            { icon: "fa-solid fa-list-check", text: "Per committee: meetings, recommendations, implementation rate." },
+                            { icon: "fa-solid fa-clock", text: "Remaining period from the last meeting." },
+                            { icon: "fa-solid fa-users", text: "Number of current, former, and total members." },
+                            { icon: "fa-solid fa-handshake-angle", text: "Participating parties and member counts." }
+                        ]
+                    },
+                    project2: { 
+                        title: "Emirate of Makkah Region - Jeddah Governorate (Ruqyah Practitioners)",
+                        iframeSrc: "https://app.powerbi.com/view?r=eyJrIjoiNzMwZmFmMmQtMDRmMS00MTlmLTk2NGQtOTIwYTcyYjJjODk3IiwidCI6IjJkMzE5NGUzLTE2NTQtNDZiZC1iYWUyLWFkMzdiYTExYjBhZSIsImMiOjl9&embedImagePlaceholder=true",
+                        detailedReportSrc:"./reports/تقرير لجنة متابعة مزاولي أعمال الرقية الشرعية.html", // Ensure this path is correct
+                        dataEntryProgram: { 
+                            link: "https://asemalmlaki.github.io/ruqya-jeddah-data/",
+                            label: "Data Entry Platform" 
+                        },
+                        features: [
+                            { icon: "fa-solid fa-magnifying-glass-chart", text: "Comprehensive overview: field visits, practitioners (incl. violators)." },
+                            { icon: "fa-solid fa-venus-mars", text: "In-depth analysis: Classification by gender, nationality, status." },
+                            { icon: "fa-solid fa-tachograph-digital", text: "Dashboard for practitioner status." },
+                            { icon: "fa-solid fa-map-marked-alt", text: "Map of activity locations." },
+                            { icon: "fa-solid fa-briefcase", text: "Filter by practitioner professions." },
+                            { icon: "fa-solid fa-id-card", text: "Detailed search by ID: committee opinion, observations, report details." }
+                        ]
+                    }
+                }
+            };
+
+            projectCards.forEach(card => {
+                card.querySelector('.view-project-btn').addEventListener('click', () => {
+                    const projectId = card.dataset.projectId;
+                    const lang = document.documentElement.lang || 'ar';
+                    const data = projectsData[lang]?.[projectId];
+
+                    if (!data) {
+                        console.error(`Data not found for project ${projectId} in language ${lang}`);
+                        return;
+                    }
+
+                    projectModal.dataset.currentProject = projectId; 
+
+                    const dataEntryTabButton = projectModal.querySelector('.tab-link[data-tab="data-entry-platform"]');
+                    const dataEntryTabContentManualLink = document.getElementById('data-entry-platform-manual-link');
+
+                    if (dataEntryTabButton) { // تحقق من وجود الزر أولاً
+                        if (projectId === 'project2' && data.dataEntryProgram) { 
+                            dataEntryTabButton.style.display = 'inline-block'; 
+                            if (dataEntryTabContentManualLink) { 
+                                 dataEntryTabContentManualLink.href = data.dataEntryProgram.link; 
+                                 const manualLinkText = lang === 'ar' ? 'انقر هنا لفتح المنصة' : 'Click here to open the platform';
+                                 dataEntryTabContentManualLink.textContent = manualLinkText;
+                            }
+                        } else { 
+                            dataEntryTabButton.style.display = 'none'; 
+                        }
+                    }
+                    
+                    modalTitle.textContent = data.title;
+                    // modalIframe.src = data.iframeSrc; // سيتم ضبطه عند اختيار التبويب الأول
+
+                    // إذا كنت قد حذفت العنصر id="modal-pdf-link" من HTML
+                    // فتأكد من أنك لا تستخدم modalPdfLink.href = data.pdfLink; هنا
+                    // أو قم بحماية هذا السطر إذا كان modalPdfLink قد يكون null:
+                    // const modalPdfLink = document.getElementById('modal-pdf-link'); // يجب أن يكون معرفًا في الأعلى
+                    // if (modalPdfLink && data.pdfLink) {
+                    //     modalPdfLink.href = data.pdfLink;
+                    // }
+
+
+                    modalFeaturesList.innerHTML = '';
+                    if (data.features) {
+                        data.features.forEach(feature => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `<i class="${feature.icon}"></i> <span>${feature.text}</span>`;
+                            modalFeaturesList.appendChild(li);
+                        });
+                    }
+                    
+                    // تفعيل التبويب الأول المرئي ومحتواه عند فتح النافذة
+                    modalTabs.forEach(t => t.classList.remove('active'));
+                    modalTabContents.forEach(tc => tc.classList.remove('active'));
+                    
+                    const firstVisibleTab = projectModal.querySelector('.modal-tabs .tab-link:not([style*="display: none"])');
+                    if(firstVisibleTab){ 
+                        firstVisibleTab.classList.add('active');
+                        const firstVisibleTabContentId = firstVisibleTab.dataset.tab;
+                        const firstVisibleTabContent = document.getElementById(firstVisibleTabContentId);
+                        if (firstVisibleTabContent) {
+                            firstVisibleTabContent.classList.add('active');
+                        }
+                        // تحديث الإطار المضمن بناءً على التبويب الأول النشط
+                        // هذا الجزء مهم لضمان تحميل المحتوى الصحيح عند الفتح مباشرة
+                        if (firstVisibleTabContentId === 'live-demo' && data.iframeSrc) {
+                            modalIframe.src = data.iframeSrc;
+                            modalIframe.style.display = 'block';
+                        } else if (firstVisibleTabContentId === 'detailed-report' && data.detailedReportSrc) {
+                            modalIframe.src = data.detailedReportSrc;
+                            modalIframe.style.display = 'block';
+                        } else {
+                            modalIframe.src = 'about:blank';
+                            modalIframe.style.display = 'none';
+                        }
+                    }
+
+                    projectModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    updateLanguageContent(lang); 
+                });
+            });
+
+            // ===== الكود الجديد والمعدل لمعالج النقر على علامات التبويب =====
+            modalTabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+        const tabId = this.dataset.tab; // المُعرف الخاص بالتبويب الذي تم النقر عليه (مثل 'live-demo', 'detailed-report')
+        const lang = document.documentElement.lang || 'ar';
+        const currentProjectIdFromModal = projectModal.dataset.currentProject;
+
+        if (!currentProjectIdFromModal) {
+            console.error("Modal Error: currentProjectIdFromModal is not set.");
+            return;
+        }
+        const projectDataForCurrent = projectsData[lang]?.[currentProjectIdFromModal];
+
+        if (!projectDataForCurrent) {
+            console.error(`Modal Error: No data found for project ${currentProjectIdFromModal} in lang ${lang}.`);
+            return;
+        }
+
+        // 1. إلغاء تنشيط كل التبويبات وإخفاء كل محتويات التبويبات أولاً
+        modalTabs.forEach(t => t.classList.remove('active'));
+        modalTabContents.forEach(tc => tc.classList.remove('active'));
+
+        // 2. تنشيط التبويب الذي تم النقر عليه
+        this.classList.add('active');
+
+        // 3. إظهار حاوية المحتوى الخاصة بالتبويب النشط
+        const activeContentDiv = document.getElementById(tabId);
+        if (activeContentDiv) {
+            activeContentDiv.classList.add('active');
+        }
+
+        // 4. التعامل مع كل تبويب بشكل خاص
+        if (tabId === 'live-demo') {
+            if (projectDataForCurrent.iframeSrc) {
+                modalIframe.src = projectDataForCurrent.iframeSrc;
+                modalIframe.style.display = 'block'; // إظهار الإطار المضمن
+            } else {
+                console.warn(`iframeSrc not defined for project ${currentProjectIdFromModal}, tab 'live-demo'.`);
+                modalIframe.src = 'about:blank';
+                modalIframe.style.display = 'none'; // إخفاء الإطار إذا لم يكن هناك مصدر
+            }
+        } else if (tabId === 'detailed-report') {
+            if (projectDataForCurrent.detailedReportSrc) {
+                // فتح الرابط في نافذة جديدة تلقائيًا
+                window.open(projectDataForCurrent.detailedReportSrc, '_blank');
+
+                // تحديث الرابط اليدوي في محتوى التبويب
+                const manualLinkElement = document.getElementById('detailed-report-manual-link');
+                if (manualLinkElement) {
+                    manualLinkElement.href = projectDataForCurrent.detailedReportSrc;
+                    // يمكنك تحديث نص الرابط هنا إذا أردت أن يكون متغيراً، لكنه ثابت في HTML الذي اقترحته
+                    const detailedReportLinkText = lang === 'ar' ? 'انقر هنا للفتح' : 'Click here to open'; // مثال للنص متعدد اللغات
+                    manualLinkElement.textContent = detailedReportLinkText;
+                } else {
+                    console.warn("Element with ID 'detailed-report-manual-link' not found for detailed report tab.");
+                }
+            } else {
+                console.warn(`detailedReportSrc not defined for project ${currentProjectIdFromModal}, tab 'detailed-report'.`);
+                // إخفاء الرابط اليدوي إذا لم يكن هناك مصدر
+                const manualLinkElement = document.getElementById('detailed-report-manual-link');
+                if (manualLinkElement) manualLinkElement.style.display = 'none';
+            }
+            // هذا التبويب لا يستخدم الإطار المضمن الرئيسي، لذا نخفيه
+            modalIframe.style.display = 'none';
+            modalIframe.src = 'about:blank'; // مسح المصدر لضمان عدم عرض محتوى سابق
+        } else if (tabId === 'key-features') {
+            // تبويب الميزات لا يستخدم الإطار المضمن
+            modalIframe.style.display = 'none';
+            modalIframe.src = 'about:blank';
+            // (قائمة الميزات يتم تعبئتها عند فتح النافذة المنبثقة)
+        } else if (tabId === 'data-entry-platform') {
+            // السلوك الحالي لتبويب منصة إدخال البيانات جيد ويقوم بفتح نافذة جديدة
+            // ويحتوي على return خاص به في الكود الأصلي، أو يمكنك دمجه هنا
+            if (currentProjectIdFromModal === 'project2' && projectDataForCurrent.dataEntryProgram?.link) {
+                window.open(projectDataForCurrent.dataEntryProgram.link, '_blank');
+            }
+            // تحديث الرابط اليدوي الخاص به (الكود الأصلي لديك يقوم بذلك بشكل جيد)
+            const manualLink = document.getElementById('data-entry-platform-manual-link');
+            if (manualLink && projectDataForCurrent.dataEntryProgram?.link) {
+                manualLink.href = projectDataForCurrent.dataEntryProgram.link;
+                 const manualLinkTextOriginal = lang === 'ar' ? 'انقر هنا لفتح المنصة' : 'Click here to open the platform';
+                 manualLink.textContent = manualLinkTextOriginal;
+            }
+            modalIframe.style.display = 'none'; // تأكد من إخفاء الإطار المضمن الرئيسي
+            modalIframe.src = 'about:blank';
+        } else {
+            // لأي تبويبات أخرى غير متوقعة
+            modalIframe.style.display = 'none';
+            modalIframe.src = 'about:blank';
+        }
+    });
+});
+// ===== نهاية الكود الخاص بمعالج النقر على علامات التبويبات =====
+
+            closeModalBtn.addEventListener('click', () => {
+                projectModal.classList.remove('active');
+                modalIframe.src = "about:blank"; // تغيير إلى about:blank لضمان إيقاف أي تحميل
+                document.body.style.overflow = '';
+            });
+
+            projectModal.addEventListener('click', (event) => {
+                if (event.target === projectModal) {
+                    projectModal.classList.remove('active');
+                    modalIframe.src = "about:blank"; // تغيير إلى about:blank
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // ===== Skills Section - Animate Progress Bars & Tooltips =====
+            const skillItems = document.querySelectorAll('.skill-item');
+            const tooltipElement = document.getElementById('skill-tooltip');
+
+            function animateSkillBars() {
+                skillItems.forEach(item => {
+                    const progressBar = item.querySelector('.skill-progress-bar');
+                    const skillLevel = item.dataset.skillLevel || "0"; 
+                    const rect = item.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.9 && rect.bottom >= 0) {
+                        if (progressBar) {
+                             progressBar.style.width = skillLevel + '%';
+                        }
+                    }
+                });
+            }
+
+            if (skillItems.length > 0 && tooltipElement) {
+                skillItems.forEach(item => {
+                    item.addEventListener('mousemove', (e) => {
+                        const langTooltip = document.documentElement.lang || 'ar';
+                        let tooltipText = item.dataset[`tooltip-${langTooltip}`] || item.dataset.tooltipAr || item.dataset.tooltipEn || ""; 
+                        
+                        if (tooltipText) {
+                            tooltipElement.textContent = tooltipText;
+                            tooltipElement.style.left = (e.pageX + 15) + 'px'; 
+                            tooltipElement.style.top = (e.pageY + 15) + 'px'; 
+                            tooltipElement.classList.add('visible');
+                        }
+                    });
+                    item.addEventListener('mouseleave', () => {
+                        tooltipElement.classList.remove('visible');
+                    });
+                    
+                });
+            }
+            // ===== Contact Form =====
+            const contactForm = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const langForm = document.documentElement.lang || 'ar';
+                    const name = document.getElementById('sender-name').value.trim();
+                    const email = document.getElementById('sender-email').value.trim();
+                    const subject = document.getElementById('message-subject').value.trim();
+                    const message = document.getElementById('message-content').value.trim();
+
+                    // رسائل التحقق والحالة
+                    const requiredFieldsError = langForm === 'ar' ? 'يرجى ملء جميع الحقول المطلوبة (الاسم، البريد الإلكتروني، الرسالة).' : 'Please fill in all required fields (Name, Email, Message).';
+                    const invalidEmailError = langForm === 'ar' ? 'يرجى إدخال عنوان بريد إلكتروني صالح.' : 'Please enter a valid email address.';
+                    const sendingMsg = langForm === 'ar' ? 'جارٍ الإرسال...' : 'Sending...';
+                    const successMsg = langForm === 'ar' ? 'تم إرسال الرسالة بنجاح! سأتواصل معك قريبًا.' : 'Message sent successfully! I will get back to you soon.';
+                    const errorMsg = langForm === 'ar' ? 'فشل إرسال الرسالة. يرجى المحاولة مرة أخرى أو التواصل مباشرة عبر الوسائل الأخرى.' : 'Failed to send message. Please try again or contact directly via other methods.';
+
+                    if (!name || !email || !message) {
+                        formStatus.textContent = requiredFieldsError;
+                        formStatus.className = 'error';
+                        if (formStatus.style) formStatus.style.color = 'red';
+                        return;
+                    }
+                    
+                    if (!validateEmail(email)) { // استدعاء دالة التحقق
+                        formStatus.textContent = invalidEmailError;
+                        formStatus.className = 'error';
+                        if (formStatus.style) formStatus.style.color = 'red';
+                        return;
+                    }
+
+                    formStatus.textContent = sendingMsg;
+                    formStatus.className = 'pending';
+                    if (formStatus.style) formStatus.style.color = 'orange';
+
+                    // ----- بداية كود EmailJS -----
+                    const EMAILJS_SERVICE_ID = 'service_s8mglnf';      // قيمتك
+                    const EMAILJS_TEMPLATE_ID = 'template_dxsqkmh';     // قيمتك
+                    const EMAILJS_PUBLIC_KEY = 'GEQ5vW5WG6NZmdAYA';    // قيمتك
+
+                    const templateParams = {
+                        from_name: name,
+                        from_email: email,
+                        to_name: 'عاصم المالكي', 
+                        subject: subject || (langForm === 'ar' ? 'رسالة من موقع asemai.com' : 'Message from asemai.com'),
+                        message: message
+                    };
+
+                    fetch('https://api.emailjs.com/api/v1.0/email/send', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            service_id: EMAILJS_SERVICE_ID,
+                            template_id: EMAILJS_TEMPLATE_ID,
+                            user_id: EMAILJS_PUBLIC_KEY,
+                            template_params: templateParams
+                        })
+                    })
+                    .then((response) => {
+                        if (response.ok) {
+                            formStatus.textContent = successMsg;
+                            formStatus.className = 'success';
+                            if (formStatus.style) formStatus.style.color = 'green';
+                            contactForm.reset();
+                        } else {
+                            response.text().then(text => {
+                                console.error('EmailJS Error:', text);
+                                formStatus.textContent = errorMsg;
+                                formStatus.className = 'error';
+                                if (formStatus.style) formStatus.style.color = 'red';
+                            });
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Fetch Error:', error);
+                        formStatus.textContent = errorMsg;
+                        formStatus.className = 'error';
+                        if (formStatus.style) formStatus.style.color = 'red';
+                    });
+                    // ----- نهاية كود EmailJS -----
+                });
+            } // نهاية if (contactForm)
+
+            // ******** هنا تعريف دالة validateEmail ********
+            function validateEmail(email) {
+                const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(String(email).toLowerCase());
+            }
+            // ******** نهاية تعريف دالة validateEmail ********
+
+
+            // ===== Virtual Personal Assistant (VPA) =====
+            const vpaFab = document.getElementById('vpa-fab');
+            const vpaChatWindow = document.getElementById('vpa-chat-window');
+            const vpaCloseBtn = document.getElementById('vpa-close-btn');
+            const vpaMessagesContainer = vpaChatWindow.querySelector('.vpa-messages');
+            const vpaUserInput = document.getElementById('vpa-user-input');
+            const vpaSendBtn = document.getElementById('vpa-send-btn');
+            const vpaQuickReplies = vpaChatWindow.querySelectorAll('.quick-reply');
+
+            let awaitingPoemPermissionFor = null;
+            let awaitingMessagePermissionForRahaf = false; // <<<<<< متغير جديد لرهف         
+            
+            
+                    function handleVpaInput() {
+            if (vpaUserInput) { 
+                const message = vpaUserInput.value.trim();
+                if (message) {
+                    addVpaMessage(message, 'user');
+                    processVpaQuery(message);
+                    vpaUserInput.value = '';
+                }
+            }
+        }
+
+            if (vpaFab && vpaChatWindow) {
+                vpaFab.addEventListener('click', () => {
+                    vpaChatWindow.classList.toggle('hidden');
+                    vpaChatWindow.classList.toggle('visible');
+                    if (vpaChatWindow.classList.contains('visible') && vpaUserInput) {
+                        vpaUserInput.focus();
+                    }
+                });
+                
+                vpaCloseBtn.addEventListener('click', () => { 
+                    vpaChatWindow.classList.remove('visible');
+                    vpaChatWindow.classList.add('hidden');
+                });
+
+                vpaSendBtn.addEventListener('click', handleVpaInput);
+                vpaUserInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') handleVpaInput();
+                });
+
+                vpaQuickReplies.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const query = this.dataset.query;
+                        addVpaMessage(query, 'user');
+                        processVpaQuery(query);
+                        vpaUserInput.value = '';
+                    });
+                });
+            } 
+
+            const vpaResponses = {
+                ar: {
+                    default: "عذراً، لم أفهم ذلك تمامًا. يمكنك أن تسألني عن معلومات عاصم الشخصية، خبراته، إنجازاته، أو تفاصيل مشاريعه. في حفظ الرحمن.",
+                    greeting_simple: "وعليكم السلام، أرحب بالكفو! كيف أقدر أخدمك اليوم؟",
+                    greeting_full: "وعليكم السلام ورحمة الله وبركاته، أهلاً يا أخي، حياك الله وبياك. تفضل، كيف أقدر أساعدك؟",
+                    greeting: "أهلاً بك! أنا مساعد عاصم الرقمي. كيف يمكنني خدمتك اليوم؟ يمكنك سؤالي عن أي شيء يتعلق بعاصم المالكي وأعماله.",
+                    what_you_got_intro: "عندي كل علمٍ يسرك يا طويل العمر! ",
+                    abu_hafs_greeting: "أرحب يالله حيه! حي الله حبيب القلب ورفيق الدرب.",
+                    abu_hafs_permission_request: "عندي بيت شعر تسمح لي أقوله يابن الأجواد؟",
+                    abu_hafs_poem: `يا عمر البجلي، سيفٍ حصينْ
+                                    في وجه العدا، دومه متينْ
+                                    يقدح زنادَه وقت اللقا
+                                    ما يهاب الموت، قلبه أمينْ`,
+                    abu_hafs_poem_declined: "فكن جدك!",
+                    abu_hafs_poem_acknowledged: "صح بدنك يالكفو!",
+                    khalid_greeting: "حي الله حبيب القلب والصاحب والصديق والأخ الحبيب!",
+                    khalid_permission_request: "عندي بيت شعر تسمح لي أقوله يالحبيب؟",
+                    khalid_poem: `خالد أهل الفضل والإقدام
+                                    بطل يذكرنا بصدق الإسلام
+                                    ماضي العزيمة لا يروعه الأذى
+                                في الله يرضى والرضا في الحاكمِ`,
+                    khalid_poem_force: "والله لأقوله: ",
+
+                    // --- ردود خاصة بـ رهف ---
+                    rahaf_greeting: "ياهلا ياهلا، هلا بالزين كله هلا بالحب هلا بالجمال والدلال ارحبي ثم ارحبي ثم ارحبي، هلا بالشوق هلا بروح الروح، يالله انك تحيها هلا بحبيبة قلب عصوم حياك الله في موقعي المتواضع خذي راحتك وتصفحي على كيفك، هلا بنور العين نورتينا والله.",
+                    rahaf_message_permission_request: "عندي رسالة لك من حبيب الروح عاصم حابة اقولها لك؟",
+                    rahaf_message_content: "هلا والله برهوفتي الحلوة كيفك إن شاء الله بخير، أتمنى لك حياة جميلة معاية وان شاء الله نظل معاً للابد يا أميرتي.",
+                    rahaf_message_declined: "على راحتك،، تبالك.", // "تبالك" قد تكون كلمة عامية، تأكد من أنها مناسبة أو يمكن استبدالها بـ "براحتك" أو "على هواك"
+                    // --- نهاية الردود الخاصة بـ رهف ---
+                  
+
+                    whoIsAsem: `عاصم سعيد المالكي، موظف حكومي سعودي من مواليد 1995م، يعمل في وزارة الشؤون الإسلامية والدعوة والإرشاد. حاصل على بكالوريوس علوم إدارية من جامعة الملك عبدالعزيز. معروف بشغفه بالتقنية وتطوير بيئات العمل.`,
+                    firstJob: `بدأ عاصم مسيرته المهنية في شركة خاصة عام 2013 خلال دراسته الثانوية. بعد تخرجه من الجامعة، التحق بوزارة الشؤون الإسلامية كسكرتير في مكتب المدير العام، حيث تولى مهام التواصل مع الجهات، استقبال المراجعين، وإعداد التقارير السنوية.`,
+                    education: `تخرج عاصم من جامعة الملك عبدالعزيز بجدة عام 2019، وهو حاصل على درجة البكالوريوس في تخصص العلوم الإدارية.`,
+                    workDepartments: `خلال مسيرته المهنية، عمل عاصم في عدة أقسام منها: مكتب المدير العام، قسم الجاليات، قسم القضايا الاجتماعية، قسم البرامج الدعوية، قسم مراجعة البريد الحكومي، قسم وحدة وثائق المعلومات، بالإضافة إلى عمله في لجنة مزاولي أعمال الرقية الشرعية.`,
+                    achievements: `من أبرز إنجازات عاصم: إعادة هيكلة قسم الجاليات، إنشاء نظام أرشفة إلكتروني متقدم، تطوير تقارير Power BI متخصصة، تقليص مدة الإجراءات بشكل ملحوظ من شهرين إلى 3 أيام، إعداد خطة لتأهيل المسلمين الجدد، تطوير منصة إلكترونية للجنة الرقية الشرعية، وإعداد تقارير متابعة دقيقة مثل تقرير لجنة الرقية وتقرير برنامج ضيوف الرحمن.`,
+                    systemsExperience: `نعم، لدى عاصم خبرة جيدة في تطوير الويب باستخدام HTML, CSS, و JavaScript. وقد قام بإنشاء منصات متكاملة تتضمن قواعد بيانات وأنظمة تحقق ذكية.`,
+                    mainSkills: `يمتلك عاصم مجموعة متنوعة من المهارات تشمل: تحليل البيانات وتصميم التقارير باستخدام Power BI وExcel، تصميم وتطوير المواقع، صيانة وتجميع الحاسب الآلي، تحسين الإجراءات الإدارية، بالإضافة إلى مهارات العمل التعاوني، روح المبادرة، التفكير الابتكاري، والقدرة على حل المشكلات. يمكنك الاطلاع على تفاصيل أكثر في قسم المهارات.`,
+                    hobbies: `يهوى عاصم متابعة كل ما هو جديد في عالم التقنية والذكاء الاصطناعي. كان محترفًا سابقًا في الألعاب الإلكترونية، ويستمتع بالسفر، الدبابات البحرية وقيادة السيارات في الطرق الوعرة (الأوفرود)، بالإضافة إلى قضاء الوقت في العلاقات الاجتماعية والخروج مع الأصدقاء، ويمارس السباحة منذ الصغر.`,
+                    coursesAndCertificates: `حصل عاصم على عدة دورات وشهادات قيمة، منها شهادة دولية في Microsoft Office وشهادة IC3. كما أكمل دورة أخصائي حاسب آلي، ودورات متخصصة في إعداد التقارير، فن مقابلة الجمهور، والتحول الرقمي. بالإضافة إلى ذلك، تلقى شهادات شكر من المكاتب التعاونية تقديرًا لجهوده.`,
+                    recommendations: `نعم، نال عاصم خطاب توصية من المدير العام في عمله، بالإضافة إلى شهادات شكر متعددة، ويحظى بثناء دائم من زملائه على أدائه وتعاونه.`,
+                    allProjects: `أبرز مشاريع عاصم هي: تقرير مركز الدعوة والإرشاد (الخاص بالمسلمين الجدد)، تقرير لجنة الرقية الشرعية، وتقرير برنامج ضيوف الرحمن. كما قام بتطوير منصة للمسلمين الجدد، وموقع إلكتروني للجنة الرقية الشرعية، وأنظمة أرشفة إلكترونية لعدة أقسام. يمكنك سؤالي عن أي من هذه المشاريع لمعرفة المزيد!`,
+                    project_0_details: `يتميز "تقرير مركز الدعوة والإرشاد" (الخاص بالمسلمين الجدد) بالآتي:
+                        - يعرض إحصائيات دقيقة وشاملة حول أعداد المسلمين الجدد، مع توزيعهم حسب الجنس والشهر.
+                        - يتيح أدوات تصفية متقدمة للبيانات بناءً على حالة الوثائق، المكتب المسؤول، أو الجنسية، بالإضافة إلى خاصية البحث المباشر برقم الهوية.
+                        - يوفر تحليلاً لأداء المكاتب التعاونية، موضحًا عدد المسلمين الجدد في كل مكتب، مع تصورات بيانية مثل خريطة توزيع الجنسيات.
+                        - يدعم التقرير اللغتين العربية والإنجليزية، ويسهل أرشفة الوثائق إلكترونيًا مع إمكانية طباعتها بصيغة PDF.
+                        - بشكل عام، يساهم التقرير في تعزيز كفاءة العمل الإداري، تحسين متابعة المسلمين الجدد، ودعم اتخاذ القرارات الاستراتيجية في مجال الدعوة.
+                        يمكنك مشاهدة العرض المباشر للتقرير من قسم المشاريع.`,
+                    project_2_details: `تقرير لجنة الرقية الشرعية يوفر رؤية شاملة حول مزاولي الرقية، حيث:
+                        - يعرض إحصائيات دقيقة عن أعداد المزاولين وحالاتهم (نشط، موقوف، إلخ) وتوزيعهم الجغرافي.
+                        - يتضمن ملفات شخصية للمزاولين تحتوي على كافة بياناتهم وملاحظات اللجنة.
+                        - يقدم آراء اللجنة وتقييماتها بشكل منظم، مع لوحة تحكم تفاعلية لتسهيل المتابعة والبحث.
+                        هذا التقرير مرتبط بمنصة إلكترونية لإدخال البيانات وتحديثها بشكل مباشر.`,
+                    project_1_details: `يهدف تقرير برنامج ضيوف الرحمن إلى متابعة أداء اللجان المختلفة، حيث:
+                        - يعرض أداء كل لجنة من حيث عدد الاجتماعات المنعقدة، التوصيات الصادرة، ونسبة تنفيذ هذه التوصيات.
+                        - يقدم تحليلاً لأعضاء اللجان (حاليين وسابقين) والجهات المشاركة في البرنامج.
+                        - يساعد في تقييم فعالية اللجان وتحديد مجالات التحسين لخدمة ضيوف الرحمن بشكل أفضل.`,
+                    projectsAvailability: `نعم، جميع المشاريع والتقارير التفاعلية التي طورها عاصم متاحة للعرض والاستكشاف داخل موقعه الشخصي، في قسم المشاريع.`,
+                    projectsRecognition: `نعم، لاقت بعض هذه المشاريع استحسانًا كبيرًا، فمثلاً، حصل مشروع لجنة الرقية الشرعية على إشادة من رئيس اللجنة وأعضائها، مع اقتراح بتعميم الاستفادة من هذا النظام.`,
+                    moreAboutWork: `لمعرفة المزيد عن أعمال عاصم وتفاصيل مشاريعه التفاعلية، يمكنك تصفح أقسام "المشاريع" و "المهارات" في هذا الموقع الشخصي.`,
+                    services: "يقدم عاصم خدمات التقارير الديناميكية ولوحات المعلومات باستخدام Power BI، تحليل البيانات المتقدم، وقريباً سيوسع خدماته لتشمل البرمجة باستخدام Python و JavaScript. يمكنك العثور على مزيد من التفاصيل في قسم 'الخدمات'.",
+                    contact: "يمكنك التواصل مع عاصم عبر النموذج في قسم 'اتصل بي'، أو مباشرة عبر البريد الإلكتروني asem1almalki@gmail.com أو الهاتف 0502332378.",
+                    thanks: "على الرحب والسعة! هل هناك أي شيء آخر يمكنني مساعدتك به؟",
+                    bye: "مع السلامة! في رعاية الله." 
+                },
+                en: { 
+                    default: "Sorry, I didn't quite understand that. You can ask me about Asem's personal information, experience, achievements, or project details. Take care!",
+                    greeting_simple: "Wa Alaikum Assalam! Welcome! How can I assist you today?",
+                    greeting_full: "Wa Alaikum Assalam Wa Rahmatullahi Wa Barakatuh! Welcome, my brother. How can I help you?",
+                    greeting: "Hello! I'm Asem's digital assistant. How can I help you today? You can ask me anything related to Asem Almalki and his work.",
+                    what_you_got_intro: "I have all the good news for you! ",
+                    abu_hafs_greeting: "Welcome, dear friend! Great to have you here.", 
+                    abu_hafs_permission_request: "I have a verse of poetry, may I share it with you, noble one?",
+                    abu_hafs_poem: `O Omar Al-Bajali, a strong sword
+                                    Against enemies, always firm.
+                                    His trigger sparks at the encounter,
+                                    Fearing not death, his heart is loyal.`,
+                    abu_hafs_poem_declined: "As you wish, then!",
+                    abu_hafs_poem_acknowledged: "Well said!",
+                    khalid_greeting: "Welcome, dear friend, companion, and beloved brother!",
+                    khalid_permission_request: "I have a verse of poetry, may I share it with you, dear friend?",
+                    khalid_poem: `Khalid, man of virtue and initiative,
+                                    A hero reminding us of Islam's sincerity.
+                                    Firm in resolve, harm does not deter him,
+                                    In God he is pleased, and pleasure is with the ruler.`,
+                    khalid_poem_force: "By God, I will recite it: ",
+                    whoIsAsem: `Asem Saeed Almalki is a Saudi government employee, born in 1995. He works at the Ministry of Islamic Affairs, Da'wah, and Guidance, and holds a bachelor's degree in Administrative Sciences from King Abdulaziz University in Jeddah. He is known for his passion for technology and improving work environments.`,
+                    firstJob: `Asem began his professional career in a private company in 2013 during his high school studies. After graduating from university, he joined the Ministry as a secretary in the Director General's office, where he handled communications with entities, received visitors, and prepared annual reports.`,
+                    education: `Asem graduated from King Abdulaziz University in 2019, with a major in Administrative Sciences.`,
+                    workDepartments: `During his career, Asem has worked in several departments, including: The Director General's Office, Communities Affairs Section, Social Issues Section, Da'wah Programs Section, Governmental Mail Review Section, Information Documents Unit, and the Committee for Ruqyah Practitioners Affairs.`,
+                    achievements: `Asem's most notable achievements include: Restructuring the Communities Affairs section, establishing an advanced electronic archiving system, developing advanced Power BI reports, reducing procedure duration from two months to 3 days, preparing a plan for the qualification of new Muslims, developing the Ruqyah Committee platform, preparing a follow-up report for the committee in Power BI, and creating the Guests of Allah Program report.`,
+                    systemsExperience: `Yes, Asem has experience in HTML, CSS, and JS, and has created integrated platforms with databases and smart verification systems.`,
+                    mainSkills: `Asem possesses a variety of skills, including: Power BI and Excel, Website Design, Computer Maintenance and Assembly, Process Improvement, Teamwork and Initiative, Innovative Thinking and Problem Solving. You can find more details in the skills section.`,
+                    hobbies: `Asem's hobbies include: Following technology and artificial intelligence. He was a former professional eSports player. Traveling. Jet skiing and off-roading. Socializing and going out with friends. Swimming since childhood.`,
+                    coursesAndCertificates: `Asem has obtained several courses and certificates, including: An international certificate in Microsoft Office and IC3. A Computer Specialist course. Report Preparation. Public Interviewing. Digital Transformation. Certificates of appreciation from cooperative offices.`,
+                    recommendations: `Yes, he received a letter of recommendation from the Director General, certificates of appreciation, and consistent praise from colleagues.`,
+                    allProjects: `Asem's main projects include: The Da'wah and Guidance Center Report (for new Muslims), the Ruqyah Committee Report, and the Guests of Allah Program Report. He has also developed a platform for New Muslims, a website for the Ruqyah Committee, and archiving systems for various sections. You can ask me about any of these projects for more details!`,
+                    project_0_details: `The "Da'wah and Guidance Center Report" (New Muslims Report) features:
+                        - Accurate statistics, displaying the total number of new Muslims and their percentage by gender, in addition to their monthly distribution.
+                        - It allows filtering data by document status, office, and nationality, and includes a direct search feature using ID number.
+                        - The report provides a comprehensive analysis of cooperative offices' performance, showing their total number and the percentage of new Muslims in them, along with data visualizations like a map showing the distribution of nationalities.
+                        - It supports both Arabic and English languages, facilitating communication and administrative work.
+                        - An additional benefit is that it helps in managing cooperative offices by tracking new Muslims per office and their document status (pending/delivered), enhancing administrative efficiency and follow-up accuracy.
+                        - Through these features, the report contributes to a deeper understanding of the phenomenon of embracing Islam, improves the follow-up of new Muslims, enhances administrative efficiency, supports strategic decisions for Da'wah efforts in innovative and effective ways, and the section has been electronically archived, allowing each document to be printed as a PDF.
+                        You can view the live report in the projects section.`,
+                    project_2_details: `The Ruqyah Practitioners Committee Report offers:
+                        - Statistics on practitioners, their statuses, locations, personal files, and committee opinions, with an interactive dashboard.
+                        - This report is linked to an electronic platform for direct data entry and updates.`,
+                    project_1_details: `The Guests of Allah Program Report displays:
+                        - Performance of committees, recommendations, meetings, member analysis, implementation rates, and the performance of participating entities.`,
+                    projectsAvailability: `Yes, the projects are available on Asem's personal website.`,
+                    projectsRecognition: `Yes, he received commendation from the head and members of the Ruqyah Practitioners Committee, who suggested generalizing the project.`,
+                    moreAboutWork: `You can find out more about Asem's work through his personal website, which contains all the details and interactive projects.`,
+                    services: "Asem offers Dynamic Reporting & Dashboards using Power BI, Advanced Data Analysis, and is soon expanding into Programming with Python & JavaScript. You can find more details in the 'Services' section.",
+                    contact: "You can contact Asem via the form in the 'Contact' section, or directly by email at asem1almalki@gmail.com or phone at 0502332378.",
+                    thanks: "You're welcome! Is there anything else I can help you with?",
+                    bye: "Goodbye! Take care."
+                }
+            };
+
+            function addVpaMessage(text, type, options = []) { 
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('vpa-message', type);
+                
+                if (type === 'assistant' && text.includes('\n')) {
+                    messageDiv.style.whiteSpace = 'pre-wrap'; 
+                }
+                messageDiv.textContent = text;
+                vpaMessagesContainer.appendChild(messageDiv);
+
+                if (options.length > 0) {
+                    const optionsContainer = document.createElement('div');
+                    optionsContainer.classList.add('vpa-message-options');
+                    options.forEach(option => {
+                        const button = document.createElement('button');
+                        button.classList.add('quick-reply'); 
+                        button.textContent = option.text;
+                        button.addEventListener('click', () => {
+                            optionsContainer.remove();
+                            if (option.handler) {
+                                option.handler(option.payload); 
+                            } else {
+                                processVpaQuery(option.payload || option.text);
+                            }
+                        });
+                        optionsContainer.appendChild(button);
+                    });
+                    vpaMessagesContainer.appendChild(optionsContainer);
+                }
+                vpaMessagesContainer.scrollTop = vpaMessagesContainer.scrollHeight;
+            }
+
+         
+
+            function processVpaQuery(query) {
+                const langVpa = document.documentElement.lang || 'ar';
+                const responses = vpaResponses[langVpa];
+                query = query.toLowerCase();
+                let baseResponse = ""; 
+                let addClosingRemark = true; 
+                let responseOptions = []; 
+
+                // --- معالجة الرد على طلب الإذن برسالة رهف ---
+                if (awaitingMessagePermissionForRahaf && langVpa === 'ar') {
+                    const userChoice = query;
+                    awaitingMessagePermissionForRahaf = false; // إعادة التعيين
+
+                    if (userChoice.includes("نعم") || userChoice.includes("yes")) {
+                        baseResponse = responses.rahaf_message_content;
+                    } else if (userChoice.includes("لا") || userChoice.includes("no")) {
+                        baseResponse = responses.rahaf_message_declined;
+                    } else {
+                        baseResponse = responses.default;
+                        addClosingRemark = false;
+                    }
+                }
+                // --- نهاية معالجة رد رهف ---
+
+
+                if (awaitingPoemPermissionFor && langVpa === 'ar') { 
+                    const userChoice = query;
+                    const person = awaitingPoemPermissionFor;
+                    awaitingPoemPermissionFor = null; 
+
+                    if (userChoice.includes("نعم") || userChoice.includes("yes")) {
+                        if (person === 'abu_hafs') {
+                            baseResponse = responses.abu_hafs_poem;
+                        } else if (person === 'khalid') {
+                            baseResponse = responses.khalid_poem;
+                        }
+                    } else if (userChoice.includes("لا") || userChoice.includes("no")) {
+                        if (person === 'abu_hafs') {
+                            baseResponse = responses.abu_hafs_poem_declined;
+                        } else if (person === 'khalid') {
+                            baseResponse = responses.khalid_poem_force + "\n" + responses.khalid_poem; 
+                        }
+                    } else {
+                        baseResponse = responses.default;
+                        addClosingRemark = false; 
+                    }
+                }
+                else if ((query.includes("صح لسانك") || query.includes("صح الله لسانك")) && langVpa === 'ar') {
+                    baseResponse = responses.abu_hafs_poem_acknowledged; 
+                    addClosingRemark = false;
+                }
+                else if (query.includes("السلام عليكم ورحمة الله وبركاته") || query.includes("assalamu alaikum wa rahmatullahi wa barakatuh")) {
+                    baseResponse = responses.greeting_full;
+                    addClosingRemark = false; 
+                } else if (query.includes("السلام عليكم") || query.includes("assalamu alaikum")) {
+                    baseResponse = responses.greeting_simple;
+                    addClosingRemark = false; 
+                } else if (query.includes(langVpa === 'ar' ? 'مرحبا' : 'hello') || query.includes(langVpa === 'ar' ? 'أهلا' : 'hi')) {
+                    baseResponse = responses.greeting;
+                    addClosingRemark = false;
+                } 
+
+                // ===== تعديل مهم: التحقق من قيم data-query الخاصة بأزرار المقترحات أولاً =====
+                else if (langVpa === 'ar' && query === 'الخدمات') {
+                    baseResponse = responses.services;
+                } else if (langVpa === 'ar' && query === 'المشاريع') {
+                    baseResponse = responses.allProjects; // أو response = responses.projects; إذا كان هذا هو الرد الذي تريده
+                } else if (langVpa === 'ar' && query === 'المهارات') {
+                    baseResponse = responses.mainSkills; // أو response = responses.skills;
+                }
+                
+                                // --- سيناريو رهف ---
+                else if ((query.includes("معك رهف") || query.includes("معاك رهف") || query.includes("معك رهوفه") || query.includes("معاك رهوفه") || query.includes("زوجة عاصم")) && langVpa === 'ar') {
+                    addVpaMessage(responses.rahaf_greeting, 'assistant'); 
+                    baseResponse = responses.rahaf_message_permission_request;
+                    responseOptions = [
+                        { text: "نعم", payload: "نعم", handler: (payload) => processVpaQuery(payload) }, 
+                        { text: "لا", payload: "لا", handler: (payload) => processVpaQuery(payload) }
+                    ];
+                    awaitingMessagePermissionForRahaf = true; // تحديد أننا ننتظر ردًا لرهف
+                    addClosingRemark = false; 
+                }
+                        //سيناريو ابوحفص---
+                else if ((query.includes("معك ابوحفص") || query.includes("معاك ابوحفص") || query.includes("معك عمر") || query.includes("معاك عمر")) && langVpa === 'ar') {
+                    addVpaMessage(responses.abu_hafs_greeting, 'assistant'); 
+                    baseResponse = responses.abu_hafs_permission_request;
+                    responseOptions = [
+                        { text: "نعم", payload: "نعم", handler: (payload) => processVpaQuery(payload) }, 
+                        { text: "لا", payload: "لا", handler: (payload) => processVpaQuery(payload) }
+                    ];
+                    awaitingPoemPermissionFor = 'abu_hafs'; 
+                    addClosingRemark = false; 
+                }
+                else if ((query.includes("معك خالد") || query.includes("معاك خالد") || query.includes("خالد المالكي")) && langVpa === 'ar') {
+                    addVpaMessage(responses.khalid_greeting, 'assistant');
+                    baseResponse = responses.khalid_permission_request;
+                    responseOptions = [
+                        { text: "نعم", payload: "نعم", handler: (payload) => processVpaQuery(payload) },
+                        { text: "لا", payload: "لا", handler: (payload) => processVpaQuery(payload) }
+                    ];
+                    awaitingPoemPermissionFor = 'khalid';
+                    addClosingRemark = false;
+                }
+                else if (query.includes(langVpa === 'ar' ? 'وش عندك' : 'what you got') && (query.includes(langVpa === 'ar' ? 'علوم' : 'news') || query.includes(langVpa === 'ar' ? 'مشاريع' : 'projects'))) {
+                    baseResponse = responses.what_you_got_intro + responses.allProjects;
+                }
+                else if (query.includes(langVpa === 'ar' ? 'من هو عاصم' : 'who is asem') || query.includes(langVpa === 'ar' ? 'عنك' : 'about you') || query.includes(langVpa === 'ar' ? 'معلومات شخصية' : 'personal info')  || query.includes(langVpa === 'ar' ? 'عاصم' : 'asem')) {
+                    baseResponse = responses.whoIsAsem;
+                } else if (query.includes(langVpa === 'ar' ? 'أول وظيفة' : 'first job') || query.includes(langVpa === 'ar' ? 'بداية عملك' : 'career start') || query.includes(langVpa === 'ar' ? 'مسيرتك المهنية' : 'your career')) {
+                    baseResponse = responses.firstJob;
+                } else if (query.includes(langVpa === 'ar' ? 'تخصصك الدراسي' : 'your major') || query.includes(langVpa === 'ar' ? 'دراستك' : 'your studies') || query.includes(langVpa === 'ar' ? 'شهادتك الجامعية' : 'your degree') || query.includes(langVpa === 'ar' ? 'جامعة' : 'university') || query.includes(langVpa === 'ar' ? 'متى تخرجت' : 'when did you graduate') || query.includes(langVpa === 'ar' ? 'تعليمك' : 'education')) {
+                    baseResponse = responses.education;
+                } else if (query.includes(langVpa === 'ar' ? 'الأقسام التي عملت' : 'departments you worked') || query.includes(langVpa === 'ar' ? 'خبراتك في الأقسام' : 'your experience in departments')) {
+                    baseResponse = responses.workDepartments;
+                }
+                else if (query.includes(langVpa === 'ar' ? 'إنجازات' : 'achievements') || query.includes(langVpa === 'ar' ? 'أبرز أعمالك' : 'key accomplishments') || query.includes(langVpa === 'ar' ? 'ماذا أنجزت' : 'what have you achieved')) {
+                    baseResponse = responses.achievements;
+                } else if (query.includes(langVpa === 'ar' ? 'خبرة الأنظمة' : 'systems experience') || query.includes(langVpa === 'ar' ? 'إنشاء مواقع' : 'website creation') || query.includes(langVpa === 'ar' ? 'تطوير منصات' : 'platform development')) {
+                    baseResponse = responses.systemsExperience;
+                } else if (query.includes(langVpa === 'ar' ? 'مهاراتك الرئيسية' : 'your main skills') || query.includes(langVpa === 'ar' ? 'ماذا تجيد' : 'what are you good at') || query.includes(langVpa === 'ar' ? 'أبرز مهاراتك' : 'most prominent skills')) {
+                    baseResponse = responses.mainSkills;
+                }
+                else if (query.includes(langVpa === 'ar' ? 'هوايات' : 'hobbies') || query.includes(langVpa === 'ar' ? 'ماذا تحب أن تفعل' : 'what do you like to do') || query.includes(langVpa === 'ar' ? 'وقت فراغك' : 'your free time')) {
+                    baseResponse = responses.hobbies;
+                }
+                else if (query.includes(langVpa === 'ar' ? 'دورات' : 'courses') || query.includes(langVpa === 'ar' ? 'شهاداتك' : 'your certificates')) {
+                    baseResponse = responses.coursesAndCertificates;
+                } else if (query.includes(langVpa === 'ar' ? 'تكريم' : 'recognition') || query.includes(langVpa === 'ar' ? 'توصيات' : 'recommendations') || query.includes(langVpa === 'ar' ? 'خطاب شكر' : 'appreciation letter')) {
+                    baseResponse = responses.recommendations;
+                }
+                else if (query.includes(langVpa === 'ar' ? 'مركز الدعوة' : "da'wah center") || query.includes(langVpa === 'ar' ? 'مسلمين جدد' : 'new muslims') || query.includes('project0') || (query.includes(langVpa === 'ar' ? 'مشروع' : 'project') && (query.includes(langVpa === 'ar' ? 'الأول' : 'first') || query.includes(langVpa === 'ar' ? 'الاسلامية' : 'islamic affairs')))) {
+                    baseResponse = responses.project_0_details;
+                } else if (query.includes(langVpa === 'ar' ? 'لجنة الرقية' : 'ruqyah committee') || query.includes(langVpa === 'ar' ? 'تقرير الرقية' : 'ruqyah report') || query.includes('project2') || (query.includes(langVpa === 'ar' ? 'مشروع' : 'project') && query.includes(langVpa === 'ar' ? 'الرقية' : 'ruqyah'))) {
+                    baseResponse = responses.project_2_details;
+                } else if (query.includes(langVpa === 'ar' ? 'ضيوف الرحمن' : 'guests of allah') || query.includes('project1') || (query.includes(langVpa === 'ar' ? 'مشروع' : 'project') && (query.includes(langVpa === 'ar' ? 'الثاني' : 'second') || query.includes(langVpa === 'ar' ? 'الضيوف' : 'guests')))) {
+                    baseResponse = responses.project_1_details;
+                } else if (query.includes(langVpa === 'ar' ? 'هل المشاريع متوفرة' : 'are projects available') || query.includes(langVpa === 'ar' ? 'أين أرى المشاريع' : 'where to see projects') || query.includes(langVpa === 'ar' ? 'عرض المشاريع' : 'view projects')) {
+                    baseResponse = responses.projectsAvailability;
+                } else if (query.includes(langVpa === 'ar' ? 'تكريم على المشاريع' : 'recognition for projects') || query.includes(langVpa === 'ar' ? 'الاعتراف بمشاريعك' : 'acknowledgment of your projects')) {
+                    baseResponse = responses.projectsRecognition;
+                } else if (query.includes(langVpa === 'ar' ? 'المزيد عن أعمالك' : 'more about your work') || query.includes(langVpa === 'ar' ? 'تفاصيل أعمالك' : 'details of your work')) {
+                    baseResponse = responses.moreAboutWork;
+                } else if (query.includes(langVpa === 'ar' ? 'مشاريعك' : 'your projects') || query.includes(langVpa === 'ar' ? 'جميع المشاريع' : 'all projects') || query.includes(langVpa === 'ar' ? 'مشروع' : 'project')) { 
+                    baseResponse = responses.allProjects;
+                }
+                else if (query.includes(langVpa === 'ar' ? 'خدمة' : 'service') || query.includes(langVpa === 'ar' ? 'خبرات' : 'expertise')) {
+                    baseResponse = responses.services;
+                } else if (query.includes(langVpa === 'ar' ? 'مهارة' : 'skill') || query.includes(langVpa === 'ar' ? 'أداة' : 'tool')) {
+                    baseResponse = responses.skills; 
+                } else if (query.includes(langVpa === 'ar' ? 'اتصال' : 'contact') || query.includes(langVpa === 'ar' ? 'ايميل' : 'email') || query.includes(langVpa === 'ar' ? 'هاتف' : 'phone') || query.includes(langVpa === 'ar' ? 'تواصل' : 'reach out')) {
+                    baseResponse = responses.contact;
+                } else if (query.includes(langVpa === 'ar' ? 'شكرا' : 'thank')) {
+                    baseResponse = responses.thanks;
+                    addClosingRemark = false; 
+                } else if (query.includes(langVpa === 'ar' ? 'وداعا' : 'bye') || query.includes(langVpa === 'ar' ? 'مع السلامة' : 'goodbye')) {
+                    baseResponse = responses.bye;
+                    addClosingRemark = false; 
+                }
+                
+                if (!baseResponse && responseOptions.length === 0) { 
+                    baseResponse = responses.default;
+                }
+
+                let finalResponse = baseResponse;
+                if (baseResponse && addClosingRemark && baseResponse !== responses.default && responseOptions.length === 0) { 
+                    finalResponse += " " + getRandomClosingRemark(langVpa);
+                }
+
+                setTimeout(() => {
+                    if(finalResponse || responseOptions.length > 0) { 
+                        addVpaMessage(finalResponse || "", 'assistant', responseOptions); 
+                    }
+                }, 600);
+            }
+
+            function updateLanguageContent(lang) {
+                const elements = {
+                    'header .logo': { ar: 'عاصم المالكي', en: 'Asem Almalki' },
+                    '#desktop-nav a[href="#home"]': { ar: 'الرئيسية', en: 'Home' },
+                    '#desktop-nav a[href="#services"]': { ar: 'الخدمات', en: 'Services' },
+                    '#desktop-nav a[href="#projects"]': { ar: 'المشاريع', en: 'Projects' },
+                    '#desktop-nav a[href="#skills"]': { ar: 'المهارات', en: 'Skills' }, 
+                    '#desktop-nav a[href="#contact"]': { ar: 'اتصل بي', en: 'Contact' }, 
+                    '#theme-toggle-btn-desktop': { arAria: 'تبديل الوضع الداكن/الفاتح', enAria: 'Toggle Dark/Light Mode' },
+                    '#language-toggle-btn-desktop': { arAria: 'تبديل اللغة', enAria: 'Toggle Language' },
+                    '#theme-toggle-btn-mobile span': { ar: 'الوضع', en: 'Mode' }, 
+                    '#language-toggle-btn-mobile span': { ar: 'اللغة', en: 'Language' }, 
+                    '#mobile-nav-toggle': { arAria: 'فتح القائمة', enAria: 'Open Menu' },
+                    '#close-mobile-nav': { arAria: 'إغلاق القائمة', enAria: 'Close Menu' },
+                    '#mobile-nav-menu nav a[href="#home"]': { ar: 'الرئيسية', en: 'Home' },
+                    '#mobile-nav-menu nav a[href="#services"]': { ar: 'الخدمات', en: 'Services' },
+                    '#mobile-nav-menu nav a[href="#projects"]': { ar: 'المشاريع', en: 'Projects' },
+                    '#mobile-nav-menu nav a[href="#skills"]': { ar: 'المهارات', en: 'Skills' },
+                    '#mobile-nav-menu nav a[href="#contact"]': { ar: 'اتصل بي', en: 'Contact' },
+                    '.hero-section h1': { ar: 'عاصم المالكي', en: 'Asem Almalki' },
+                    '.hero-section .subtitle': {
+    _isCustom: true, // علامة خاصة لمعالجة مخصصة
+    handler: (el, lang) => {
+        const prefix_ar = "صياغة الوضوح من التعقيد: محلل بيانات ومتخصص ";
+        const prefix_en = "Crafting Clarity from Complexity: Data Analyst & Power BI Specialist ";
+        const powerBiTextAr = "Power BI"; // يمكن تغييرها إذا لزم الأمر
+        const powerBiTextEn = "Power BI"; // يمكن تغييرها إذا لزم الأمر
+        const suffix = "."; // النقطة في نهاية الجملة
+
+        const powerBiLinkElement = el.querySelector('.powerbi-link-js');
+        if (!powerBiLinkElement) return; // إذا لم يتم العثور على هيكل الرابط، لا تفعل شيئًا
+
+        const powerBiTextSpan = powerBiLinkElement.querySelector('.powerbi-text');
+        const tooltipTextSpan = powerBiLinkElement.querySelector('.tooltip-text-js');
+
+        // تحديث الجزء الأول من النص قبل كلمة Power BI
+        // نبحث عن العقدة النصية الأولى داخل الفقرة ونقوم بتحديثها
+        let firstTextNode = null;
+        for (let i = 0; i < el.childNodes.length; i++) {
+            if (el.childNodes[i].nodeType === Node.TEXT_NODE && el.childNodes[i].textContent.trim() !== "") {
+                firstTextNode = el.childNodes[i];
+                break;
+            }
+        }
+
+        if (firstTextNode) {
+            firstTextNode.textContent = (lang === 'ar' ? prefix_ar : prefix_en);
+        } else {
+            // إذا لم يكن هناك عقدة نصية، قد نحتاج إلى إنشائها (أقل احتمالاً إذا كان HTML الأولي صحيحًا)
+            // هذا الجزء يعتمد على التأكد من أن HTML الأولي يحتوي على النص قبل الرابط
+             el.insertBefore(document.createTextNode(lang === 'ar' ? prefix_ar : prefix_en), powerBiLinkElement);
+        }
+        
+
+        if (powerBiTextSpan) {
+            powerBiTextSpan.textContent = (lang === 'ar' ? powerBiTextAr : powerBiTextEn);
+        }
+
+        // تحديث نص الـ tooltip
+        const tooltip_text_ar = "Power BI هو مجموعة من أدوات تحليل الأعمال التي تقدم رؤى في جميع أنحاء مؤسستك.";
+        const tooltip_text_en = "Power BI is a suite of business analytics tools that deliver insights throughout your organization.";
+        if (tooltipTextSpan) {
+            tooltipTextSpan.textContent = (lang === 'ar' ? tooltip_text_ar : tooltip_text_en);
+        }
+        
+        // التأكد من وجود النقطة في نهاية الفقرة
+        // إذا كانت آخر عقدة ليست النقطة، أو لا يوجد نقطة، أضفها
+        if (!el.textContent.endsWith(suffix)) {
+            let lastChild = el.lastChild;
+            // إذا كان آخر عنصر هو الرابط، أضف النقطة بعده
+            if (lastChild === powerBiLinkElement) {
+                 el.appendChild(document.createTextNode(suffix));
+            } else if (lastChild && lastChild.nodeType === Node.TEXT_NODE) {
+                // إذا كان آخر عنصر هو نص، تحقق مما إذا كان ينتهي بنقطة
+                if (!lastChild.textContent.trim().endsWith(suffix)) {
+                    lastChild.textContent = lastChild.textContent.trimRight() + suffix;
+                }
+            } else {
+                 // إذا كان هناك عنصر آخر أو لا شيء، أضف النقطة
+                 el.appendChild(document.createTextNode(suffix));
+            }
+        }
+
+    }
+},
+                    '.hero-section .intro-text': { ar: 'أقوم بتحويل البيانات الأولية إلى رؤى قابلة للتنفيذ وقصص مرئية مقنعة تدفع عملية صنع القرار الاستراتيجي وترفع أداء الأعمال.', en: 'I transform raw data into actionable insights and compelling visual narratives that drive strategic decision-making and elevate business performance.' },
+                    '.hero-section .cta-button': { ar: 'استكشف أعمالي <i class="fas fa-arrow-down"></i>', en: 'Explore My Work <i class="fas fa-arrow-down"></i>' },
+                    '#services .section-title': { ar: 'الخدمات الأساسية', en: 'Core Services' },
+                    '#services .service-card:nth-child(1) h3': { ar: 'التقارير الديناميكية ولوحات المعلومات', en: 'Dynamic Reporting & Dashboards' },
+                    '#services .service-card:nth-child(1) p': { ar: 'الاستفادة من Power BI لإنشاء تقارير تفاعلية وثاقبة تسلط الضوء على الاتجاهات وتدعم الأهداف الاستراتيجية.', en: 'Leveraging Power BI to build interactive and insightful reports that illuminate trends and support strategic objectives.' },
+                    '#services .service-card:nth-child(2) h3': { ar: 'تحليل البيانات المتقدم', en: 'Advanced Data Analysis' },
+                    '#services .service-card:nth-child(2) p': { ar: 'تدقيق شامل للبيانات وتنظيفها وتحليلها لتعزيز جودة قاعدة البيانات وتمكين القرارات المستندة إلى البيانات.', en: 'Comprehensive data auditing, cleansing, and analysis to enhance database quality and empower data-driven decisions.' },
+                    '#services .service-card:nth-child(3) h3': { ar: 'البرمجة المستقبلية', en: 'Future-Focused Programming' },
+                    '#services .service-card:nth-child(3) p': { ar: 'توسيع القدرات في Python و JavaScript لتقديم حلول بيانات أكثر تعقيدًا. (قريباً)', en: 'Expanding capabilities in Python and JavaScript to deliver more complex data solutions. (Coming Soon)' },
+                    '#projects .section-title': { ar: 'البيانات في العمل: مشاريع مميزة', en: 'Data in Action: Featured Projects' },
+                    '.project-card[data-project-id="project0"] .project-info h3': { ar: 'تقرير المسلمين الجدد', en: 'New Muslims Report' },
+                    '.project-card[data-project-id="project0"] .project-info .project-highlight': { ar: 'ثنائي اللغة | إحصائيات مباشرة', en: 'Bilingual | Live Stats' },
+                    '.project-card[data-project-id="project0"] .project-info .view-project-btn': { ar: 'عرض المشروع', en: 'View Project' },
+                    '.project-card[data-project-id="project1"] .project-info h3': { ar: 'تقرير برنامج ضيوف الرحمن', en: 'Guests of Allah Program Report' },
+                    '.project-card[data-project-id="project1"] .project-info .project-highlight': { ar: 'معدلات التنفيذ | تحليل الاجتماعات', en: 'Implementation Rates | Meeting Analysis' },
+                    '.project-card[data-project-id="project1"] .project-info .view-project-btn': { ar: 'عرض المشروع', en: 'View Project' },
+                    '.project-card[data-project-id="project2"] .project-info h3': { ar: 'متابعة ممارسي الرقية الشرعية', en: 'Ruqyah Practitioners Monitoring' },
+                    '.project-card[data-project-id="project2"] .project-info .project-highlight': { ar: 'بيانات جغرافية | بحث مفصل', en: 'Geospatial Data | Detailed Search' },
+                    '.project-card[data-project-id="project2"] .project-info .view-project-btn': { ar: 'عرض المشروع', en: 'View Project' },
+                    '.modal-tabs .tab-link[data-tab="live-demo"]': { ar: 'العرض المباشر (Power BI)', en: 'Live Demo (Power BI)' },
+                    '.modal-tabs .tab-link[data-tab="key-features"]': { ar: 'الميزات الرئيسية', en: 'Key Features' },
+                    '.modal-tabs .tab-link[data-tab="data-entry-platform"]': { ar: 'منصة إدخال البيانات', en: 'Data Entry Platform' },
+                    '.modal-tabs .tab-link[data-tab="detailed-report"]': { ar: 'التقرير التفصيلي', en: 'Detailed Report' }, // سأفترض أن هذا تم تغييره إلى detailed-report في HTML المحلي لديك
+                    '#modal-pdf-link': { ar: 'عرض تقرير PDF المفصل', en: 'View Detailed PDF Report' }, // هذا سيعتمد على ما إذا كان العنصر لا يزال موجودًا
+                    '#detailed-report p': {
+                                             ar: 'سيتم فتح التقرير التفصيلي في نافذة جديدة. إذا لم تفتح تلقائيًا، ',
+                                             en: 'The detailed report will open in a new window. If it doesn\'t open automatically, '
+                     },
+                    '#data-entry-platform p': {
+                        ar: `سيتم فتح منصة إدخال البيانات في نافذة جديدة. إذا لم تفتح تلقائيًا، `,
+                        en: `The data entry platform will open in a new window. If it doesn't open automatically, `
+                    },
+                    '#skills .section-title': { ar: 'مجموعة أدواتي التقنية', en: 'My Technical Toolkit' },
+                    '.skill-category-card:nth-of-type(1) .skill-category-header h4': { ar: 'تصور وتحليل البيانات', en: 'Data Visualization & Analysis' },
+                    '.skill-category-card:nth-of-type(2) .skill-category-header h4': { ar: 'الويب والبرمجيات', en: 'Web & Software' },
+                    '.skill-category-card:nth-of-type(3) .skill-category-header h4': { ar: 'الإنتاجية وأخرى', en: 'Productivity & Other' },
+                    '#contact .section-title': { ar: 'لنتعاون سوياً', en: "Let's Collaborate" },
+                    '.contact-details-column h3': { ar: 'وسائل التواصل المباشر', en: 'Direct Contact Methods' },
+                    '.contact-intro-text': { ar: 'لا تتردد في التواصل معي مباشرة عبر إحدى الوسائل التالية، أو استخدم نموذج الاتصال. أتطلع دومًا لسماع أفكار جديدة ومشاريع محتملة!', en: 'Feel free to contact me directly through one of the following methods, or use the contact form. I always look forward to hearing new ideas and potential projects!' },
+                    '.contact-card:nth-of-type(1) .contact-card-info h4': { ar: 'WhatsApp', en: 'WhatsApp' },
+                    '.contact-card:nth-of-type(2) .contact-card-info h4': { ar: 'البريد الإلكتروني', en: 'Email' },
+                    '.contact-card:nth-of-type(3) .contact-card-info h4': { ar: 'LinkedIn', en: 'LinkedIn' },
+                    '.contact-form-column h3': { ar: 'أرسل لي رسالة', en: 'Send Me a Message' },
+                    '.modern-contact-form label[for="sender-name"]': { ar: 'اسمك', en: 'Your Name' },
+                    '.modern-contact-form label[for="sender-email"]': { ar: 'بريدك الإلكتروني', en: 'Your Email' },
+                    '.modern-contact-form label[for="message-subject"]': { ar: 'الموضوع (اختياري)', en: 'Subject (Optional)' },
+                    '.modern-contact-form label[for="message-content"]': { ar: 'رسالتك', en: 'Your Message' },
+                    '.modern-contact-form .form-submit-btn': { ar: 'إرسال الرسالة الآن <i class="fas fa-paper-plane"></i>', en: 'Send Message Now <i class="fas fa-paper-plane"></i>' },
+                    '#main-footer p': { ar: `© ${new Date().getFullYear()} عاصم المالكي. جميع الحقوق محفوظة. صُنع بشغف للبيانات.`, en: `© ${new Date().getFullYear()} Asem Almalki. All Rights Reserved. Crafted with a passion for data.` },
+                    '#vpa-fab': { arAria: 'فتح المساعد الافتراضي', enAria: 'Open Virtual Assistant' },
+                    '#vpa-chat-window .vpa-header span': { ar: 'مساعد عاصم الرقمي', en: "Asem's Digital Assistant" },
+                    '#vpa-close-btn': { arAria: 'إغلاق المساعد الافتراضي', enAria: 'Close Virtual Assistant' },
+                    '#vpa-chat-window .vpa-messages .assistant:first-child': { ar: 'مرحباً! كيف يمكنني مساعدتك في استكشاف أعمال عاصم اليوم؟', en: "Hi! How can I help you explore Asem's work today?" },
+                    '#vpa-user-input': { arPlaceholder: 'اكتب سؤالك...', enPlaceholder: 'Type your question...' },
+                    '#vpa-send-btn': { arAria: 'إرسال الرسالة', enAria: 'Send Message'},
+                    '.vpa-quick-replies .quick-reply[data-query="الخدمات"]': { ar: 'الخدمات', en: 'Services' },
+                    '.vpa-quick-replies .quick-reply[data-query="المشاريع"]': { ar: 'المشاريع', en: 'Projects' },
+                    '.vpa-quick-replies .quick-reply[data-query="المهارات"]': { ar: 'المهارات', en: 'Skills' }
+                };
+                 // تعديل خاص لزر "التقرير التفصيلي" إذا كان موجودًا في HTML لديك
+                const detailedReportTabSelector = '.modal-tabs .tab-link[data-tab="detailed-report"]';
+                const detailedReportTabEl = document.querySelector(detailedReportTabSelector);
+                if (detailedReportTabEl) {
+                    elements[detailedReportTabSelector] = { ar: 'التقرير التفصيلي', en: 'Detailed Report' };
+                }
+
+
+                for (const selector in elements) {
+    const el = document.querySelector(selector);
+    if (el) {
+        if (elements[selector]._isCustom && typeof elements[selector].handler === 'function') {
+            elements[selector].handler(el, lang); // استدعاء المعالج المخصص
+        } else if (elements[selector][lang + 'Aria']) { 
+           el.setAttribute('aria-label', elements[selector][lang + 'Aria']);
+        } else if (elements[selector][lang + 'Placeholder']) { 
+           el.setAttribute('placeholder', elements[selector][lang + 'Placeholder']);
+        }
+        // ... ( باقي الشروط else if الخاصة بـ #data-entry-platform p و #detailed-report p يجب أن تبقى كما هي قبل هذا الشرط) ...
+        // تأكد من أن هذا الشرط يأتي بعد المعالجات المخصصة مثل data-entry-platform و detailed-report
+        else if (elements[selector][lang] !== undefined) { 
+            if (selector === '#data-entry-platform p') { // هذا الشرط موجود لديك بالفعل
+                const baseText = elements[selector][lang];
+                const manualLinkEl = el.querySelector('#data-entry-platform-manual-link');
+                if (manualLinkEl) {
+                    const linkText = lang === 'ar' ? 'انقر هنا لفتح المنصة' : 'Click here to open the platform';
+                    manualLinkEl.textContent = linkText; 
+                    if (el.childNodes[0] && el.childNodes[0].nodeType === Node.TEXT_NODE) {
+                       el.childNodes[0].nodeValue = baseText; 
+                    } else { 
+                       el.innerHTML = baseText + manualLinkEl.outerHTML;
+                    }
+                } else {
+                    el.innerHTML = baseText; 
+                }     
+            }  else if (selector === '#detailed-report p') { // هذا الشرط موجود لديك بالفعل
+                const baseText = elements[selector][lang];
+                const manualLinkEl = el.querySelector('#detailed-report-manual-link');
+                if (manualLinkEl) {
+                    const linkText = lang === 'ar' ? 'انقر هنا للفتح' : 'Click here to open';
+                    manualLinkEl.textContent = linkText; 
+                    if (el.childNodes[0] && el.childNodes[0].nodeType === Node.TEXT_NODE) {
+                       el.childNodes[0].nodeValue = baseText; 
+                    } else { 
+                       el.innerHTML = baseText + manualLinkEl.outerHTML;
+                    }
+                } else {
+                    el.innerHTML = baseText; 
+                }
+            } else if (selector === '.modern-contact-form .form-submit-btn' || 
+                       selector === '.hero-section .cta-button' ||
+                       selector === '.contact-info .linkedin-link-styled') { // هذا الشرط موجود لديك بالفعل
+                el.innerHTML = elements[selector][lang];
+            }
+             else {
+                // لا تقم بتحديث .hero-section .subtitle باستخدام textContent إذا تم التعامل معه بشكل مخصص
+                if (selector !== '.hero-section .subtitle') {
+                     el.textContent = elements[selector][lang]; 
+                }
+            }
+        }
+    }
+}
+                
+                const skillNameElements = document.querySelectorAll('.skill-item .skill-name');
+                skillNameElements.forEach(skillNameEl => {
+                    const currentTextContent = skillNameEl.childNodes[0] && skillNameEl.childNodes[0].nodeType === Node.TEXT_NODE ? skillNameEl.childNodes[0].nodeValue.trim().toLowerCase() : "";
+
+                    if (lang === 'en') {
+                        if (currentTextContent === 'تقارير تفاعلية') { skillNameEl.innerHTML = 'Interactive Reports'; } 
+                        else if (currentTextContent === 'صيانة الحاسب') { skillNameEl.innerHTML = 'Computer Maintenance'; } 
+                        else if (currentTextContent === 'خبرة عالية بالحاسب') { skillNameEl.innerHTML = 'High Computer Experience'; } 
+                        else if (currentTextContent === 'python') { skillNameEl.innerHTML = 'Python <small>(Soon...)</small>';} 
+                        else if (currentTextContent === 'javascript') { skillNameEl.innerHTML = 'JavaScript <small>(Soon...)</small>';}
+                    } else { 
+                        if (currentTextContent === 'interactive reports') { skillNameEl.innerHTML = 'تقارير تفاعلية'; } 
+                        else if (currentTextContent === 'computer maintenance') { skillNameEl.innerHTML = 'صيانة الحاسب'; } 
+                        else if (currentTextContent === 'high computer experience') { skillNameEl.innerHTML = 'خبرة عالية بالحاسب'; } 
+                        else if (currentTextContent === 'python') { skillNameEl.innerHTML = 'Python <small>(قريباً...)</small>'; } 
+                        else if (currentTextContent === 'javascript') { skillNameEl.innerHTML = 'JavaScript <small>(قريباً...)</small>'; }
+                    }
+                });
+
+                const skillItemsForTooltip = document.querySelectorAll('.skill-item');
+                skillItemsForTooltip.forEach(item => {
+                    const tooltipAr = item.dataset.tooltipAr;
+                    const tooltipEn = item.dataset.tooltipEn;
+                    if (lang === 'ar' && tooltipAr) {
+                        item.dataset.tooltip = tooltipAr;
+                    } else if (lang === 'en' && tooltipEn) {
+                        item.dataset.tooltip = tooltipEn;
+                    } else {
+                        item.dataset.tooltip = tooltipEn || tooltipAr || ""; 
+                    }
+                });
+
+                if (lang === 'en') {
+                    const quickReplies = document.querySelectorAll('.vpa-quick-replies .quick-reply');
+                    quickReplies.forEach(qr => {
+                        if (qr.dataset.query === 'الخدمات') { qr.textContent = 'Services'; qr.dataset.query = 'services';}
+                        if (qr.dataset.query === 'المشاريع') { qr.textContent = 'Projects'; qr.dataset.query = 'projects';}
+                        if (qr.dataset.query === 'المهارات') { qr.textContent = 'Skills'; qr.dataset.query = 'skills';}
+                    });
+                } else { 
+                     const quickReplies = document.querySelectorAll('.vpa-quick-replies .quick-reply');
+                    quickReplies.forEach(qr => {
+                        if (qr.dataset.query === 'services') { qr.textContent = 'الخدمات'; qr.dataset.query = 'الخدمات';}
+                        if (qr.dataset.query === 'projects') { qr.textContent = 'المشاريع'; qr.dataset.query = 'المشاريع';}
+                        if (qr.dataset.query === 'skills') { qr.textContent = 'المهارات'; qr.dataset.query = 'المهارات';}
+                    });
+                }
+                 const themeBtnMobileText = document.querySelector('#theme-toggle-btn-mobile span');
+                const langBtnMobileText = document.querySelector('#language-toggle-btn-mobile span');
+                if (themeBtnMobileText) themeBtnMobileText.textContent = (lang === 'ar' ? 'الوضع' : 'Mode');
+                if (langBtnMobileText) langBtnMobileText.textContent = (lang === 'ar' ? 'اللغة' : 'Language');
+            }
+            
+            updateLanguageContent(currentLang);
+            window.dispatchEvent(new Event('scroll')); 
+
+        }); 
+    </script>
+    <script>
+    // ... (الكود الخاص بـ IntersectionObserver يبقى كما هو) ...
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    animatedElements.forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
