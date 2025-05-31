@@ -5,313 +5,362 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مركز الدعوة والإرشاد بمحافظة جدة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        /* Import Tajawal Font */
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+   <style>
+    /* Import Tajawal Font */
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
 
-        :root {
-            --font-primary: 'Tajawal', sans-serif;
-            --color-primary-green: #00695c;
-            --color-secondary-green: #007d6a;
-            --color-gold-accent: #d4a017;
-            --color-blue-link: #007bff;
-            --color-text-dark: #333333;
-            --color-text-medium: #444444;
-            --color-text-light: #ffffff;
-            --color-background-light: #f8f9fa;
-            --color-background-white: #ffffff;
-            --color-border-light: #e0e0e0;
-            --color-border-medium: #cccccc;
-            --hover-background-color: #e9f5f3;
-            --hover-text-color: var(--color-primary-green);
-            --hover-icon-color: var(--color-gold-accent);
-        }
+    :root {
+        --font-primary: 'Tajawal', sans-serif;
+        --color-primary-green: #00695c;
+        --color-secondary-green: #007d6a;
+        --color-gold-accent: #d4a017;
+        --color-blue-link: #007bff;
+        --color-text-dark: #333333;
+        --color-text-medium: #444444;
+        --color-text-light: #ffffff;
+        --color-background-light: #f8f9fa;
+        --color-background-white: #ffffff;
+        --color-border-light: #e0e0e0;
+        --color-border-medium: #cccccc;
+        --hover-background-color: #e9f5f3;
+        --hover-text-color: var(--color-primary-green);
+        --hover-icon-color: var(--color-gold-accent);
+    }
 
-        body {
-            font-family: var(--font-primary);
-            line-height: 2.0;
-            margin: 0;
-            padding: 0;
-            background-color: var(--color-background-light);
-            color: var(--color-text-dark);
-            direction: rtl;
-            font-size: 102%;
-        }
+    body {
+        font-family: var(--font-primary);
+        line-height: 2.0;
+        margin: 0;
+        padding: 0;
+        background-color: var(--color-background-light);
+        color: var(--color-text-dark);
+        direction: rtl;
+        font-size: 102%;
+    }
 
-        .report-header-banner {
-            background-color: var(--color-primary-green);
-            color: var(--color-text-light);
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .report-header-banner {
+        background-color: var(--color-primary-green);
+        color: var(--color-text-light);
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
+    .header-content-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .header-logo-ministry {
+        height: 55px;
+        width: 250px; /* عرض الشعار في شاشات سطح المكتب */
+        flex-shrink: 0;
+        margin-left: 15px; /* في RTL، هذا الهامش يكون على يمين الشعار، يفصله عن النص */
+        display: flex;
+        align-items: center;
+        justify-content: center; /* تم التعديل هنا لتوسيط الشعار داخل حاويته */
+    }
+     .header-logo-ministry img {
+        max-height: 100%;
+        max-width: 100%;
+        width: auto;
+        height: auto;
+        display: block;
+        object-fit: contain;
+    }
+
+    .main-title {
+        font-family: var(--font-primary);
+        font-weight: 700;
+        font-size: 1.8em;
+        margin: 0;
+        color: var(--color-text-light);
+        text-align: right;
+        line-height: 1.4;
+        transition: none;
+    }
+    .main-title:hover {
+        color: var(--color-text-light);
+        background-color: transparent;
+        transform: none;
+    }
+
+    .navigation-tabs {
+        text-align: center;
+        padding: 12px 0;
+        background-color: var(--color-background-white);
+        border-bottom: 2px solid var(--color-border-light);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        position: relative;
+    }
+
+    .tab-button {
+        font-family: var(--font-primary);
+        font-weight: 700;
+        background: none;
+        border: none;
+        color: #555;
+        padding: 10px 25px;
+        margin: 0 8px;
+        font-size: 1.25em;
+        cursor: pointer;
+        position: relative;
+        border-bottom: 3px solid transparent;
+        transition: color 0.3s;
+    }
+    .tab-button .fas {
+        margin-left: 8px;
+        color: var(--color-secondary-green);
+        transition: color 0.3s, transform 0.3s;
+    }
+
+    .tab-button.active {
+        color: var(--color-primary-green);
+        border-bottom-color: var(--color-gold-accent);
+    }
+    .tab-button.active .fas {
+        color: var(--color-gold-accent);
+    }
+
+    .tab-button::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 3px;
+        background-color: var(--color-gold-accent);
+        bottom: -2px;
+        right: 0;
+        transition: width 0.3s ease-in-out;
+    }
+    .tab-button:hover::after {
+        width: 100%;
+    }
+    .tab-button:hover {
+        color: var(--color-primary-green);
+    }
+    .tab-button:hover .fas {
+        transform: scale(1.1);
+        color: var(--color-gold-accent);
+    }
+
+
+    .report-container {
+        background-color: var(--color-background-white);
+        padding: 20px 35px 40px 35px;
+        max-width: 950px;
+        margin: 25px auto;
+        border-radius: 6px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+
+    .section-content {
+        display: none;
+        padding: 25px 20px;
+        border-top: 1px solid var(--color-border-light);
+        margin-top: 20px;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-content.active {
+        display: block;
+    }
+
+    h2, h3 {
+        font-family: var(--font-primary);
+        font-weight: 700;
+        color: var(--color-primary-green);
+        margin-top: 1.2em;
+        margin-bottom: 0.7em;
+        padding-bottom: 0.3em;
+    }
+    h2 {
+        font-size: 1.65em;
+        border-bottom: 2px solid var(--color-gold-accent);
+    }
+    h2 .fas { margin-left: 10px; }
+
+    h3 {
+        font-size: 1.4em;
+        color: var(--color-secondary-green);
+        border-bottom: 1px dashed var(--color-secondary-green);
+    }
+    h3 .fas { margin-left: 8px; }
+
+    .content-group h4 {
+        font-size: 1.2em;
+        color: var(--color-text-dark);
+        border-bottom: none;
+        font-weight: 700;
+        margin-bottom: 0.5em;
+        padding: 8px;
+        border-radius: 4px;
+        transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.2s ease-out;
+    }
+    .content-group h4 .fas {
+        margin-left: 6px;
+        color: var(--color-primary-green);
+        transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+    .content-group h4:hover {
+        color: var(--hover-text-color);
+        background-color: var(--hover-background-color);
+        transform: scale(1.01);
+    }
+    .content-group h4:hover .fas {
+        transform: scale(1.2) rotate(3deg);
+        color: var(--hover-icon-color);
+    }
+
+    .section-content > p, .content-group > p {
+        margin-bottom: 1.1em;
+        text-align: justify;
+        color: var(--color-text-medium);
+        padding: 8px;
+        border-radius: 4px;
+        transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.2s ease-out;
+    }
+    .section-content > p:hover, .content-group > p:hover {
+        color: var(--hover-text-color);
+        background-color: var(--hover-background-color);
+        transform: scale(1.01);
+    }
+    .section-content > p .fas, .content-group > p .fas {
+         transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+    .section-content > p:hover .fas, .content-group > p:hover .fas {
+        transform: scale(1.2) rotate(3deg);
+        color: var(--hover-icon-color);
+    }
+
+    .section-content ul, .section-content ol,
+    .content-group ul, .content-group ol {
+        padding-right: 25px;
+        margin-bottom: 1.1em;
+    }
+    ul li, ol li {
+        margin-bottom: 0.6em;
+        padding: 8px;
+        border-radius: 4px;
+        transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.2s ease-out;
+        position: relative;
+    }
+    ul li:hover, ol li:hover {
+        color: var(--hover-text-color);
+        background-color: var(--hover-background-color);
+        transform: translateX(-3px);
+    }
+
+    ul li .fas, ol li .fas,
+    ul.custom-icons li .list-icon .fas
+    {
+        margin-left: 8px;
+        color: var(--color-gold-accent);
+        font-size: 0.9em;
+        display: inline-block;
+        transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+    ul li:hover .fas, ol li:hover .fas,
+    ul.custom-icons li:hover .list-icon .fas {
+        transform: scale(1.25) rotate(5deg);
+        color: var(--hover-icon-color);
+    }
+
+    ul.custom-icons {
+        list-style-type: none;
+        padding-right: 0;
+    }
+    ul.custom-icons li {
+        padding-right: 30px;
+    }
+    ul.custom-icons li .list-icon {
+        position: absolute;
+        right: 0;
+        top: 12px;
+        color: var(--color-gold-accent);
+    }
+
+    a {
+        color: var(--color-blue-link);
+        text-decoration: none;
+        transition: color 0.3s ease-in-out;
+    }
+    a:hover {
+        text-decoration: underline;
+        filter: brightness(0.8);
+    }
+     a .fas {
+        transition: transform 0.3s ease-in-out;
+    }
+    a:hover .fas {
+        transform: scale(1.1);
+    }
+
+    .report-footer {
+        text-align: center; margin-top: 45px; font-size: 0.95em;
+        border-top: 1px solid var(--color-border-medium); padding-top: 25px; color: #666;
+    }
+
+    /* Styles for mobile devices */
+    @media (max-width: 600px) {
         .header-content-wrapper {
-            display: flex;
-            align-items: center;
+            flex-direction: column; 
+            align-items: center;   
         }
 
         .header-logo-ministry {
-            height: 55px;
-            width: 250px;
-            flex-shrink: 0;
-            margin-left: 15px;
+            margin-left: 0;    
+            margin-bottom: 10px; 
+            width: 70%; /* عرض الشعار كنسبة مئوية لشاشات الجوال */
+            max-width: 180px; /* حد أقصى لعرض الشعار في الجوال */
+            height: 55px; /* نُبقي على الارتفاع المحدد أو نجعله auto إذا كان الشعار يتطلب ذلك مع object-fit: contain */
             display: flex;
+            justify-content: center; 
             align-items: center;
-            justify-content: flex-start;
         }
-         .header-logo-ministry img {
-            max-height: 100%;
+        
+        .header-logo-ministry img {
             max-width: 100%;
-            width: auto;
-            height: auto;
-            display: block;
-            object-fit: contain;
+            max-height: 100%;
+            object-fit: contain; 
         }
 
         .main-title {
-            font-family: var(--font-primary);
-            font-weight: 700;
-            font-size: 1.8em;
-            margin: 0;
-            color: var(--color-text-light);
-            text-align: right;
-            line-height: 1.4;
-            transition: none;
-        }
-        .main-title:hover {
-            color: var(--color-text-light);
-            background-color: transparent;
-            transform: none;
+            text-align: center; 
+            font-size: 1.5em; 
         }
 
-        .navigation-tabs {
-            text-align: center;
-            padding: 12px 0;
-            background-color: var(--color-background-white);
-            border-bottom: 2px solid var(--color-border-light);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            position: relative;
+        .report-header-banner {
+            padding-top: 20px; 
+            padding-bottom: 20px;
         }
 
         .tab-button {
-            font-family: var(--font-primary);
-            font-weight: 700;
-            background: none;
-            border: none;
-            color: #555;
-            padding: 10px 25px;
-            margin: 0 8px;
-            font-size: 1.25em;
-            cursor: pointer;
-            position: relative;
-            border-bottom: 3px solid transparent;
-            transition: color 0.3s;
+            padding: 10px 15px; 
+            font-size: 1.1em; 
+            margin: 0 4px; 
         }
-        .tab-button .fas {
-            margin-left: 8px;
-            color: var(--color-secondary-green);
-            transition: color 0.3s, transform 0.3s;
-        }
-
-        .tab-button.active {
-            color: var(--color-primary-green);
-            border-bottom-color: var(--color-gold-accent);
-        }
-        .tab-button.active .fas {
-            color: var(--color-gold-accent);
-        }
-
-        .tab-button::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 3px;
-            background-color: var(--color-gold-accent);
-            bottom: -2px;
-            right: 0;
-            transition: width 0.3s ease-in-out;
-        }
-        .tab-button:hover::after {
-            width: 100%;
-        }
-        .tab-button:hover {
-            color: var(--color-primary-green);
-        }
-        .tab-button:hover .fas {
-            transform: scale(1.1);
-            color: var(--color-gold-accent);
-        }
-
 
         .report-container {
-            background-color: var(--color-background-white);
-            padding: 20px 35px 40px 35px;
-            max-width: 950px;
-            margin: 25px auto;
-            border-radius: 6px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            padding: 15px 20px 30px 20px; 
         }
 
-
-        .section-content {
-            display: none;
-            padding: 25px 20px;
-            border-top: 1px solid var(--color-border-light);
-            margin-top: 20px;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .section-content.active {
-            display: block;
-        }
-
-        h2, h3 {
-            font-family: var(--font-primary);
-            font-weight: 700;
-            color: var(--color-primary-green);
-            margin-top: 1.2em;
-            margin-bottom: 0.7em;
-            padding-bottom: 0.3em;
-        }
         h2 {
-            font-size: 1.65em;
-            border-bottom: 2px solid var(--color-gold-accent);
+            font-size: 1.5em;
         }
-        h2 .fas { margin-left: 10px; }
-
         h3 {
-            font-size: 1.4em;
-            color: var(--color-secondary-green);
-            border-bottom: 1px dashed var(--color-secondary-green);
+            font-size: 1.3em;
         }
-        h3 .fas { margin-left: 8px; }
-
-        /* Styling for h4 within content-group, hover effect for h4 only */
         .content-group h4 {
-            font-size: 1.2em;
-            color: var(--color-text-dark);
-            border-bottom: none;
-            font-weight: 700;
-            margin-bottom: 0.5em;
-            padding: 8px; /* Consistent padding with p and li */
-            border-radius: 4px;
-            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.2s ease-out;
+            font-size: 1.1em;
         }
-        .content-group h4 .fas {
-            margin-left: 6px;
-            color: var(--color-primary-green);
-            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
-        }
-        .content-group h4:hover {
-            color: var(--hover-text-color);
-            background-color: var(--hover-background-color);
-            transform: scale(1.01);
-        }
-        .content-group h4:hover .fas {
-            transform: scale(1.2) rotate(3deg);
-            color: var(--hover-icon-color);
-        }
-
-        /* Styling for paragraphs and lists directly under .section-content or .content-group */
-        /* Targeting p directly under section-content OR p directly under content-group */
-        .section-content > p, .content-group > p {
-            margin-bottom: 1.1em;
-            text-align: justify;
-            color: var(--color-text-medium);
-            padding: 8px;
-            border-radius: 4px;
-            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.2s ease-out;
-        }
-        .section-content > p:hover, .content-group > p:hover {
-            color: var(--hover-text-color);
-            background-color: var(--hover-background-color);
-            transform: scale(1.01);
-        }
-        .section-content > p .fas, .content-group > p .fas {
-             transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
-        }
-        .section-content > p:hover .fas, .content-group > p:hover .fas {
-            transform: scale(1.2) rotate(3deg);
-            color: var(--hover-icon-color);
-        }
-
-        /* Styling for ul and ol directly under .section-content or .content-group */
-        .section-content ul, .section-content ol,
-        .content-group ul, .content-group ol {
-            padding-right: 25px;
-            margin-bottom: 1.1em;
-        }
-        /* Styling for li elements */
-        ul li, ol li {
-            margin-bottom: 0.6em;
-            padding: 8px;
-            border-radius: 4px;
-            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.2s ease-out;
-            position: relative;
-        }
-        ul li:hover, ol li:hover {
-            color: var(--hover-text-color);
-            background-color: var(--hover-background-color);
-            transform: translateX(-3px);
-        }
-
-        ul li .fas, ol li .fas,
-        ul.custom-icons li .list-icon .fas
-        {
-            margin-left: 8px;
-            color: var(--color-gold-accent);
-            font-size: 0.9em;
-            display: inline-block;
-            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
-        }
-        ul li:hover .fas, ol li:hover .fas,
-        ul.custom-icons li:hover .list-icon .fas {
-            transform: scale(1.25) rotate(5deg);
-            color: var(--hover-icon-color);
-        }
-
-        ul.custom-icons {
-            list-style-type: none;
-            padding-right: 0;
-        }
-        ul.custom-icons li {
-            padding-right: 30px;
-        }
-        ul.custom-icons li .list-icon {
-            position: absolute;
-            right: 0;
-            top: 12px; /* Adjusted for increased padding of li */
-            color: var(--color-gold-accent);
-        }
-
-        a {
-            color: var(--color-blue-link);
-            text-decoration: none;
-            transition: color 0.3s ease-in-out;
-        }
-        a:hover {
-            text-decoration: underline;
-            filter: brightness(0.8);
-        }
-         a .fas {
-            transition: transform 0.3s ease-in-out;
-        }
-        a:hover .fas {
-            transform: scale(1.1);
-        }
-
-        .report-footer {
-            text-align: center; margin-top: 45px; font-size: 0.95em;
-            border-top: 1px solid var(--color-border-medium); padding-top: 25px; color: #666;
-        }
-
-    </style>
+    }
+</style>
 </head>
 <body>
 
