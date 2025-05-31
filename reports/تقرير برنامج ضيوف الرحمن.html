@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مميزات تقرير Power BI في برنامج خدمة ضيوف الرحمن</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --report-bg: #FFFFFF;
+            --report-text-main: #2c3e50;
+            --report-text-secondary: #555555;
+            --report-accent-primary: #00684A; /* Green from previous theme */
+            --report-accent-secondary: #D4AF37;
+            --report-border: #E0E0E0;
+            --report-header-bg-override: var(--report-accent-primary); /* Green for header */
+            --report-card-bg: #FFFFFF;
+            --body-outside-bg: #F4F6F8;
+
+            --font-family-report: 'Tajawal', sans-serif; /* Changed font */
+            --base-font-size: 16px;
+            --line-height-report: 1.8;
+            --border-radius: 4px;
+            --shadow-soft: 0 2px 8px rgba(0,0,0,0.07);
+            --shadow-medium: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: var(--font-family-report);
+            background-color: var(--body-outside-bg);
+            color: var(--report-text-main);
+            font-size: var(--base-font-size);
+            line-height: var(--line-height-report);
+            margin: 0;
+            padding: 0;
+        }
+
+        .report-container {
+            max-width: 960px;
+            margin: 40px auto;
+            background-color: var(--report-bg);
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--report-border);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700; /* Bolder headings with Tajawal */
+            color: var(--report-text-main);
+            margin-top: 1.6em;
+            margin-bottom: 0.9em;
+        }
+
+        h1 {
+            font-size: 1.9rem; /* Adjusted size for new title */
+            margin-top: 0;
+            font-weight: 700;
+        }
+        h2 {
+            font-size: 1.7rem;
+            color: var(--report-accent-primary);
+            border-bottom: none; /* Removed underline */
+            padding-bottom: 0.2em; /* Adjusted padding */
+            margin-top: 1.8em;
+        }
+        h2:first-of-type {
+             margin-top: 1em;
+        }
+        h3 { /* Styling for sub-headings within merged cards */
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--report-text-main);
+            margin-top: 1.5em;
+            margin-bottom: 0.7em;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--report-border); /* Subtle separator for H3s inside cards */
+        }
+        h3:first-child {
+            margin-top: 0.5em; /* Less top margin for the first H3 in a card */
+        }
+
+
+        p {
+            margin-bottom: 1.1rem;
+            color: var(--report-text-secondary);
+            font-size: 0.98rem;
+            font-weight: 400; /* Tajawal regular */
+        }
+        p.lead {
+            font-size: 1.1rem;
+            font-weight: 500; /* Tajawal medium */
+            color: var(--report-text-main);
+            margin-bottom: 1.3rem;
+        }
+
+        ul {
+            padding-right: 10px; /* Reduced padding for lists without bullets */
+            margin-bottom: 1.1rem;
+            list-style-type: none;
+        }
+        ul li {
+            margin-bottom: 0.8rem; /* Increased spacing */
+            color: var(--report-text-secondary);
+            font-size: 0.98rem;
+            font-weight: 400;
+            transition: color 0.2s ease, transform 0.2s ease; /* For hover effect */
+        }
+        ul li i.fa-solid, ul li i.fa-regular {
+            color: var(--report-accent-primary);
+            margin-left: 12px; /* Increased margin */
+            font-size: 1em; /* Slightly larger icons */
+            width: 22px;
+            text-align: center;
+            transition: color 0.2s ease, transform 0.2s ease; /* For hover effect */
+        }
+
+        /* Hover effect for list items */
+        .text-list-item:hover div, .text-list-item:hover i {
+            color: var(--report-accent-secondary); /* Change text and icon color to gold on hover */
+            transform: translateX(-3px) scale(1.02); /* Slight move and scale */
+            
+        }
+         .text-list-item:hover i {
+            transform: scale(1.1) rotate(5deg);
+            
+         }
+
+
+        .report-header {
+            background-color: var(--report-header-bg-override); /* Green background */
+            padding: 25px 30px; /* Adjusted padding */
+            text-align: center;
+            border-bottom: none; /* Remove previous border if any */
+            position: relative; /* For logo positioning if needed */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-container {
+         margin-bottom: 15px;
+        }
+
+        #headerLogo {
+         width: 250px; /* مثال: اضبط العرض حسب الحاجة */
+         height: auto;
+         max-width: 100%;
+        }
+        .report-header .logo-placeholder {
+            font-size: 1rem;
+            color: #ffffff; /* White color for logo text */
+            font-weight: 500;
+            margin-bottom: 10px;
+            /* Basic styling, replace with actual logo img tag if available */
+            /* background-color: rgba(255,255,255,0.1);
+            padding: 5px 10px;
+            border-radius: var(--border-radius);
+            display: inline-block; */
+        }
+        .report-header h1 {
+            color: #FFFFFF; /* White color for title */
+            margin-bottom: 0; /* No margin for title */
+        }
+
+
+        .report-section {
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--report-border);
+        }
+        .report-section:last-child {
+            border-bottom: none;
+        }
+
+        .item-card { /* Unified card style */
+            background-color: var(--report-card-bg);
+            border: 1px solid var(--report-border);
+            padding: 20px 25px;
+            margin-top: 15px; /* Add some space below section H2 */
+            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-soft);
+            /* border-top: 3px solid var(--report-accent-primary); */ /* Removed top border for a cleaner look */
+            transition: box-shadow 0.2s ease-in-out;
+        }
+        .item-card:hover {
+            box-shadow: var(--shadow-medium);
+        }
+        /* .item-card h3 is styled above */
+
+
+        .report-footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem; /* Tajawal font might need slight size adjustment */
+            color: var(--report-text-secondary);
+            border-top: 1px solid var(--report-border);
+            background-color: #F8F9FA; /* Light grey footer background */
+        }
+        .report-footer p {
+            margin-bottom: 0.25rem;
+            color: var(--report-text-secondary);
+            font-weight: 400;
+        }
+
+        .text-list-item {
+            display: flex;
+            align-items: flex-start; /* Keep alignment */
+            margin-bottom: 0.8rem; /* Consistent margin */
+            padding: 5px; /* Add padding for better hover area */
+            border-radius: var(--border-radius);
+            transition: background-color 0.2s ease;
+        }
+         .text-list-item:hover {
+             background-color: rgba(0, 104, 74, 0.05); /* Very light green on hover for the whole item */
+             
+         }
+
+        .text-list-item i {
+            margin-top: 5px; /* Keep vertical alignment */
+            
+        }
+        .text-list-item div {
+            flex: 1;
+            padding-right: 8px; /* Spacing between icon and text */
+        }
+        
+        #conclusion h2 { /* Specific style for "رسالة ختامية" to match section titles */
+             color: var(--report-accent-primary);
+             border-bottom: none;
+        }
+        #conclusion p { /* Styling for the concluding message */
+            font-size: 1.05rem;
+            font-weight: 450;
+            line-height: 1.9;
+            color: var(--report-text-main);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="report-container">
+        <header class="report-header">
+            <div class="logo-container">
+        <img src="/HD/White-PEP-2030.svg" alt="شعار برنامج خدمة ضيوف الرحمن" id="headerLogo">
+        </div>
+            <h1>مميزات تقرير Power BI في برنامج خدمة ضيوف الرحمن</h1>
+            </header>
+
+        <main>
+            <section id="report-features" class="report-section">
+                <h2>1. مميزات التقرير</h2>
+                <p class="lead">يوفر هذا التقرير نظرة شاملة على أداء برنامج خدمة ضيوف الرحمن من خلال عرض البيانات التالية:</p>
+                
+                <div class="item-card"> <h3>1.1. نظرة عامة على البرنامج</h3>
+                    <ul>
+                        <li class="text-list-item"><i class="fa-solid fa-sitemap"></i> <div>إجمالي اللجان: يعرض العدد الكلي للجان العاملة في البرنامج.</div></li>
+                        <li class="text-list-item"><i class="fa-solid fa-users-viewfinder"></i> <div>إجمالي الاجتماعات: يوضح عدد الاجتماعات التي عقدتها جميع اللجان.</div></li>
+                        <li class="text-list-item"><i class="fa-solid fa-bullseye"></i> <div>إجمالي التوصيات: يُظهر العدد الإجمالي للتوصيات الصادرة عن جميع اللجان.</div></li>
+                        <li class="text-list-item"><i class="fa-solid fa-percent"></i> <div>نسبة تنفيذ التوصيات: يُقدم نسبة مئوية توضح مدى التزام اللجان بتنفيذ التوصيات.</div></li>
+                    </ul>
+
+                    <h3>1.2. تحليل مفصل على مستوى اللجان</h3>
+                    <ul>
+                        <li class="text-list-item"><i class="fa-solid fa-filter"></i> <div>قائمة تصفية اللجان: تتيح تصفية البيانات حسب اسم اللجنة لعرض تفاصيل كل لجنة على حدة.</div></li>
+                        <li class="text-list-item fw-bold mt-3 mb-2"><i class="fa-solid fa-list-check"></i> <div>معلومات تفصيلية لكل لجنة:</div></li>
+                        <ul style="padding-right: 35px; margin-top:0.5rem;">
+                            <li class="text-list-item"><i class="fa-regular fa-calendar-check"></i> <div>إجمالي الاجتماعات التي عقدتها اللجنة.</div></li>
+                            <li class="text-list-item"><i class="fa-regular fa-lightbulb"></i> <div>إجمالي التوصيات الصادرة عن اللجنة.</div></li>
+                            <li class="text-list-item"><i class="fa-regular fa-square-check"></i> <div>نسبة تنفيذ توصيات اللجنة.</div></li>
+                            <li class="text-list-item"><i class="fa-regular fa-building"></i> <div>الجهات المشاركة في اللجنة مع شعار كل جهة.</div></li>
+                            <li class="text-list-item"><i class="fa-regular fa-clock"></i> <div>المدة المتبقية من آخر اجتماع للجنة.</div></li>
+                        </ul>
+                    </ul>
+
+                    <h3>1.3. تحليل أعضاء البرنامج</h3>
+                    <ul>
+                        <li class="text-list-item"><i class="fa-solid fa-user-check"></i> <div>عدد الأعضاء الحاليين: يعرض عدد الأعضاء النشطين حاليًا في البرنامج.</div></li>
+                        <li class="text-list-item"><i class="fa-solid fa-user-minus"></i> <div>عدد الأعضاء السابقين: يوضح عدد الأعضاء الذين كانوا مشاركين في البرنامج سابقًا.</div></li>
+                        <li class="text-list-item"><i class="fa-solid fa-users"></i> <div>إجمالي عدد الأعضاء: يُظهر العدد الإجمالي للأعضاء الحاليين والسابقين.</div></li>
+                        <li class="text-list-item"><i class="fa-solid fa-sitemap"></i> <div>الجهات المشاركة وعدد أعضائها: يعرض قائمة بالجهات المشاركة في البرنامج مع عدد الأعضاء التابعين لكل جهة.</div></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="report-benefits" class="report-section">
+                <h2>2. الاستفادة من تقرير برنامج خدمة ضيوف الرحمن في Power BI</h2>
+                <p class="lead">يُمكن الاستفادة من هذا التقرير بطرق متعددة لتحسين جودة أداء البرنامج واتخاذ قرارات مستنيرة ويوضح التقرير هذه الإستفادات كما يلي:</p>
+                
+                <div class="item-card"> <h3>2.1. قياس الأداء وتحديد نقاط القوة والضعف</h3>
+                    <ul>
+                        <li class="text-list-item"><i class="fa-solid fa-chart-line"></i><div>مراقبة أداء اللجان: من خلال مقارنة عدد الاجتماعات، والتوصيات، ونسب التنفيذ بين اللجان المختلفة، يُمكنك تحديد اللجان الأكثر فعالية وتلك التي تحتاج إلى دعم أو إعادة هيكلة.</div></li>
+                        <li class="text-list-item"><i class="fa-solid fa-medal"></i><div>تقييم فاعلية البرنامج: يُساعدك التقرير على تقييم مدى نجاح البرنامج في تحقيق أهدافه من خلال متابعة إجمالي التوصيات ونسبة تنفيذها.</div></li>
+                        <li class="text-list-item"><i class="fa-solid fa-cogs"></i><div>تحسين عملية اتخاذ القرار: يوفر لك التقرير بيانات دقيقة وواضحة تُساعدك على اتخاذ قرارات مُستنيرة بشأن تطوير البرنامج وتحسين أدائه.</div></li>
+                    </ul>
+
+                    <h3>2.2. تحليل البيانات واستخلاص الرؤى</h3>
+                    <ul>
+                        <li class="text-list-item"><i class="fa-solid fa-magnifying-glass-chart"></i><div>اكتشاف الأنماط والاتجاهات: يُمكنك تحليل البيانات للكشف عن الأنماط والاتجاهات في أداء اللجان وتنفيذ التوصيات، مما يُساعدك على فهم التحديات والفرص المتاحة.</div></li>
+                        <li class="text-list-item"><i class="fa-solid fa-award"></i><div>تحديد أفضل الممارسات: من خلال مقارنة أداء اللجان وتحليل العوامل التي تُساهم في نجاحها، يُمكنك تحديد أفضل الممارسات وتطبيقها على اللجان الأخرى.</div></li>
+                        <li class="text-list-item"><i class="fa-solid fa-arrow-trend-up"></i><div>التنبؤ بالاتجاهات المستقبلية: يُمكنك استخدام البيانات التاريخية للتنبؤ بالاتجاهات المستقبلية وتوقع احتياجات البرنامج في المستقبل.</div></li>
+                    </ul>
+
+                    <h3>2.3. مشاركة المعلومات وتعزيز التعاون</h3>
+                     <ul>
+                        <li class="text-list-item"><i class="fa-solid fa-share-nodes"></i><div>مشاركة التقرير مع أصحاب المصلحة: يُمكنك مشاركة التقرير مع أعضاء اللجان، والجهات المُشاركة، والجهات الإشرافية لإطلاعهم على أداء البرنامج وتعزيز الشفافية.</div></li>
+                        <li class="text-list-item"><i class="fa-solid fa-comments"></i><div>تسهيل التواصل والتنسيق: يوفر التقرير منصة مركزية لجميع البيانات المتعلقة بالبرنامج، مما يُسهل التواصل والتنسيق بين أصحاب المصلحة.</div></li>
+                        <li class="text-list-item"><i class="fa-solid fa-handshake-angle"></i><div>تحفيز المشاركة والتفاعل: يُمكن أن يُساعد عرض البيانات بشكل مرئي وتفاعلي على تحفيز المشاركة والتفاعل من قبل أعضاء اللجان والجهات المُشاركة.</div></li>
+                    </ul>
+
+                    <h3>2.4. توفير الوقت والجهد</h3>
+                    <ul>
+                        <li class="text-list-item"><i class="fa-solid fa-robot"></i><div>أتمتة عملية جمع وتحليل البيانات: يوفر لك التقرير البيانات التي تحتاجها بشكل مُباشر دون الحاجة إلى جمعها وتحليلها يدويًا.</div></li>
+                        <li class="text-list-item"><i class="fa-solid fa-sync-alt"></i><div>تحديث البيانات بشكل تلقائي: يُمكن ربط التقرير بمصادر البيانات لتحديث البيانات بشكل تلقائي، مما يُوفر لك الوقت والجهد.</div></li>
+                        <li class="text-list-item"><i class="fa-solid fa-file-export"></i><div>تقديم التقارير بشكل سريع وفعال: يُمكنك تصدير التقرير بصيغ مُختلفة ومشاركته مع الآخرين بسهولة.</div></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="conclusion" class="report-section">
+                <h2>رسالة ختامية</h2>
+                <p>نأمل أن يسهم هذا التقرير في تقديم رؤى قيمة تدعم جهودكم في برنامج خدمة ضيوف الرحمن، وأن يكون أداة فعالة لتحقيق أعلى مستويات التميز في هذا البرنامج لتحقيق مستهدفات رؤية المملكة 2030.</p>
+            </section>
+        </main>
+
+        <footer class="report-footer">
+            <p>&copy; <span id="currentYear"></span> - جميع الحقوق محفوظة.</p>
+            <p>عاصم المالكي</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update current year in footer
+            const currentYearSpan = document.getElementById('currentYear');
+            if (currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear();
+            }
+
+            // Report date functionality removed as element is removed
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مركز الدعوة والإرشاد بمحافظة جدة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Import Tajawal Font */
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+
+        :root {
+            --font-primary: 'Tajawal', sans-serif;
+            --color-primary-green: #00695c;
+            --color-secondary-green: #007d6a;
+            --color-gold-accent: #d4a017;
+            --color-blue-link: #007bff;
+            --color-text-dark: #333333;
+            --color-text-medium: #444444;
+            --color-text-light: #ffffff;
+            --color-background-light: #f8f9fa;
+            --color-background-white: #ffffff;
+            --color-border-light: #e0e0e0;
+            --color-border-medium: #cccccc;
+            --hover-background-color: #e9f5f3;
+            --hover-text-color: var(--color-primary-green);
+            --hover-icon-color: var(--color-gold-accent);
+        }
+
+        body {
+            font-family: var(--font-primary);
+            line-height: 2.0;
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-background-light);
+            color: var(--color-text-dark);
+            direction: rtl;
+            font-size: 102%;
+        }
+
+        .report-header-banner {
+            background-color: var(--color-primary-green);
+            color: var(--color-text-light);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-content-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo-ministry {
+            height: 55px;
+            width: 250px;
+            flex-shrink: 0;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+         .header-logo-ministry img {
+            max-height: 100%;
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .main-title {
+            font-family: var(--font-primary);
+            font-weight: 700;
+            font-size: 1.8em;
+            margin: 0;
+            color: var(--color-text-light);
+            text-align: right;
+            line-height: 1.4;
+            transition: none;
+        }
+        .main-title:hover {
+            color: var(--color-text-light);
+            background-color: transparent;
+            transform: none;
+        }
+
+        .navigation-tabs {
+            text-align: center;
+            padding: 12px 0;
+            background-color: var(--color-background-white);
+            border-bottom: 2px solid var(--color-border-light);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .tab-button {
+            font-family: var(--font-primary);
+            font-weight: 700;
+            background: none;
+            border: none;
+            color: #555;
+            padding: 10px 25px;
+            margin: 0 8px;
+            font-size: 1.25em;
+            cursor: pointer;
+            position: relative;
+            border-bottom: 3px solid transparent;
+            transition: color 0.3s;
+        }
+        .tab-button .fas {
+            margin-left: 8px;
+            color: var(--color-secondary-green);
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .tab-button.active {
+            color: var(--color-primary-green);
+            border-bottom-color: var(--color-gold-accent);
+        }
+        .tab-button.active .fas {
+            color: var(--color-gold-accent);
+        }
+
+        .tab-button::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background-color: var(--color-gold-accent);
+            bottom: -2px;
+            right: 0;
+            transition: width 0.3s ease-in-out;
+        }
+        .tab-button:hover::after {
+            width: 100%;
+        }
+        .tab-button:hover {
+            color: var(--color-primary-green);
+        }
+        .tab-button:hover .fas {
+            transform: scale(1.1);
+            color: var(--color-gold-accent);
+        }
+
+
+        .report-container {
+            background-color: var(--color-background-white);
+            padding: 20px 35px 40px 35px;
+            max-width: 950px;
+            margin: 25px auto;
+            border-radius: 6px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+
+        .section-content {
+            display: none;
+            padding: 25px 20px;
+            border-top: 1px solid var(--color-border-light);
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        h2, h3 {
+            font-family: var(--font-primary);
+            font-weight: 700;
+            color: var(--color-primary-green);
+            margin-top: 1.2em;
+            margin-bottom: 0.7em;
+            padding-bottom: 0.3em;
+        }
+        h2 {
+            font-size: 1.65em;
+            border-bottom: 2px solid var(--color-gold-accent);
+        }
+        h2 .fas { margin-left: 10px; }
+
+        h3 {
+            font-size: 1.4em;
+            color: var(--color-secondary-green);
+            border-bottom: 1px dashed var(--color-secondary-green);
+        }
+        h3 .fas { margin-left: 8px; }
+
+        /* Styling for h4 within content-group, hover effect for h4 only */
+        .content-group h4 {
+            font-size: 1.2em;
+            color: var(--color-text-dark);
+            border-bottom: none;
+            font-weight: 700;
+            margin-bottom: 0.5em;
+            padding: 8px; /* Consistent padding with p and li */
+            border-radius: 4px;
+            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.2s ease-out;
+        }
+        .content-group h4 .fas {
+            margin-left: 6px;
+            color: var(--color-primary-green);
+            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        .content-group h4:hover {
+            color: var(--hover-text-color);
+            background-color: var(--hover-background-color);
+            transform: scale(1.01);
+        }
+        .content-group h4:hover .fas {
+            transform: scale(1.2) rotate(3deg);
+            color: var(--hover-icon-color);
+        }
+
+        /* Styling for paragraphs and lists directly under .section-content or .content-group */
+        /* Targeting p directly under section-content OR p directly under content-group */
+        .section-content > p, .content-group > p {
+            margin-bottom: 1.1em;
+            text-align: justify;
+            color: var(--color-text-medium);
+            padding: 8px;
+            border-radius: 4px;
+            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.2s ease-out;
+        }
+        .section-content > p:hover, .content-group > p:hover {
+            color: var(--hover-text-color);
+            background-color: var(--hover-background-color);
+            transform: scale(1.01);
+        }
+        .section-content > p .fas, .content-group > p .fas {
+             transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        .section-content > p:hover .fas, .content-group > p:hover .fas {
+            transform: scale(1.2) rotate(3deg);
+            color: var(--hover-icon-color);
+        }
+
+        /* Styling for ul and ol directly under .section-content or .content-group */
+        .section-content ul, .section-content ol,
+        .content-group ul, .content-group ol {
+            padding-right: 25px;
+            margin-bottom: 1.1em;
+        }
+        /* Styling for li elements */
+        ul li, ol li {
+            margin-bottom: 0.6em;
+            padding: 8px;
+            border-radius: 4px;
+            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.2s ease-out;
+            position: relative;
+        }
+        ul li:hover, ol li:hover {
+            color: var(--hover-text-color);
+            background-color: var(--hover-background-color);
+            transform: translateX(-3px);
+        }
+
+        ul li .fas, ol li .fas,
+        ul.custom-icons li .list-icon .fas
+        {
+            margin-left: 8px;
+            color: var(--color-gold-accent);
+            font-size: 0.9em;
+            display: inline-block;
+            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        ul li:hover .fas, ol li:hover .fas,
+        ul.custom-icons li:hover .list-icon .fas {
+            transform: scale(1.25) rotate(5deg);
+            color: var(--hover-icon-color);
+        }
+
+        ul.custom-icons {
+            list-style-type: none;
+            padding-right: 0;
+        }
+        ul.custom-icons li {
+            padding-right: 30px;
+        }
+        ul.custom-icons li .list-icon {
+            position: absolute;
+            right: 0;
+            top: 12px; /* Adjusted for increased padding of li */
+            color: var(--color-gold-accent);
+        }
+
+        a {
+            color: var(--color-blue-link);
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+        }
+        a:hover {
+            text-decoration: underline;
+            filter: brightness(0.8);
+        }
+         a .fas {
+            transition: transform 0.3s ease-in-out;
+        }
+        a:hover .fas {
+            transform: scale(1.1);
+        }
+
+        .report-footer {
+            text-align: center; margin-top: 45px; font-size: 0.95em;
+            border-top: 1px solid var(--color-border-medium); padding-top: 25px; color: #666;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="report-header-banner">
+        <div class="header-content-wrapper">
+            <div class="header-logo-ministry">
+                 <img src="/HD/MOIALOGO.svg" alt="شعار وزارة الشؤون الإسلامية">
+            </div>
+            <p class="main-title">مركز الدعوة والإرشاد بمحافظة جدة</p>
+        </div>
+    </div>
+
+    <div class="navigation-tabs">
+        <button class="tab-button active" onclick="showSection('section1', this)"><i class="fas fa-star"></i>مميزات التقرير</button>
+        <button class="tab-button" onclick="showSection('section2', this)"><i class="fas fa-info-circle"></i>تعريف بالقسم</button>
+        <button class="tab-button" onclick="showSection('section3', this)"><i class="fas fa-lightbulb"></i>مقترح للتطوير</button>
+    </div>
+
+    <div class="report-container">
+        <div id="section1" class="section-content active">
+            <h2><i class="fas fa-chart-line"></i>مميزات وفوائد التقرير باستخدام Power BI</h2>
+
+            <h3><i class="fas fa-cogs"></i>أ. مميزات التقرير (Power BI):</h3>
+            <ol>
+                <li>
+                    <div class="content-group">
+                        <h4><i class="fas fa-calculator"></i>إحصائيات دقيقة:</h4>
+                        <ul class="custom-icons">
+                            <li><span class="list-icon"><i class="fas fa-users"></i></span>إجمالي عدد المسلمين الجدد ونسبتهم حسب الجنس.</li>
+                            <li><span class="list-icon"><i class="fas fa-calendar-alt"></i></span>توزيع المسلمين الجدد شهريًا.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="content-group">
+                        <h4><i class="fas fa-filter"></i>تصفية البيانات:</h4>
+                        <ul class="custom-icons">
+                            <li><span class="list-icon"><i class="fas fa-file-circle-check"></i></span>إمكانية فلترة الوثائق حسب حالتها (مكتملة / تحت الإجراء).</li>
+                            <li><span class="list-icon"><i class="fas fa-flag"></i></span>تصفية البيانات حسب المكتب أو الجنسية.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="content-group">
+                        <h4><i class="fas fa-search"></i>بحث مباشر:</h4>
+                        <ul class="custom-icons">
+                            <li><span class="list-icon"><i class="fas fa-id-card"></i></span>استعراض المعلومات الشخصية باستخدام رقم الهوية.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="content-group">
+                        <h4><i class="fas fa-sitemap"></i>تحليل المكاتب التعاونية:</h4>
+                        <ul class="custom-icons">
+                            <li><span class="list-icon"><i class="fas fa-building-shield"></i></span>عرض إجمالي عدد المكاتب التعاونية.</li>
+                            <li><span class="list-icon"><i class="fas fa-percentage"></i></span>نسبة المسلمين الجدد في كل مكتب.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="content-group">
+                        <h4><i class="fas fa-chart-pie"></i>تصورات بيانية:</h4>
+                        <ul class="custom-icons">
+                            <li><span class="list-icon"><i class="fas fa-globe-americas"></i></span>خريطة توضح توزيع المسلمين الجدد حسب الجنسيات.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="content-group">
+                        <h4><i class="fas fa-language"></i>دعم اللغتين:</h4>
+                        <ul class="custom-icons">
+                            <li><span class="list-icon"><i class="fas fa-comments"></i></span>يدعم التقرير اللغتين العربية والإنجليزية لتسهيل التواصل.</li>
+                        </ul>
+                    </div>
+                </li>
+            </ol>
+
+            <h3><i class="fas fa-thumbs-up"></i>ب. فوائد استخدام التقرير (Power BI):</h3>
+            <ol>
+                <li>
+                     <div class="content-group">
+                        <h4><i class="fas fa-brain"></i>فهم أعمق لظاهرة اعتناق الإسلام:</h4>
+                        <ul class="custom-icons">
+                            <li><span class="list-icon"><i class="fas fa-signal"></i></span><strong>إحصائيات دقيقة:</strong> تساعد الإحصائيات التفصيلية على فهم حجم ظاهرة اعتناق الإسلام واتجاهاتها.</li>
+                            <li><span class="list-icon"><i class="fas fa-tasks"></i></span><strong>تصفية البيانات:</strong> تسهل التحليلات المتعلقة بالعوامل المؤثرة في اعتناق الإسلام وتحديد الفئات الأكثر اهتمامًا.</li>
+                            <li><span class="list-icon"><i class="fas fa-microscope"></i></span><strong>تحليل المكاتب التعاونية:</strong> يساعد على تقييم أداء المكاتب التعاونية وتحديد نقاط القوة والضعف.</li>
+                            <li><span class="list-icon"><i class="fas fa-map-marked-alt"></i></span><strong>تصورات بيانية:</strong> تظهر الخريطة مدى انتشار الظاهرة بين مختلف الجنسيات.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="content-group">
+                        <h4><i class="fas fa-user-check"></i>تحسين متابعة المسلمين الجدد:</h4>
+                        <ul class="custom-icons">
+                            <li><span class="list-icon"><i class="fas fa-address-book"></i></span><strong>بحث مباشر:</strong> يوفر إمكانية استعراض البيانات الشخصية للمسلمين الجدد باستخدام رقم الهوية، مما يسهّل التواصل وتقديم الدعم اللازم.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="content-group">
+                        <h4><i class="fas fa-tachometer-alt"></i>تعزيز كفاءة العمل الإداري:</h4>
+                        <ul class="custom-icons">
+                            <li><span class="list-icon"><i class="fas fa-hands-helping"></i></span><strong>دعم لغتين:</strong> تسهيل التنسيق بين الجهات المختلفة العاملة في مجال رعاية المسلمين الجدد.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="content-group">
+                        <h4><i class="fas fa-bullseye"></i>اتخاذ قرارات استراتيجية:</h4>
+                        <ul class="custom-icons">
+                            <li><span class="list-icon"><i class="fas fa-binoculars"></i></span><strong>نظرة شاملة:</strong> يقدم التقرير رؤية متكاملة تساعد على اتخاذ قرارات فعالة في مجال الدعوة الإسلامية ورعاية المسلمين الجدد.</li>
+                        </ul>
+                    </div>
+                </li>
+            </ol>
+        </div>
+
+        <div id="section2" class="section-content">
+            <h2><i class="fas fa-landmark"></i>التعريف بقسم الجاليات</h2>
+            <div class="content-group">
+                <p><i class="fas fa-quote-right" style="margin-left: 5px; color: var(--color-secondary-green);"></i>هو قسم في مركز الدعوة والإرشاد يهدف إلى خدمة ودعوة الجاليات من غير المسلمين إلى الدخول في الإسلام عن طريق الدعاة الرسميين وجمعيات الدعوة والإرشاد، وتوعية الجاليات بمحافظة جدة وإصدار الوثائق الخاصة بهم.</p>
+            </div>
+            <div class="content-group">
+                <h4><i class="fas fa-concierge-bell"></i>بعض أعمال القسم:</h4>
+                <ul class="custom-icons">
+                    <li><span class="list-icon"><i class="fas fa-chalkboard-teacher"></i></span>إنشاء محاضرات تعريفية بالإسلام وتبيين سماحة الدين الإسلامي.</li>
+                    <li><span class="list-icon"><i class="fas fa-book-open-reader"></i></span>توزيع كتيبات بعدة لغات للراغبين في دخول الإسلام.</li>
+                    <li><span class="list-icon"><i class="fas fa-quran"></i></span>توزيع مصاحف مترجمة لعدة لغات.</li>
+                    <li><span class="list-icon"><i class="fas fa-handshake-angle"></i></span>استقبال المسلمين الجدد في المجلس التعريفي بالإسلام.</li>
+                </ul>
+            </div>
+
+            <h3><i class="fas fa-file-signature"></i>إصدار وثيقة المسلم الجديد</h3>
+            <div class="content-group">
+                <h4><i class="fas fa-tasks-alt"></i>الخطوات اللازمة لإنشاء شهادة المسلم الجديد:</h4>
+                <ol>
+                    <li><i class="fas fa-comments" style="margin-left: 5px;"></i>المقابلة مع أحد الدعاة الرسميين في المركز.</li>
+                    <li><i class="fas fa-users-rays" style="margin-left: 5px;"></i>حضور المجلس التعريفي بالإسلام.</li>
+                    <li><i class="fas fa-file-excel" style="margin-left: 5px;"></i>إدخال بيانات الشهادة في ملف الاكسل وحفظها.</li>
+                    <li><i class="fas fa-print" style="margin-left: 5px;"></i>طباعة الشهادة والكرت وإرفاق البيانات اللازمة.</li>
+                    <li><i class="fas fa-id-badge" style="margin-left: 5px;"></i>إصدار رقم خاص بوثيقة المسلم الجديد.</li>
+                    <li><i class="fas fa-signature" style="margin-left: 5px;"></i>التوقيع على الشهادة من قبل الدعاة ومدير المركز بعد إكمال البرنامج.</li>
+                    <li><i class="fas fa-stamp" style="margin-left: 5px;"></i>الختم على الشهادة والكرت بعد توقيعها.</li>
+                    <li><i class="fas fa-paper-plane" style="margin-left: 5px;"></i>كتابة خطاب لفرع الوزارة بمكة المكرمة لتوقيع على الوثيقة وإعادتها لمركز الدعوة بجدة.</li>
+                    <li><i class="fas fa-hand-holding-heart" style="margin-left: 5px;"></i>تسليم الشهادة للمسلم الجديد.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div id="section3" class="section-content">
+            <h2><i class="fas fa-rocket"></i>مقترح لتطوير قسم الجاليات والنظام التقني</h2>
+            <div class="content-group">
+                <p><i class="fas fa-bullhorn" style="margin-left: 5px; color: var(--color-secondary-green);"></i>يهدف هذا المقترح إلى تعزيز كفاءة وفعالية قسم الجاليات من خلال التحسينات الإدارية والتقنية.</p>
+            </div>
+
+            <h3><i class="fas fa-user-plus"></i>أ. برنامج المسلم الجديد:</h3>
+            <div class="content-group">
+                <p><i class="fas fa-check-circle" style="margin-left: 5px; color: var(--color-secondary-green);"></i>برنامج يهدف لدعم من يرغب بصدق في معرفة الدين الإسلامي، من خلال دورات مبسطة تعرّف بأساسيات الإسلام وأحكامه. البرنامج ميسر وسهل، ويُعد خطوة مهمة للحصول على شهادة الدخول في الإسلام.</p>
+                <p><em>(ملاحظة: الخطوات التفصيلية للبرنامج تكتب من قبل الدعاة المختصين بالشريعة الإسلامية).</em></p>
+            </div>
+
+            <h3><i class="fas fa-tools"></i>ب. التطويرات التقنية والإدارية:</h3>
+            <div class="content-group"> <ul class="custom-icons">
+                    <li><span class="list-icon"><i class="fab fa-microsoft"></i></span>تم إنشاء واجهة تفاعلية Power BI خاصة بعرض البيانات بطريقة تفاعلية.</li>
+                    <li><span class="list-icon"><i class="fas fa-database"></i></span>تم إنشاء قاعدة بيانات في برنامج الاكسل خاصة بسجلات المسلمين الجدد, ومن مميزاتها:
+                        <ul style="margin-top: 0.5em; padding-right:15px; list-style-type: disc;">
+                            <li><i class="fas fa-sort-numeric-down" style="margin-left: 5px; color: var(--color-secondary-green);"></i>ترقيم تلقائي لوثائق المسلمين الجدد وتنظيمها.</li>
+                            <li><i class="fas fa-search-plus" style="margin-left: 5px; color: var(--color-secondary-green);"></i>سهولة البحث واستخراج شهادة المسلم الجديد.</li>
+                            <li><i class="fas fa-chart-bar" style="margin-left: 5px; color: var(--color-secondary-green);"></i>عمل تقارير بعدد المسلمين الجدد شهرياً.</li>
+                            <li><i class="fas fa-desktop" style="margin-left: 5px; color: var(--color-secondary-green);"></i>إمكانية عرض بيانات أكثر تفصيلاً في برنامج Power BI Desktop.</li>
+                            <li><i class="fas fa-id-badge" style="margin-left: 5px; color: var(--color-secondary-green);"></i>ادخال ارقام هويات صحيحه ومنع الارقام الناقصه تلقائيا.</li>
+                            <li><i class="fas fa-file-pdf" style="margin-left: 5px; color: var(--color-secondary-green);"></i>طباعة الوثيقة pdf.</li>
+                            <li><i class="fas fa-edit" style="margin-left: 5px; color: var(--color-secondary-green);"></i>واجهة لإدخال البيانات.</li>
+                            <li><i class="fas fa-table" style="margin-left: 5px; color: var(--color-secondary-green);"></i>واجهة لعرض البيانات.</li>
+                            <li><i class="fas fa-tasks" style="margin-left: 5px; color: var(--color-secondary-green);"></i>قوائم منسدلة للحد من الأخطاء المدخلة.</li>
+                            <li><i class="fas fa-ellipsis-h" style="margin-left: 5px; color: var(--color-secondary-green);"></i>وغيرها من المميزات.</li>
+                        </ul>
+                    </li>
+                    <li><span class="list-icon"><i class="fas fa-archive"></i></span>ترتيب وثائق المسلمين الجدد وأرشفتها إلكترونياً، مما يسهل استخراج الوثيقة للمسلم الجديد.</li>
+                    <li><span class="list-icon"><i class="fas fa-shield-alt"></i></span>إنشاء قاعدة بيانات خاصة بوثائق المسلمين الجدد لتنظيم وحفظ البيانات بشكل آمن وهي مركز المعلومات الخاص بالقسم.</li>
+                    <li><span class="list-icon"><i class="fas fa-balance-scale"></i></span>ضبط الجمعيات التعاونية في إصدار الوثائق: يتم توضيح الشروط اللازمة لقبول الوثائق وعدم قبول أي وثيقة لم تستوف الشروط.</li>
+                    <li><span class="list-icon"><i class="fas fa-ban"></i></span>ضبط آلية استقبال الوثائق وعدم تكرار الوثيقة.</li>
+                    <li><span class="list-icon"><i class="fas fa-store"></i></span>معرض خاص لاستقطاب غير المسلمين.</li>
+                </ul>
+            </div>
+
+            <h3><i class="fas fa-flag-checkered"></i>ج. الخاتمة العامة للتطوير:</h3>
+            <div class="content-group">
+                <p><i class="fas fa-check-double" style="margin-left: 5px; color: var(--color-secondary-green);"></i>يساعد هذا التقرير والنظام المطور في تحسين كفاءة العمل الإداري ودعم القرارات الاستراتيجية، مما يعزز من جهود نشر الدعوة الإسلامية ورعاية المسلمين الجدد بطرق مبتكرة وفعالة.</p>
+            </div>
+        </div>
+
+        <div class="report-footer">
+            <p>&copy; <span id="currentYear"></span> عاصم المالكي.</p>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId, buttonElement) {
+            var contents = document.querySelectorAll('.section-content');
+            contents.forEach(function(content) {
+                content.classList.remove('active');
+            });
+
+            var buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(function(button) {
+                button.classList.remove('active');
+            });
+
+            document.getElementById(sectionId).classList.add('active');
+            buttonElement.classList.add('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentYearSpan = document.getElementById('currentYear');
+            if (currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear();
+            }
+            const firstButton = document.querySelector('.tab-button');
+            if (firstButton) {
+                 const onclickAttr = firstButton.getAttribute('onclick');
+                 const sectionIdMatch = onclickAttr.match(/'([^']+)'/);
+                 if (sectionIdMatch && sectionIdMatch[1]) {
+                    showSection(sectionIdMatch[1], firstButton);
+                 }
+            }
+        });
+    </script>
+</body>
+</html>
