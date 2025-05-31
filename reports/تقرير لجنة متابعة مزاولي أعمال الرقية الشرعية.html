@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقرير لجنة متابعة مزاولي أعمال الرقية الشرعية - محافظة جدة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0A6D3A; /* أخضر زمردي عميق */
+            --secondary-color: #B8860B; /* ذهبي/برونزي هادئ */
+            --background-color: #FFFFFF; /* أبيض نقي للخلفية الرئيسية للتقرير */
+            --page-background-color: #F0F2F5; /* رمادي فاتح جدا لخلفية الصفحة */
+            --text-color: #333333; /* فحم */
+            --heading-color: #1A1A1A; /* أسود معتدل للعناوين */
+            --border-color: #DDE2E7; /* لون أفتح للحدود والفواصل */
+            --hover-text-color: #0056b3; /* أزرق داكن عند التحويم، يمكن تغييره للأخضر */
+            --font-heading: 'Tajawal', sans-serif;
+            --font-body: 'Cairo', sans-serif;
+            --spacing-xs: 0.4rem;
+            --spacing-sm: 0.8rem;
+            --spacing-md: 1.2rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 2.8rem;
+            --transition-speed: 0.25s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            direction: rtl;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.9; /* زيادة التباعد بين السطور */
+            color: var(--text-color);
+            background-color: var(--page-background-color);
+            padding: var(--spacing-md);
+        }
+
+        .report-container {
+            max-width: 900px;
+            margin: var(--spacing-md) auto;
+            padding: var(--spacing-lg) var(--spacing-xl); /* زيادة الحشوة الداخلية */
+            background-color: var(--background-color);
+            border-radius: 6px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .report-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .report-header img {
+            height: 80px; 
+            margin-bottom: var(--spacing-md);
+        }
+
+        .report-header h1 {
+            font-family: var(--font-heading);
+            color: var(--primary-color);
+            font-size: 2.1rem; 
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .report-header p {
+            font-size: 1.15rem; 
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        .report-section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .report-section h2 {
+            font-family: var(--font-heading);
+            color: var(--heading-color);
+            font-size: 1.7rem; 
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg); 
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--primary-color); 
+            display: flex;
+            align-items: center;
+        }
+
+        .report-section h2 i {
+            margin-inline-end: var(--spacing-md); 
+            color: var(--primary-color);
+            font-size: 1.5rem; 
+            transition: transform var(--transition-speed); 
+        }
+        
+        .report-section h2:hover i {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .intro-text {
+            font-size: 1.1rem; 
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-md);
+            background-color: #e9f5ee; 
+            border-radius: 4px;
+            font-weight: 600;
+            color: var(--primary-color);
+            border: 1px solid #c8e6c9; 
+        }
+
+        .report-section p,
+        .report-section li,
+        .report-section strong,
+        .committee-details-report p,
+        .entity-card-report h4 {
+            transition: color var(--transition-speed), transform var(--transition-speed);
+        }
+
+        .report-section > p:hover, 
+        .committee-details-report p:hover,
+        .entity-card-report:hover h4 { /* تم توحيد لون التحويم على نصوص البطاقات */
+            color: var(--primary-color); 
+        }
+
+        .icon-list-item {
+            display: flex;
+            align-items: flex-start; 
+            margin-bottom: var(--spacing-lg); 
+        }
+
+        .icon-list-item > i { 
+            font-size: 1.4rem; 
+            color: var(--secondary-color);
+            margin-inline-end: var(--spacing-md);
+            margin-top: 5px; 
+            width: 30px; 
+            text-align: center;
+            flex-shrink: 0; 
+            transition: transform var(--transition-speed), color var(--transition-speed); 
+        }
+
+        .icon-list-item div {
+            flex: 1;
+        }
+
+        .icon-list-item strong, 
+        .icon-list-item p,
+        .icon-list-item ul li { 
+             transition: color var(--transition-speed), transform var(--transition-speed);
+        }
+        
+        .icon-list-item:hover > i {
+            transform: scale(1.15) rotate(3deg);
+            color: var(--primary-color);
+        }
+
+        .icon-list-item:hover div strong {
+            color: var(--primary-color);
+            transform: translateX(-3px) scale(1.03);
+        }
+        .icon-list-item:hover div p,
+        .icon-list-item:hover div ul li {
+            color: var(--primary-color);
+            transform: translateX(-3px) scale(1.01);
+        }
+
+        .icon-list-item strong {
+             font-family: var(--font-heading);
+             color: var(--heading-color);
+             display: block;
+             margin-bottom: var(--spacing-xs);
+             font-size: 1.1rem; 
+             font-weight: 600;
+        }
+        .icon-list-item p, .icon-list-item ul {
+            font-size: 1rem; 
+            line-height: 1.9;
+            margin-bottom: 0; 
+        }
+
+         .icon-list-item ul {
+            list-style-type: none; 
+            padding-inline-start: 0; 
+            margin-top: var(--spacing-xs);
+         }
+         .icon-list-item ul li {
+            font-size: 0.95rem;
+            margin-bottom: var(--spacing-xs);
+            padding-inline-start: 1.5em; 
+            position: relative; 
+         }
+         .icon-list-item ul li::before { 
+            content: "\2022"; 
+            color: var(--primary-color); 
+            font-weight: bold;
+            display: inline-block; 
+            position: absolute;
+            right: 0; 
+            top: 0.1em; 
+            font-size: 1.2em; 
+         }
+
+
+        .section-divider {
+            height: 1px; 
+            background-color: var(--border-color);
+            border: 0;
+            margin: var(--spacing-xl) auto var(--spacing-xl); 
+            width: 80%; 
+        }
+
+        .committee-details-report {
+            margin-top: var(--spacing-lg);
+        }
+
+        .committee-details-report h3 {
+            font-family: var(--font-heading);
+            color: var(--heading-color);
+            font-size: 1.3rem; 
+            font-weight: 600;
+            text-align: center; 
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+        }
+         .committee-details-report h3 i {
+            margin-inline-end: var(--spacing-sm);
+            color: var(--primary-color);
+         }
+
+
+        .participating-entities-report {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .entity-card-report {
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center;
+            padding: var(--spacing-md);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background-color: #fdfdfd; 
+            transition: box-shadow var(--transition-speed), transform var(--transition-speed);
+        }
+        .entity-card-report:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+
+        .entity-card-report img { /* حجم موحد لجميع شعارات الجهات */
+            width: 55px;
+            height: 55px;
+            object-fit: contain; /* يحافظ على أبعاد الشعار، لكن قد لا يتجاوز أبعاده الداخلية إذا كانت محددة في SVG */
+            margin-bottom: var(--spacing-sm);
+        }
+        /* تم إزالة الأنماط الخاصة بـ .main-entity img */
+
+        .entity-card-report h4 { /* تنسيق موحد لأسماء الجهات */
+            font-size: 0.9rem; 
+            color: var(--text-color);
+            font-family: var(--font-body);
+            font-weight: 600; 
+            line-height: 1.5; 
+        }
+        /* تم إزالة الأنماط الخاصة بـ .main-entity و .main-entity h4 لجعل التنسيق موحداً */
+
+
+        .report-preparer-info {
+            margin-top: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg); 
+            padding: var(--spacing-lg);
+            background-color: #e9f5ee; 
+            border: 1px solid var(--primary-color); 
+            border-radius: 6px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+        }
+
+        .report-preparer-info h3 {
+            font-family: var(--font-heading);
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+        }
+
+        .report-preparer-info h3 i {
+            margin-inline-end: var(--spacing-sm);
+            font-size: 1.3rem; 
+        }
+
+        .report-preparer-info p {
+            font-family: var(--font-body);
+            color: var(--text-color);
+            font-size: 1.15rem;
+            font-weight: 500;
+            line-height: 1.8;
+        }
+        
+        .report-preparer-info .preparer-name {
+            font-weight: 700;
+            color: var(--heading-color);
+            display: inline-block; 
+            transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+        .report-preparer-info .preparer-name:hover {
+            transform: scale(1.05);
+            color: var(--secondary-color); 
+        }
+
+        .report-preparer-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .report-preparer-info a:hover {
+            text-decoration: underline;
+            color: var(--secondary-color); 
+        }
+
+        .report-footer {
+            text-align: center;
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.95rem;
+            color: var(--secondary-color); 
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                background-color: #fff;
+                font-size: 10pt; 
+            }
+            .report-container {
+                box-shadow: none;
+                border: none;
+                max-width: 100%;
+                padding: 20px;
+            }
+            .report-header, .report-footer, .report-section h2 {
+                border-color: #000;
+            }
+            :root {
+                --primary-color: #000000;
+                --secondary-color: #444444;
+                --heading-color: #000000;
+                --text-color: #000000;
+                --hover-text-color: #000000;
+            }
+            .report-section h2 i, .icon-list-item i {
+                color: var(--secondary-color) !important;
+            }
+            .section-divider { display: block; background-color: #ccc; width:100%;}
+            /* تم إزالة التمييز للطباعة أيضاً */
+            /* .main-entity {
+                border-top: 2px solid #333 !important;
+                background-color: #f0f0f0 !important;
+            } */
+            .entity-card-report { border: 1px solid #ccc; background-color: #f9f9f9 !important; /* توحيد خلفية البطاقات في الطباعة */}
+            .intro-text { border-color: #ccc; background-color: #f9f9f9;}
+            .report-preparer-info {
+                background-color: #f0f0f0 !important;
+                border-color: #ccc !important;
+                color: #000 !important;
+            }
+            .report-preparer-info h3, .report-preparer-info a { color: #000 !important;}
+        }
+
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <header class="report-header">
+            <img src="e-logo.svg" alt="شعار اللجنة"> <h1>تقرير لجنة متابعة مزاولي أعمال الرقية الشرعية</h1>
+            <p>محافظة جدة</p>
+        </header>
+
+        <main>
+            <section class="report-section">
+                <p class="intro-text">يساهم هذا التقرير في تحسين تنظيم قطاع أعمال لجنة متابعة مزاولي الرقية الشرعية والطب الشعبي ومفسري الأحلام في محافظة جدة.</p>
+            </section>
+
+            <hr class="section-divider">
+
+            <section class="report-section" id="features">
+                <h2><i class="fas fa-cogs"></i>مميزات التقرير</h2>
+                <div class="icon-list-item">
+                    <i class="fas fa-chart-pie"></i>
+                    <div>
+                        <strong>تحليلات وتقارير شاملة</strong>
+                        <p>يعرض إجمالي عدد الزيارات الميدانية، وعدد مزاولي أعمال الرقية الشرعية (بما في ذلك الموقوفين والمستمرين).</p>
+                    </div>
+                </div>
+                <div class="icon-list-item">
+                    <i class="fas fa-users-gear"></i>
+                    <div>
+                        <strong>التوزيع الديموغرافي</strong>
+                        <p>يوفر بيانات تفصيلية عن نسبة وعدد المزاولين حسب الجنس (ذكور / إناث) والجنسية (سعوديين / أجانب).</p>
+                    </div>
+                </div>
+                <div class="icon-list-item">
+                    <i class="fas fa-id-card"></i>
+                    <div>
+                        <strong>تصنيف المزاولين</strong>
+                        <p>يصنف المزاولين حسب نوع النشاط (راقي شرعي، معالج شعبي، مفسر أحلام) مع إمكانية تصفية البيانات حسب كل فئة.</p>
+                    </div>
+                </div>
+                <div class="icon-list-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <div>
+                        <strong>لوحة معلومات تفاعلية</strong>
+                        <p>تعرض حالة كل مزاول (مستمر، منقطع، موقوف) مع تصنيفهم حسب نوع النشاط.</p>
+                    </div>
+                </div>
+                <div class="icon-list-item">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <div>
+                        <strong>خرائط وتصورات بيانية</strong>
+                        <p>توضح خريطة تفاعلية أماكن تواجد المزاولين.</p>
+                    </div>
+                </div>
+                <div class="icon-list-item">
+                    <i class="fas fa-search"></i>
+                    <div>
+                        <strong>البحث المتقدم</strong>
+                        <p>يتيح إمكانية البحث عن مزاول معين باستخدام رقم الهوية الوطنية.</p>
+                    </div>
+                </div>
+                <div class="icon-list-item">
+                    <i class="fas fa-user-circle"></i>
+                    <div>
+                        <strong>ملفات تعريف تفصيلية</strong>
+                        <p>يعرض بيانات المزاول الشخصية مثل الاسم، رقم الجوال، المهنة، نوع المزاولة، الجنس، الجنسية، وحالة المزاول، بالإضافة إلى رأي اللجنة وملاحظاتها ورقم المحضر وتاريخه وأسماء الأعضاء.</p>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="section-divider">
+
+            <section class="report-section" id="benefits">
+                <h2><i class="fas fa-star"></i>فوائد التقرير</h2>
+                <div class="icon-list-item">
+                     <i class="fas fa-shield-alt"></i>
+                     <div>
+                        <strong>تحسين الرقابة وتنظيم القطاع</strong>
+                        <ul>
+                            <li>يساعد التقرير على تحديد جميع المزاولين لهذه الأنشطة بسهولة، ومعرفة معلوماتهم الشخصية وتفاصيل مزاولتهم.</li>
+                            <li>يمكن من خلال التقرير تحديد المزاولين الذين تم إيقافهم أو الذين يستمرون في المزاولة رغم الإيقاف، مما يساعد على اتخاذ الإجراءات اللازمة.</li>
+                            <li>يوفر التقرير بيانات حول حالة المزاولين (مستمر، منقطع، موقوف) مما يساعد على مراقبة نشاطهم وتقييم التزامهم بالأنظمة.</li>
+                        </ul>
+                     </div>
+                </div>
+                <div class="icon-list-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <strong>دعم اتخاذ القرارات</strong>
+                        <ul>
+                            <li>يقدم التقرير معلومات إحصائية دقيقة حول عدد المزاولين، وتوزيعهم حسب الجنس والجنسية، ونوع النشاط، مما يساعد على اتخاذ القرارات المناسبة بشأن تنظيم القطاع.</li>
+                            <li>يمكن تحليل البيانات المتوفرة في التقرير لفهم الوضع الحالي للقطاع وتحديد الاتجاهات والمشكلات المحتملة.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="icon-list-item">
+                    <i class="fas fa-handshake"></i>
+                    <div>
+                        <strong>تسهيل التواصل والتنسيق</strong>
+                        <ul>
+                            <li>يتضمن التقرير معلومات الاتصال بالمزاولين، مما يسهل التواصل معهم عند الحاجة.</li>
+                            <li>يوفر التقرير معلومات حول الجهات المعنية بإعداد المحاضر وأعضاء اللجنة، مما يسهل التنسيق بين الجهات المختلفة.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="icon-list-item">
+                    <i class="fas fa-balance-scale"></i>
+                    <div>
+                        <strong>تعزيز الشفافية والمساءلة</strong>
+                        <ul>
+                            <li>يتيح التقرير الوصول إلى معلومات مهمة حول المزاولين ونشاطهم، مما يعزز الشفافية والمساءلة.</li>
+                            <li>يساعد التقرير على توثيق المخالفات والإجراءات المتخذة بحق المزاولين غير الملتزمين.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="icon-list-item">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <div>
+                        <strong>تحسين خدمات الرقية والمعالجة الشعبية</strong>
+                        <ul>
+                            <li>يمكن استخدام التقرير لتقييم أداء المزاولين وتحديد نقاط القوة والضعف في القطاع .</li>
+                            <li>يساعد التقرير على تحديد احتياجات القطاع وتطوير الخدمات المقدمة للمواطنين .</li>
+                        </ul>
+                    </div>
+                </div>
+                </section>
+
+            <hr class="section-divider">
+
+            <section class="report-section" id="about">
+                <h2><i class="fas fa-info-circle"></i>عن اللجنة</h2>
+                <p>تضطلع لجنة متابعة أعمال مزاولي الرقية الشرعية والطب الشعبي ومفسري الأحلام في محافظة جدة بدور محوري في تنظيم هذه الأنشطة ومراقبتها لضمان التزامها بالضوابط الشرعية والقانونية.</p>
+                <div class="committee-details-report">
+                    <h3><i class="fas fa-sitemap"></i>الجهات المشاركة الرئيسية</h3>
+                    <div class="participating-entities-report">
+                        <div class="entity-card-report"> 
+                            <img src="/HD/Makkah Region.svg" alt="شعار امارة منطقة مكة المكرمة - محافظة جدة">
+                            <h4>امارة منطقة مكة المكرمة - محافظة جدة</h4>
+                        </div>
+                        <div class="entity-card-report">
+                            <img src="/HD/ASLM.svg" alt="شعار وزارة الشؤون الاسلامية">
+                            <h4>وزارة الشؤون الاسلامية والدعوة والارشاد</h4>
+                        </div>
+                        <div class="entity-card-report">
+                            <img src="/HD/hiah.svg" alt="شعار هيئة الأمر بالمعروف">
+                            <h4>هيئة الأمر بالمعروف والنهي عن المنكر</h4>
+                        </div>
+                        <div class="entity-card-report">
+                            <img src="/HD/sht.svg" alt="شعار شرطة جدة">
+                            <h4>شرطة محافظة جدة - البحث الجنائي</h4>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div class="report-preparer-info">
+            <h3><i class="fas fa-user-edit"></i>إعداد التقرير</h3>
+            <p>
+                تم إعداد هذا التقرير بواسطة: <strong class="preparer-name">عاصم المالكي</strong>
+                <br>
+                للتواصل: <a href="tel:050232378">050232378</a>
+            </p>
+        </div>
+
+        <footer class="report-footer">
+            <p>&copy;جميع الحقوق محفوظة 2025 عاصم المالكي</p>
+        </footer>
+    </div>
+</body>
+</html>
