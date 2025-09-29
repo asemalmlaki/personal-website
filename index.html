@@ -11,7 +11,7 @@
         :root {
             --font-primary: 'Tajawal', 'Inter', sans-serif;
             --font-headings: 'Saira Condensed', 'Tajawal', sans-serif;
-
+            
             /* Light Theme (Default) */
             --bg-primary-light: #F8F9FA;
             --bg-secondary-light: #FFFFFF;
@@ -1584,10 +1584,130 @@ html[dir="ltr"] .tooltip-svg-icon {
     margin-left: 0;
 }
             /*power bi*/      
-    
+    /* ====================
+   خلفية متحركة جديدة
+   ==================== */
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    background-color: var(--primary-bg); /* يعتمد على متغير CSS إذا كنت تستخدمه */
+}
 
+.circle {
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(66, 133, 244, 0.15); /* Google Blue */
+    animation: animate 25s linear infinite;
+    bottom: -150px;
+}
+
+.circle:nth-child(1) {
+    left: 25%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+}
+.circle:nth-child(2) {
+    left: 10%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 2s;
+    animation-duration: 12s;
+    background: rgba(52, 168, 83, 0.15); /* Google Green */
+}
+.circle:nth-child(3) {
+    left: 70%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 4s;
+    background: rgba(234, 67, 53, 0.15); /* Google Red */
+}
+.circle:nth-child(4) {
+    left: 40%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 0s;
+    animation-duration: 18s;
+    background: rgba(251, 188, 5, 0.15); /* Google Yellow */
+}
+.circle:nth-child(5) {
+    left: 65%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 0s;
+}
+.circle:nth-child(6) {
+    left: 75%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 3s;
+    background: rgba(66, 133, 244, 0.15);
+}
+.circle:nth-child(7) {
+    left: 35%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 7s;
+    background: rgba(52, 168, 83, 0.15);
+}
+.circle:nth-child(8) {
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 15s;
+    animation-duration: 45s;
+    background: rgba(234, 67, 53, 0.15);
+}
+.circle:nth-child(9) {
+    left: 20%;
+    width: 15px;
+    height: 15px;
+    animation-delay: 2s;
+    animation-duration: 35s;
+}
+.circle:nth-child(10) {
+    left: 85%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 0s;
+    animation-duration: 11s;
+    background: rgba(251, 188, 5, 0.15);
+}
+
+@keyframes animate {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+    100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+}
     </style>
 </head>
+<div class="animated-background">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+</div>
 <body data-theme="light">
 
     <header id="main-header" class="sticky-header">
@@ -1676,7 +1796,7 @@ html[dir="ltr"] .tooltip-svg-icon {
                         <img src="./HD/ASLM.svg" alt="نظرة عامة على المسلمين الجدد" class="project-thumbnail">
                         <div class="project-info">
                             <h3>تقرير المسلمين الجدد</h3>
-                            <p class="project-highlight">ثنائي اللغة | إحصائيات مباشرة</p>
+                            <p class="project-highlight">خريطة للمسلمين الجدد | إحصائيات مباشرة</p>
                             <button class="view-project-btn">عرض المشروع</button>
                         </div>
                     </div>
@@ -1948,7 +2068,7 @@ html[dir="ltr"] .tooltip-svg-icon {
 
     <footer id="main-footer">
         <div class="container">
-            <p>© <span id="current-year">2025</span> عاصم المالكي. جميع الحقوق محفوظة. </p>
+            <p>© <span id="current-year">2025</span> عاصم المالكي. جميع الحقوق محفوظة..</p>
             <div class="social-links-footer">
                 <a href="https://www.linkedin.com/in/asem-almalki-038902174/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="https://wa.me/+966502332378" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
@@ -2138,7 +2258,7 @@ html[dir="ltr"] .tooltip-svg-icon {
                             { icon: "fa-solid fa-chart-pie", text: "إحصائيات دقيقة: العدد الإجمالي والنسبة المئوية، مصنفة حسب الجنس والتوزيع الشهري." },
                             { icon: "fa-solid fa-filter", text: "تصفية البيانات: حسب الحالة (مكتمل/قيد التنفيذ)، المكتب، أو الجنسية." },
                             { icon: "fa-solid fa-magnifying-glass", text: "بحث مباشر: الوصول إلى المعلومات الشخصية عبر رقم الهوية." },
-                            { icon: "fa-solid fa-building-columns", text: "تحليل المكاتب التعاونية: العدد الإجمالي للمكاتب ونسبة المهتدين الجدد في كل مكتب." },
+                            { icon: "fa-solid fa-building-columns", text: "تحليل المكاتب التعاونية: العدد الإجمالي للمكاتب ونسبة المسلمين الجدد في كل مكتب." },
                             { icon: "fa-solid fa-map-location-dot", text: "تصور البيانات: خريطة لتوزيع المهتدين الجدد حسب الجنسية." },
                             { icon: "fa-solid fa-language", text: "دعم ثنائي اللغة: متوفر باللغتين العربية والإنجليزية." }
                         ]
@@ -3022,7 +3142,7 @@ html[dir="ltr"] .tooltip-svg-icon {
                     '#services .service-card:nth-child(3) p': { ar: 'توسيع القدرات في Python و JavaScript لتقديم حلول بيانات أكثر تعقيدًا. (قريباً)', en: 'Expanding capabilities in Python and JavaScript to deliver more complex data solutions. (Coming Soon)' },
                     '#projects .section-title': { ar: 'البيانات في العمل: مشاريع مميزة', en: 'Data in Action: Featured Projects' },
                     '.project-card[data-project-id="project0"] .project-info h3': { ar: 'تقرير المسلمين الجدد', en: 'New Muslims Report' },
-                    '.project-card[data-project-id="project0"] .project-info .project-highlight': { ar: 'ثنائي اللغة | إحصائيات مباشرة', en: 'Bilingual | Live Stats' },
+                    '.project-card[data-project-id="project0"] .project-info .project-highlight': { ar: 'خريطة للمسلمين الجدد | إحصائيات مباشرة', en: 'Map for New Muslims | Live Stats' },
                     '.project-card[data-project-id="project0"] .project-info .view-project-btn': { ar: 'عرض المشروع', en: 'View Project' },
                     '.project-card[data-project-id="project1"] .project-info h3': { ar: 'تقرير برنامج ضيوف الرحمن', en: 'Guests of Allah Program Report' },
                     '.project-card[data-project-id="project1"] .project-info .project-highlight': { ar: 'معدلات التنفيذ | تحليل الاجتماعات', en: 'Implementation Rates | Meeting Analysis' },
